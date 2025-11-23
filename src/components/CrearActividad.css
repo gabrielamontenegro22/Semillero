@@ -1,0 +1,66 @@
+.crear-container {
+  text-align: center;
+  background: url('../assets/fondoo.jpg') no-repeat center/cover;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.crear-form {
+  background: #fffbe8;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  text-align: left;
+}
+
+.crear-form label {
+  font-weight: 600;
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.crear-form input,
+.crear-form textarea,
+.crear-form select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 2px solid #ffd28a;
+  outline: none;
+  font-size: 1rem;
+}
+
+.crear-btn {
+  margin-top: 1.5rem;
+  background-color: #3fa072;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.crear-btn:hover {
+  background-color: #2e855a;
+}
+
+.crear-mensaje {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.volver-btn {
+  margin-top: 2rem;
+  background-color: #ff8b7b;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+}

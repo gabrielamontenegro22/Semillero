@@ -1,0 +1,188 @@
+.crear-form-container {
+  background: url('../assets/fondoo.jpg') no-repeat center/cover;
+  min-height: 100vh;
+  padding: 2rem;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+    height: 100vh;         /* Mantiene el alto fijo */
+  overflow: hidden;      /* Evita scroll general */
+}
+
+.crear-form-container h2 {
+  color: #283a2f;
+  padding: 0.8rem 2rem;
+  border-radius: 15px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* 🔹 Contenedor principal en dos columnas */
+.crear-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  width: 95%;
+  max-width: 1200px;
+}
+
+/* 🔹 Panel izquierdo: creación */
+.crear-col {
+  background: #fffbe8;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  text-align: left;
+    max-height: 80vh;
+  overflow-y: auto;
+}
+
+.crear-col::-webkit-scrollbar {
+  width: 8px;
+}
+.crear-col::-webkit-scrollbar-thumb {
+  background: #ffb84c;
+  border-radius: 6px;
+}
+.crear-col input,
+.crear-col textarea {
+  width: 100%;
+  margin: 0.4rem 0;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 2px solid #ffd28a;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+/* 🔹 Opciones con scroll */
+.opciones-container {
+  background: #fffdf0;
+  border: 1px dashed #ffcb6b;
+  border-radius: 12px;
+  padding: 0.8rem;
+  margin: 0.5rem 0 1rem 0;
+  max-height: 130px;
+  overflow-y: auto;
+}
+
+.opciones-container::-webkit-scrollbar {
+  width: 6px;
+}
+.opciones-container::-webkit-scrollbar-thumb {
+  background-color: #ffcb6b;
+  border-radius: 10px;
+}
+
+/* 🔹 Botones */
+.agregar-btn, .guardar-btn, .volver-btn {
+  background-color: #3fa072;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.agregar-btn:hover, .guardar-btn:hover {
+  background-color: #2e855a;
+  transform: scale(1.03);
+}
+
+/* 🔹 Panel derecho: vista de preguntas */
+.preguntas-panel {
+  background: rgba(255, 137, 137, 0.92);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.preguntas-panel h3 {
+  text-align: center;
+  color: #2c2c2c;
+  margin-bottom: 1rem;
+}
+
+.pregunta-item {
+  background: #fffbe1;
+  border-left: 5px solid #ffb84c;
+  border-radius: 12px;
+  margin: 0.6rem 0;
+  padding: 0.8rem 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.pregunta-item strong {
+  color: #2c2c2c;
+}
+
+.pregunta-item ul {
+  list-style: none;
+  padding-left: 0.5rem;
+}
+
+.pregunta-item li {
+  background: #f6f6f6;
+  border-radius: 6px;
+  margin: 3px 0;
+  padding: 4px 8px;
+}
+
+.pregunta-item img {
+  width: 90px;
+  border-radius: 10px;
+  margin-top: 5px;
+  display: block;
+}
+
+/* 🔹 Responsive para pantallas pequeñas */
+@media (max-width: 900px) {
+  .crear-grid {
+    grid-template-columns: 1fr;
+  }
+  .preguntas-panel {
+    max-height: none;
+  }
+}
+.area-select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 2px solid #ffd28a;
+  font-size: 0.95rem;
+  background: #fff;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.area-select:hover {
+  border-color: #3fa072;
+}
+
+.area-select:focus {
+  outline: none;
+  border-color: #3fa072;
+  box-shadow: 0 0 6px rgba(63, 160, 114, 0.4);
+}
+
+.mensaje {
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.mensaje:contains('✅') {
+  color: #2e8b57;
+}
+
+.mensaje:contains('❌') {
+  color: #e74c3c;
+}

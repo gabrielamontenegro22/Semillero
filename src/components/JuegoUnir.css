@@ -1,0 +1,135 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden; /* evita scroll global */
+}
+
+.unir-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: url('../assets/fondoo.jpg') no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Comic Neue", "Poppins", sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.unir-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2e7d32;
+  text-shadow: 1px 1px 3px white;
+  margin-bottom: 1.5rem;
+  animation: rebote 1.5s ease-in-out infinite;
+}
+
+/* 🎯 Tablero centrado */
+.unir-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6rem;
+  width: 80%;
+  max-width: 1000px;
+  flex-wrap: wrap;
+}
+
+/* 🔹 Columnas equilibradas */
+.unir-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.3rem;
+}
+
+/* 🟨 Tarjetas */
+.unir-item {
+  padding: 0.7rem 1.5rem;
+  font-size: 1.4rem;
+  text-align: center;
+  border-radius: 15px;
+  background-color: #fffdf5;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 120px;
+  height: 60px; /* 🔹 compacta visualmente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.unir-item:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+/* 🎨 Colores */
+.palabra {
+  background-color: #ffecb3;
+  font-weight: 600;
+}
+
+.imagen {
+  background-color: #bbdefb;
+  font-size: 2rem;
+}
+
+.seleccionado {
+  border: 3px solid #4caf50;
+  box-shadow: 0 0 12px #4caf50;
+}
+
+/* ✨ Animación rebote */
+@keyframes rebote {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .unir-board {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .unir-item {
+    font-size: 1.2rem;
+    min-width: 100px;
+    height: 50px;
+  }
+
+  .unir-title {
+    font-size: 2rem;
+  }
+}
+.boton-home {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #ff9800;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, transform 0.2s ease;
+  z-index: 1000;
+}
+
+.boton-home:hover {
+  background: #e68900;
+  transform: scale(1.1);
+}

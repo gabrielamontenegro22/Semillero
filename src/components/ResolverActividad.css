@@ -1,0 +1,212 @@
+.resolver-fondo {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 0;
+  font-family: "Comic Neue", "Poppins", sans-serif;
+  overflow: visible; /* 🔹 permite que crezca libremente */
+}
+
+.resolver-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid #ffcc70;
+  border-radius: 25px;
+  padding: 2rem;
+  width: 85%;
+  max-width: 950px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+  animation: zoomIn 0.4s ease;
+  margin-bottom: 50px; /* 🔹 deja espacio final para scroll */
+}
+X
+
+
+/* Título colorido */
+.titulo-actividad {
+  font-size: 2rem;
+  color: #ff7b00;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.descripcion-actividad {
+  color: #444;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* 📖 Preguntas */
+.preguntas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pregunta-card {
+  background: #fffdf5;
+  border: 2px dashed #f7c14b;
+  border-radius: 20px;
+  padding: 1.5rem;
+  transition: transform 0.25s ease;
+}
+
+.pregunta-card:hover {
+  transform: scale(1.02);
+}
+
+.pregunta-texto {
+  color: #444;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* 🖼️ Imágenes de preguntas */
+.pregunta-imagen {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  display: block;
+  margin: 10px auto;
+  border-radius: 12px;
+  border: 2px solid #ffd479;
+  background: white;
+}
+
+/* Opciones */
+.opciones {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.opcion-label {
+  background: #d6fff1;
+  border-radius: 12px;
+  padding: 10px 15px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.3s;
+}
+
+.opcion-label:hover {
+  background: #a8fcd1;
+  border: 2px solid #61d17d;
+}
+
+/* Botón de finalizar */
+.btn-finalizar {
+  background: linear-gradient(90deg, #ff8c00, #ffb700);
+  color: white;
+  border: none;
+  border-radius: 18px;
+  padding: 14px 30px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.btn-finalizar:hover {
+  transform: scale(1.05);
+}
+
+/* Resultado */
+.resultado-card {
+  background: #d8ffd8;
+  border: 2px solid #89e28c;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-top: 30px;
+  text-align: center;
+  color: #2d572c;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.resultado-card span {
+  color: #ff7b00;
+  font-weight: bold;
+}
+
+.btn-volver {
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 25px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.btn-volver:hover {
+  transform: scale(1.05);
+}
+
+/* 🔹 Barra de scroll personalizada */
+.resolver-fondo::-webkit-scrollbar {
+  width: 10px;
+}
+
+.resolver-fondo::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.resolver-fondo::-webkit-scrollbar-thumb {
+  background: #ffb84d;
+  border-radius: 10px;
+}
+
+.resolver-fondo::-webkit-scrollbar-thumb:hover {
+  background: #ff9800;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* 🔹 Scroll personalizado */
+body::-webkit-scrollbar,
+.resolver-fondo::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-thumb,
+.resolver-fondo::-webkit-scrollbar-thumb {
+  background-color: #ffa500;
+  border-radius: 8px;
+  border: 2px solid #fff7cc;
+}
+
+body::-webkit-scrollbar-track,
+.resolver-fondo::-webkit-scrollbar-track {
+  background-color: #fff7cc;
+  border-radius: 8px;
+}

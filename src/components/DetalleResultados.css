@@ -1,0 +1,76 @@
+.detalle-container {
+  padding: 2rem;
+  text-align: center;
+  font-family: "Comic Neue", "Poppins", sans-serif;
+  background: linear-gradient(to bottom, #d6f0ff, #fffbd5);
+  min-height: 100vh;
+}
+
+.btn-volver {
+  background: #ffb703;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  margin-bottom: 25px;
+}
+
+.btn-volver:hover {
+  background: #ff9e00;
+}
+
+.tabla-detalle {
+  margin: 0 auto;
+  width: 80%;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #6ec1e4;
+  color: white;
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #eee;
+  font-weight: 500;
+  color: #333;
+}
+
+.puntaje {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.puntaje.excelente {
+  color: #2e7d32;
+  background: #c8f7c5;
+}
+
+.puntaje.bueno {
+  color: #f57c00;
+  background: #ffe0b2;
+}
+
+.puntaje.bajo {
+  color: #c62828;
+  background: #ffcdd2;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}

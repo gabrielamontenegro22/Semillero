@@ -1,0 +1,64 @@
+/* src/components/Games.css */
+
+.games-container {
+  padding: 3rem;
+  min-height: 100vh;
+  font-family: 'Comic Sans MS', cursive;
+  text-align: center;
+  background-image: url('../assets/fondoo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+
+.games-title {
+  font-size: 2.2rem;
+  color: #ff4081;
+  margin-bottom: 2rem;
+}
+
+.games-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.game-card {
+  background: #fffbe8;
+  border-radius: 20px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  cursor: pointer;
+  padding: 1.5rem;
+  width: 250px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 3px dashed #ffd28a;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.16);
+}
+
+.game-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.letras h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+
+  /* NUEVO */
+  max-width: 600px;        /* ancho limitado */
+  margin-left: auto;       /* centrar */
+  margin-right: auto;      /* centrar */
+  background: rgba(255,255,255,0.7);
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-align: center;
+}

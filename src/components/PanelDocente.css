@@ -1,0 +1,65 @@
+.docente-container {
+  text-align: center;
+  background: url('../assets/fondoo.jpg') no-repeat center/cover;
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.docente-titulo {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.docente-subtitulo {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.docente-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.docente-card {
+  background: #fffbe8;
+  border-radius: 20px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  cursor: pointer;
+  padding: 1.5rem;
+  width: 250px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 3px dashed #ffd28a;
+}
+
+.docente-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.16);
+}
+
+.docente-icono {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.logout-button {
+  background-color: #ff8b7b;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #ff6b5b;
+}
