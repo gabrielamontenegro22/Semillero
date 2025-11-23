@@ -59,7 +59,7 @@ export default function Games() {
       <div className="letras">
 
       <h2>
-        {area === 'english' && '🎮 Juegos de Inglés'}
+        {area === 'english' && '🎮 Juegos de Ingles'}
         {area === 'math' && '🧮 Juegos de Matemáticas'}
         {area === 'science' && '🔬 Juegos de Ciencias'}
         {area === 'spanish' && '📚 Juegos de Español'}
