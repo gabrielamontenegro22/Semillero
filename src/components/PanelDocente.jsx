@@ -9,7 +9,7 @@ export default function PanelDocente() {
 
   // 🔹 Opciones del menú docente
   const opciones = [
-    { titulo: 'Mis Actividades', icono: '📝', ruta: '/docente/mis-actividades' },
+    { titulo: 'Mis Actividadess', icono: '📝', ruta: '/docente/mis-actividades' },
     { titulo: 'Ver Progreso', icono: '📊', ruta: '/docente/progreso' },
     { titulo: 'Crear Actividades', icono: '🧠', ruta: '/docente/crear-avanzada' },
     { titulo: 'Ver Resultados', icono: '📘', ruta: '/docente/resultados' },
