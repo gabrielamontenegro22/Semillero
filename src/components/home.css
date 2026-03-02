@@ -1,117 +1,120 @@
 .home-fullscreen {
-  background: linear-gradient(to bottom, #a0e9fd 0%, #ffffff 100%);
   min-height: 100vh;
-  padding: 40px 20px;
+  width: 100%;
+  padding: 30px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
   font-family: 'Comic Sans MS', 'Poppins', cursive;
   background-image: url('../assets/fondoo.jpg');
   background-size: cover;
-  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
 }
 
+/* HEADER */
+.home-header {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* TÍTULO */
 .home-title {
-  font-size: 4rem;
+  font-size: 3.5rem;
   color: #ff6b6b;
   text-shadow: 3px 3px #fff;
-  margin: 20px 0 10px;
-  animation: bounceIn 1s ease;
+  text-align: center;
 }
 
-.home-subtitle {
-  font-size: 1.8rem;
-  color: #555;
-  margin-bottom: 40px;
+/* BOTÓN PERFIL (ESQUINA) */
+.perfil-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #74b9ff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-size: 1.1rem;
   font-weight: bold;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
+.perfil-button:hover {
+  background-color: #4fa3ff;
+  transform: scale(1.05);
+}
+
+/* SUBTÍTULO */
+.home-subtitle {
+  font-size: 1.6rem;
+  margin: 20px 0 50px;
+  color: #444;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* CARDS */
 .card-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 30px;
-  width: 100%;
-  max-width: 800px;
-  justify-items: center;
+  display: flex;
+  gap: 50px;
+  justify-content: center;
 }
 
 .home-card {
   background: #fff8dc;
   border: 4px dashed #fcbf49;
   border-radius: 25px;
-  width: 180px;
-  height: 200px;
+  width: 220px;
+  height: 240px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  transition: transform 0.4s, background-color 0.4s;
-  animation: bounceIn 0.8s ease;
+  transition: transform 0.2s ease;
 }
 
 .home-card:hover {
-  transform: scale(1.07);
-  background-color: #ffeaa7;
+  transform: scale(1.08);
 }
 
 .home-card img {
-  width: 80px;
-  height: 80px;
+  width: 90px;
   margin-bottom: 15px;
 }
 
 .home-card span {
   font-size: 1.4rem;
-  color: #2d3436;
   font-weight: bold;
 }
 
+/* LOGOUT */
 .logout-button {
-  margin-top: 40px;
+  margin-top: 50px;
   padding: 14px 35px;
   font-size: 1.2rem;
   border: none;
   background-color: #fab1a0;
   color: white;
   border-radius: 40px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-  transition: background 0.3s;
-}
-
-.logout-button:hover {
-  background-color: #e17055;
-}
-
-@keyframes bounceIn {
-  0% { transform: scale(0.8); opacity: 0; }
-  60% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); }
+  cursor: pointer;
 }
 
 .mascota-animada {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  width: 140px;
+  width: 130px;
   cursor: pointer;
-  animation: saludo 3s ease-in-out infinite;
-  user-select: none;
-  z-index: 1000;
-}
 
-@keyframes saludo {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-15px) rotate(15deg);
-  }
-}
-
-.mascota-animada:hover {
-  animation-play-state: paused;
-  transform: scale(1.1);
+  animation: flotar 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
 }

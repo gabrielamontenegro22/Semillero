@@ -2,11 +2,16 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-height: 100vh;
+  background: url('../assets/fondoo.jpg') center/cover no-repeat;
+
+  height: 100vh;          /* 👈 fijo */
   width: 100%;
   padding: 40px 0;
+
   font-family: "Comic Neue", "Poppins", sans-serif;
-  overflow: visible; /* 🔹 permite que crezca libremente */
+
+  overflow-y: auto;       /* 👈 SCROLL REAL */
+  overflow-x: hidden;
 }
 
 .resolver-card {
@@ -14,13 +19,14 @@
   border: 3px solid #ffcc70;
   border-radius: 25px;
   padding: 2rem;
+
   width: 85%;
   max-width: 950px;
+
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
-  animation: zoomIn 0.4s ease;
-  margin-bottom: 50px; /* 🔹 deja espacio final para scroll */
+
+  margin-bottom: 60px; /* espacio final para scroll */
 }
-X
 
 
 /* Título colorido */
@@ -169,9 +175,6 @@ X
   border-radius: 10px;
 }
 
-.resolver-fondo::-webkit-scrollbar-thumb:hover {
-  background: #ff9800;
-}
 
 @keyframes zoomIn {
   from {
@@ -192,21 +195,12 @@ X
     opacity: 1;
   }
 }
-/* 🔹 Scroll personalizado */
-body::-webkit-scrollbar,
-.resolver-fondo::-webkit-scrollbar {
-  width: 12px;
-}
+
 
 body::-webkit-scrollbar-thumb,
 .resolver-fondo::-webkit-scrollbar-thumb {
-  background-color: #ffa500;
+  background-color: #1342c4;
   border-radius: 8px;
-  border: 2px solid #fff7cc;
+  border: 12px solid #723481;
 }
 
-body::-webkit-scrollbar-track,
-.resolver-fondo::-webkit-scrollbar-track {
-  background-color: #fff7cc;
-  border-radius: 8px;
-}

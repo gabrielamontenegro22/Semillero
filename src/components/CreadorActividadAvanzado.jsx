@@ -140,8 +140,8 @@ export default function CreadorActividadAvanzado() {
 
   return (
     <div className="crear-form-container">
-      <button className="boton-home" onClick={() => navigate('/docente')}>
-        ⬅️
+      <button className="volver-btn" onClick={() => navigate("/docente")}>
+        ⬅ Volver
       </button>
 
       <h2>{id ? "✏️ Editar Actividad Escrita" : "🧠 Crear Actividad Escrita"}</h2>

@@ -16,6 +16,5 @@ html, body, #root {
   width: 100%;
   margin: 0;
   padding: 0;
-  background: linear-gradient(180deg, #baf3ff 0%, #e8ffd4 100%);
   scroll-behavior: smooth;
 }

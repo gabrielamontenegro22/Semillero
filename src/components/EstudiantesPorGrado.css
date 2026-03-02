@@ -1,0 +1,64 @@
+.lista-estudiantes {
+  min-height: 100vh;
+  padding: 100px 30px 40px;
+  background: url('../assets/fondoo.jpg') no-repeat center/cover;
+  font-family: 'Poppins', sans-serif;
+}
+
+.estudiante-card {
+  background: #fffdf4;
+  border-radius: 10px;
+  padding: 5px 35px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 5px dashed #ffd28a;
+  transition: transform 0.2s ease;
+}
+.estudiante-card:hover {
+  transform: scale(1.01);
+}
+.estudiante-card h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d3436;
+}
+/* CONTENEDOR BOTONES */
+.botones-asistencia {
+  display: flex;
+  gap: 15px;
+}
+.botones-asistencia {
+  display: flex;
+  gap: 10px;
+}
+
+/* BOTONES */
+.btn {
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+/* PRESENTE */
+.btn.presente {
+  background-color: #55efc4;
+  color: #065f46;
+}
+
+/* AUSENTE */
+.btn.ausente {
+  background-color: #fab1a0;
+  color: #7f1d1d;
+}
+
+.btn.activo {
+  box-shadow: 0 0 0 4px rgba(0,0,0,0.15) inset;
+  transform: scale(1.08);
+}

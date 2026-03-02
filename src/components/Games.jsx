@@ -37,23 +37,9 @@ export default function Games() {
 
       {/* 🔙 Botón de volver alineado a la izquierda */}
       <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-        <button
-          onClick={() => navigate('/areas')}
-          style={{
-            backgroundColor: '#ffb703',
-            color: '#fff',
-            border: 'none',
-            padding: '8px 15px',
-            borderRadius: '10px',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            marginBottom: '15px',
-            marginLeft: '10px',
-            boxShadow: '0 3px 6px rgba(0,0,0,0.15)',
-          }}
-        >
-          ⬅️ Volver
-        </button>
+      <button className="volver-btn" onClick={() => navigate("/home")}>
+        ⬅ Volver
+      </button>
       </div>
 
       <div className="letras">

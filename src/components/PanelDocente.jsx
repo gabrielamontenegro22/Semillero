@@ -1,28 +1,39 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { auth } from '../firebaseConfig';
-import './PanelDocente.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebaseConfig";
+import "./PanelDocente.css";
 
 export default function PanelDocente() {
   const navigate = useNavigate();
 
-  // 🔹 Opciones del menú docente
   const opciones = [
-    { titulo: 'Mis Actividadess', icono: '📝', ruta: '/docente/mis-actividades' },
-    { titulo: 'Ver Progreso', icono: '📊', ruta: '/docente/progreso' },
-    { titulo: 'Crear Actividades', icono: '🧠', ruta: '/docente/crear-avanzada' },
-    { titulo: 'Ver Resultados', icono: '📘', ruta: '/docente/resultados' },
+    { titulo: "Mis Actividades", icono: "📝", ruta: "/docente/mis-actividades" },
+{ titulo: "Mis Estudiantes", icono: "👧🧒", ruta: "/docente/mis-estudiantes" },
+    { titulo: "Crear Actividades", icono: "🧠", ruta: "/docente/crear-avanzada" },
+    { titulo: "Ver Resultados", icono: "📘", ruta: "/docente/resultados" },
   ];
 
   const handleLogout = async () => {
     await signOut(auth);
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <div className="docente-container">
-      <h1 className="docente-titulo">👩‍🏫 Panel del Docente</h1>
+
+      {/* 🔥 HEADER SUPERIOR */}
+      <div className="docente-header">
+        <h1 className="docente-titulo">👩‍🏫 Panel del Docente</h1>
+
+        <button
+          className="perfil-button"
+          onClick={() => navigate("/docente/perfil")}
+        >
+          👤 Perfil
+        </button>
+      </div>
+
       <p className="docente-subtitulo">Administra tus clases y actividades</p>
 
       <div className="docente-grid">

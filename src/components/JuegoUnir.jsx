@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Xarrow from "react-xarrows";
 import "./JuegoUnir.css";
 
+import correctoSound from "../assets/sounds/correcto.mp3";
+import incorrectoSound from "../assets/sounds/incorrecto.mp3";
+
 const dataOriginal = [
   { palabra: "DRESS", imagen: "👗" },
   { palabra: "GLASS", imagen: "👓" },
@@ -14,99 +17,118 @@ const dataOriginal = [
   { palabra: "HEEL", imagen: "👠" },
 ];
 
+const shuffle = (array) => [...array].sort(() => Math.random() - 0.5);
+
 const JuegoUnir = () => {
-  const [palabras, setPalabras] = useState([]);
-  const [imagenes, setImagenes] = useState([]);
-  const [seleccion, setSeleccion] = useState(null);
-  const [conexiones, setConexiones] = useState([]);
   const navigate = useNavigate();
 
-  // 🔹 Mezclar arrays al cargar el componente
+  const [palabras, setPalabras] = useState([]);
+  const [imagenes, setImagenes] = useState([]);
+  const [palabraSeleccionada, setPalabraSeleccionada] = useState(null);
+  const [conexiones, setConexiones] = useState([]);
+  const [mensaje, setMensaje] = useState("");
+  const [juegoTerminado, setJuegoTerminado] = useState(false);
+
+  const correcto = new Audio(correctoSound);
+  const incorrecto = new Audio(incorrectoSound);
+
   useEffect(() => {
-    const shuffle = (array) => [...array].sort(() => Math.random() - 0.5);
     setPalabras(shuffle(dataOriginal));
     setImagenes(shuffle(dataOriginal));
   }, []);
 
-  const manejarClickPalabra = (palabra) => {
-    setSeleccion({ tipo: "palabra", valor: palabra });
+  const manejarPalabra = (palabra) => {
+    if (conexiones.some(c => c.palabra === palabra)) return;
+    setPalabraSeleccionada(palabra);
   };
 
-  const manejarClickImagen = (imagen) => {
-    if (seleccion && seleccion.tipo === "palabra") {
-      const palabra = seleccion.valor;
-      const correcto = dataOriginal.find(
-        (item) => item.palabra === palabra && item.imagen === imagen
-      );
+  const manejarImagen = (imagen) => {
+    if (!palabraSeleccionada) return;
 
-      const nuevaConexion = {
-        id: `${palabra}-${imagen}`,
-        start: `palabra-${palabra}`,
-        end: `imagen-${imagen}`,
-        color: correcto ? "green" : "red",
-      };
+    const esCorrecto = dataOriginal.some(
+      i => i.palabra === palabraSeleccionada && i.imagen === imagen
+    );
 
-      setConexiones((prev) => [...prev, nuevaConexion]);
+    const nueva = {
+      id: `${palabraSeleccionada}-${imagen}`,
+      palabra: palabraSeleccionada,
+      imagen,
+      start: `palabra-${palabraSeleccionada}`,
+      end: `imagen-${imagen}`,
+      color: esCorrecto ? "#4caf50" : "#f44336",
+    };
 
-      if (!correcto) {
-        setTimeout(() => {
-          setConexiones((prev) =>
-            prev.filter((c) => c.id !== nuevaConexion.id)
-          );
-        }, 1500);
-      }
+    setConexiones(prev => [...prev, nueva]);
 
-      setSeleccion(null);
+    if (esCorrecto) {
+      correcto.play();
+      setMensaje("🌟 GREAT!");
+    } else {
+      incorrecto.play();
+      setMensaje("❌ TRY AGAIN");
+      setTimeout(() => {
+        setConexiones(prev => prev.filter(c => c.id !== nueva.id));
+      }, 900);
     }
+
+    const correctas = conexiones.filter(c => c.color === "#4caf50").length;
+    if (esCorrecto && correctas + 1 === dataOriginal.length) {
+      setTimeout(() => setJuegoTerminado(true), 500);
+    }
+
+    setTimeout(() => setMensaje(""), 1200);
+    setPalabraSeleccionada(null);
   };
 
   return (
-    <div className="unir-container">
-      {/* 🔙 Botón volver */}
-      <button className="boton-home" onClick={() => navigate("/games")}>
-        ⬅️
+    <div className="escena-juego">
+      <h1 className="titulo">🎯 Match the Word with the Image!</h1>
+      {mensaje && <div className="mensaje">{mensaje}</div>}
+
+      {/* PALABRAS */}
+      <div className="zona-palabras">
+        {palabras.map(item => (
+          <div
+            key={item.palabra}
+            id={`palabra-${item.palabra}`}
+            className={`burbuja palabra ${palabraSeleccionada === item.palabra ? "activa" : ""}`}
+            onClick={() => manejarPalabra(item.palabra)}
+          >
+            {item.palabra}
+          </div>
+        ))}
+      </div>
+        {/* 👇 Botón de retroceso */}
+              <button className="volver-btn" onClick={() => navigate("/games")}>
+        ⬅ Volver
       </button>
 
-      <h1 className="unir-title">🎯 Match the Word with the Image!</h1>
-
-      <div className="unir-board">
-        <div className="unir-col">
-          {palabras.map((item) => (
-            <div
-              key={item.palabra}
-              id={`palabra-${item.palabra}`}
-              className={`unir-item palabra ${
-                seleccion?.valor === item.palabra ? "seleccionado" : ""
-              }`}
-              onClick={() => manejarClickPalabra(item.palabra)}
-            >
-              {item.palabra}
-            </div>
-          ))}
-        </div>
-
-        <div className="unir-col">
-          {imagenes.map((item) => (
-            <div
-              key={item.imagen}
-              id={`imagen-${item.imagen}`}
-              className="unir-item imagen"
-              onClick={() => manejarClickImagen(item.imagen)}
-            >
-              {item.imagen}
-            </div>
-          ))}
-        </div>
+      {/* IMÁGENES */}
+      <div className="zona-imagenes">
+        {imagenes.map(item => (
+          <div
+            key={item.imagen}
+            id={`imagen-${item.imagen}`}
+            className="burbuja imagen"
+            onClick={() => manejarImagen(item.imagen)}
+          >
+            {item.imagen}
+          </div>
+        ))}
       </div>
 
-      {/* 🔹 Flechas dinámicas */}
-      {conexiones.map((c) => (
+      {juegoTerminado && (
+        <div className="final">🌈 Excellent Job! 🌈</div>
+      )}
+
+      {conexiones.map(c => (
         <Xarrow
           key={c.id}
           start={c.start}
           end={c.end}
           color={c.color}
-          strokeWidth={3}
+          strokeWidth={5}
+          headSize={0}
           path="smooth"
         />
       ))}

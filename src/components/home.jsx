@@ -12,34 +12,43 @@ export default function Home() {
     try {
       await signOut(auth);
       navigate('/login');
-    } catch (error) {
+    } catch {
       alert('Error al cerrar sesión 😥');
     }
   };
 
   const playSound = () => {
-    if (audioRef.current) {
-      audioRef.current.play();
-    }
+    audioRef.current?.play();
   };
 
   return (
     <div className="home-fullscreen">
-      <h1 className="home-title">🎮 Play And Learn</h1>
-      <p className="home-subtitle">¡Aprende inglés jugando! 🧠</p>
+
+      {/* HEADER SUPERIOR */}
+      <div className="home-header">
+        <h1 className="home-title">🎮 Play And Learn</h1>
+
+        <button
+          className="perfil-button"
+          onClick={() => navigate('/estudiante/perfil')}
+        >
+          👤 Perfil
+        </button>
+      </div>
+
+      <p className="home-subtitle">¡Aprende inglés jugando! 🧠✨</p>
 
       <div className="card-section">
         <div className="home-card" onClick={() => navigate('/areas')}>
-        <img src="/assets/game.png" alt="Jugar" />
-        <span>Jugar</span>
-      </div>
+          <img src="/assets/game.png" alt="Jugar" />
+          <span>Jugar</span>
+        </div>
 
         <div className="home-card" onClick={() => navigate('/actividades')}>
           <img src="/assets/libro.png" alt="Actividades" />
           <span>Actividades</span>
         </div>
-
-     </div>
+      </div>
 
       <button className="logout-button" onClick={handleLogout}>
         🚪 Cerrar Sesión

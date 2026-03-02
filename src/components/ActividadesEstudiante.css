@@ -5,6 +5,8 @@
   padding: 2rem;
   font-family: 'Poppins', sans-serif;
   color: #333;
+  padding-top: 70px; /* ⬅ baja TODO: botón, título y tabla */
+
 }
 
 .filtros {
@@ -89,5 +91,37 @@
 
 .volver-btn:hover {
   background-color: #fb8500;
+  transform: scale(1.05);
+}
+
+.volver-btn {
+  background-color: #3fa072;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+/* Botón volver fijo en la esquina superior izquierda */
+.volver-btn {
+  position: absolute;
+  top: 20px;       /* Distancia desde arriba */
+  left: 20px;      /* Distancia desde la izquierda */
+  background: #ff9800;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 10;     /* Para que quede encima de todo */
+  transition: 0.3s ease;
+}
+
+.volver-btn:hover {
+  background: #e68a00;
   transform: scale(1.05);
 }

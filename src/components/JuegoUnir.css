@@ -1,135 +1,157 @@
-html, body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden; /* evita scroll global */
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+  caret-color: transparent;
+  
 }
 
-.unir-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: url('../assets/fondoo.jpg') no-repeat center center fixed;
-  background-size: cover;
-  font-family: "Comic Neue", "Poppins", sans-serif;
-  overflow: hidden;
+
+.escena-juego {
+  min-height: 100vh;
   position: relative;
+  font-family: "Comic Neue", "Poppins", sans-serif;
 }
 
-.unir-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #2e7d32;
-  text-shadow: 1px 1px 3px white;
-  margin-bottom: 1.5rem;
-  animation: rebote 1.5s ease-in-out infinite;
-}
-
-/* 🎯 Tablero centrado */
-.unir-board {
-  display: flex;
+.titulo {
+  font-size: 3.2rem;
+  font-weight: bold;
+  text-align: center; /* centra el texto horizontalmente */
+  display: flex;      /* permite centrar verticalmente si se necesita */
   justify-content: center;
   align-items: center;
-  gap: 6rem;
-  width: 80%;
-  max-width: 1000px;
-  flex-wrap: wrap;
+  background: linear-gradient(90deg, #ff4081, #ffeb3b, #4caf50, #2196f3);
+  background-size: 400% 400%;
+  -webkit-background-clip: text; /* prefijo para Safari/Chrome */
+  background-clip: text;         /* estándar CSS */
+  -webkit-text-fill-color: transparent; /* Safari/Chrome */
+  color: transparent;             /* fallback estándar */
+  animation: tituloAnimado 5s ease infinite, rebote 1.5s ease-in-out infinite;
+  margin-bottom: 2rem;
 }
 
-/* 🔹 Columnas equilibradas */
-.unir-col {
+
+
+.mensaje {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #ff4081;
+  animation: pop 0.3s ease;
+}
+
+/* ZONAS (NO SON CONTENEDORES VISUALES) */
+.zona-palabras {
+  position: absolute;
+  top: 120px;
+  left: 60px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.3rem;
+  gap: 18px;
 }
 
-/* 🟨 Tarjetas */
-.unir-item {
-  padding: 0.7rem 1.5rem;
-  font-size: 1.4rem;
-  text-align: center;
-  border-radius: 15px;
-  background-color: #fffdf5;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  min-width: 120px;
-  height: 60px; /* 🔹 compacta visualmente */
+.zona-imagenes {
+  position: absolute;
+  top: 120px;
+  right: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* BURBUJAS */
+.burbuja {
+  min-width: 170px;
+  height: 60px;
+  border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  font-size: 1.4rem;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+  transition: transform 0.25s, box-shadow 0.25s;
+  animation: flotar 3s ease-in-out infinite;
 }
 
-.unir-item:hover {
-  transform: scale(1.07);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+.burbuja:hover {
+  transform: scale(1.12);
 }
 
-/* 🎨 Colores */
 .palabra {
-  background-color: #ffecb3;
-  font-weight: 600;
+  background: #fff3cd;
+  font-weight: bold;
 }
 
 .imagen {
-  background-color: #bbdefb;
-  font-size: 2rem;
+  background: #e3f2fd;
+  font-size: 2.2rem;
 }
 
-.seleccionado {
-  border: 3px solid #4caf50;
-  box-shadow: 0 0 12px #4caf50;
+.activa {
+  border: 4px solid #4caf50;
+  box-shadow: 0 0 20px #4caf50;
 }
 
-/* ✨ Animación rebote */
-@keyframes rebote {
-  0%, 100% { transform: translateY(0); }
+.final {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  font-size: 2.3rem;
+  color: #4caf50;
+  animation: rebote 1s infinite;
+}
+
+
+/* ANIMACIONES */
+@keyframes flotar {
+  0%,100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
 }
 
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  .unir-board {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .unir-item {
-    font-size: 1.2rem;
-    min-width: 100px;
-    height: 50px;
-  }
-
-  .unir-title {
-    font-size: 2rem;
-  }
+@keyframes pop {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
-.boton-home {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: #ff9800;
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
+
+@keyframes rebote {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.volver-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease, transform 0.2s ease;
-  z-index: 1000;
+  justify-content: flex-start;
+  margin-bottom: 10px;
 }
 
-.boton-home:hover {
-  background: #e68900;
-  transform: scale(1.1);
+.volver-btn {
+  background-color: #3fa072;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+/* Botón volver fijo en la esquina superior izquierda */
+.volver-btn {
+  position: absolute;
+  top: 20px;       /* Distancia desde arriba */
+  left: 20px;      /* Distancia desde la izquierda */
+  background: #ff9800;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 10;     /* Para que quede encima de todo */
+  transition: 0.3s ease;
+}
+
+.volver-btn:hover {
+  background: #e68a00;
+  transform: scale(1.05);
 }

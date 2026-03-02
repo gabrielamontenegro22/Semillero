@@ -2,6 +2,8 @@
   padding: 2rem;
   background: url('../assets/fondoo.jpg') center/cover no-repeat;
   min-height: 100vh;
+
+  padding-top: 70px; /* ⬅ baja TODO: botón, título y tabla */
 }
 
 .volver-btn {

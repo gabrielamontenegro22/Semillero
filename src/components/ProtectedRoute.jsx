@@ -1,9 +1,8 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { auth } from '../firebaseConfig';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-export default function ProtectedRoute({ children }) {
+export default function ProtectedRoute() {
   const [user, loading] = useAuthState(auth);
 
   if (loading) {
@@ -14,5 +13,5 @@ export default function ProtectedRoute({ children }) {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  return <Outlet />;
 }

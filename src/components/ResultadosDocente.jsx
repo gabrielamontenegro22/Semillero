@@ -55,9 +55,9 @@ export default function ResultadosDocente() {
     <div className="resultados-container">
       {/* 🔙 BOTÓN VOLVER */}
       <div className="volver-wrapper">
-        <button className="btn-volver" onClick={() => navigate("/docente")}>
-          ⬅️ Volver
-        </button>
+      <button className="volver-btn" onClick={() => navigate("/docente")}>
+        ⬅ Volver
+      </button>
       </div>
 
       <h2>📊 Resultados por asignatura</h2>

@@ -15,7 +15,7 @@ export default function DetalleResultados() {
       try {
         // 🔹 Obtener la actividad específica
         const actSnap = await getDocs(
-          query(collection(db, "actividades"), where("__name__", "==", id))
+          query(collection(db, "resultados"), where("__name__", "==", id))
         );
         const actData = actSnap.docs[0]?.data();
         setActividad(actData);

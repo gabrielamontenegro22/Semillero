@@ -186,3 +186,24 @@
 .mensaje:contains('❌') {
   color: #e74c3c;
 }
+
+/* Botón volver fijo en la esquina superior izquierda */
+.volver-btn {
+  position: absolute;
+  top: 20px;       /* Distancia desde arriba */
+  left: 20px;      /* Distancia desde la izquierda */
+  background: #ff9800;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 10;     /* Para que quede encima de todo */
+  transition: 0.3s ease;
+}
+
+.volver-btn:hover {
+  background: #e68a00;
+  transform: scale(1.05);
+}

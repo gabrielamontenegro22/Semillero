@@ -1,0 +1,104 @@
+.teacher-profile {
+  min-height: 100vh;
+  padding: 60px 80px;
+  background-image: url('../assets/fondoo.jpg');
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.teacher-profile h1 {
+  font-size: 3rem;
+  margin-bottom: 50px;
+  color: #1f4f60;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px 80px;
+  max-width: 900px;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #245a6d;
+}
+
+.field span {
+  font-size: 1.4rem;
+  color: #123;
+}
+
+.field input,
+.field select {
+  font-size: 1.2rem;
+  padding: 12px 14px;
+  width: 260px;
+  border-radius: 10px;
+  border: 2px solid #9dd7e8;
+  outline: none;
+}
+
+.nivel {
+  display: inline-block;
+  font-size: 1.2rem;
+  background: #ffd966;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.edit-btn {
+  margin-top: 60px;
+  padding: 16px 40px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  border: none;
+  background: #4db6ff;
+  color: white;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #2fa3f7;
+}
+
+.volver-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.volver-btn {
+  background-color: #3fa072;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+/* Botón volver fijo en la esquina superior izquierda */
+.volver-btn {
+  position: absolute;
+  top: 20px;       /* Distancia desde arriba */
+  left: 20px;      /* Distancia desde la izquierda */
+  background: #ff9800;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 10;     /* Para que quede encima de todo */
+  transition: 0.3s ease;
+}
+
+.volver-btn:hover {
+  background: #e68a00;
+  transform: scale(1.05);
+}

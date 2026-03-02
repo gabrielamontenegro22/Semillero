@@ -1,52 +1,48 @@
-.resultados-container {
+.mis-estudiantes {
+  min-height: 100vh;
+  padding: 40px;
+  background-image: url("../assets/fondoo.jpg");
+  background-size: cover;
+  font-family: "Poppins", sans-serif;
+}
+
+.mis-estudiantes h1 {
   text-align: center;
-  padding: 2rem;
-  font-family: "Comic Neue", "Poppins", sans-serif;
-    padding-top: 70px; /* ⬅ baja TODO: botón, título y tabla */
-
+  font-size: 2.8rem;
+  margin-bottom: 40px;
+  color: #2c3e50;
 }
 
-.filtros {
-  margin-bottom: 20px;
+.grados-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
-.actividad-resultados {
-  background: rgba(255, 255, 255, 0.9);
-  margin: 1.5rem auto;
-  padding: 1.5rem;
-  border-radius: 18px;
-  width: 85%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th {
-  background-color: #ffb84d;
-  color: #fff;
-  padding: 10px;
-}
-
-td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-tr:hover {
-  background-color: #fff9e6;
-}
-.actividad-enlace {
+.grado-card {
+  background: #fffbe8;
+  border-radius: 20px;
+  padding: 40px 60px;
+  text-align: center;
   cursor: pointer;
-  color: #0077cc;
-  text-decoration: underline;
+  border: 3px dashed #ffd28a;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
 }
 
-.actividad-enlace:hover {
-  color: #005999;
+.grado-card:hover {
+  transform: scale(1.05);
+}
+
+.grado-card h2 {
+  font-size: 3rem;
+  color: #ff7675;
+}
+
+.grado-card p {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 .volver-wrapper {
   display: flex;

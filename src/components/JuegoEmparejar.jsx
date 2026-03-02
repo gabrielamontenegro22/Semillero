@@ -91,9 +91,9 @@ const JuegoEmparejar = () => {
   return (
     <div className="juego-container">
           {/* 👇 Botón de retroceso */}
-    <button className="boton-home" onClick={() => navigate("/games")}>
-      ⬅
-    </button>
+      <button className="volver-btn" onClick={() => navigate("/games")}>
+        ⬅ Volver
+      </button>
 
 
       {juegoTerminado ? (
