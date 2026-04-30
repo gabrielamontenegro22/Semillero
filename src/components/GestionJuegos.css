@@ -1,0 +1,206 @@
+/* ── GestionJuegos.css ── */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap");
+
+.gestion-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  padding: 32px 24px 150px;
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* ── SCROLLBAR CUSTOM ── */
+.gestion-container::-webkit-scrollbar { width: 10px; }
+.gestion-container::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+.gestion-container::-webkit-scrollbar-thumb { background: rgba(167, 139, 250, 0.5); border-radius: 10px; }
+.gestion-container::-webkit-scrollbar-thumb:hover { background: rgba(167, 139, 250, 0.8); }
+
+/* ── HEADER ── */
+.gj-header { margin-bottom: 40px; width: 100%; top: 0;}
+
+.gj-volver {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 24px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+.gj-volver:hover { background: rgba(255, 255, 255, 0.2); transform: translateX(-3px); }
+
+.gj-titulo {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0 0 8px 0;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+}
+
+.gj-subtitulo {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* ── TÍTULO DE PERIODO ── */
+.periodo-titulo {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.5px;
+}
+
+/* ── GRILLA DE JUEGOS ── */
+.juegos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+}
+
+.juego-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.juego-card.inactivo {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  opacity: 0.6;
+}
+
+.juego-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.juego-icono {
+  font-size: 36px;
+  background: rgba(255,255,255,0.1);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+}
+
+.juego-card.inactivo .juego-icono {
+  filter: grayscale(100%);
+}
+
+.juego-info h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.juego-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.estado-texto {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.juego-card.activo .estado-texto {
+  color: #4ade80;
+}
+.juego-card.inactivo .estado-texto {
+  color: #f87171;
+}
+
+/* ── SWITCH DE ESTILO iOS ── */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+  background-color: #4ade80;
+  border-color: #4ade80;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4ade80;
+}
+
+input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

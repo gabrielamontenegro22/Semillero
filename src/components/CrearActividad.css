@@ -1,66 +1,168 @@
+/* ── CrearActividad.css ── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
 .crear-container {
-  text-align: center;
-  background: url('../assets/fondoo.jpg') no-repeat center/cover;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 40px 24px 100px;
+  background: url('../assets/fondoo.jpg') center/cover no-repeat;
+  background-attachment: fixed;
   font-family: 'Poppins', sans-serif;
-  color: #333;
+  color: #2c3e50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  /* Espacio extra superior para el botón volver */
+  padding-top: 6rem;
 }
 
-.crear-form {
-  background: #fffbe8;
-  border-radius: 20px;
-  padding: 2rem;
+/* ── BOTÓN VOLVER ── */
+.volver-btn {
+  background: #ff9f43;
+  border: 3px solid #fff;
+  padding: 10px 24px;
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: 0 6px 0 #ee5253, 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.1s ease;
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.volver-btn:active {
+  transform: translateY(6px);
+  box-shadow: 0 0px 0 #ee5253, 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ── CABECERA ── */
+.crear-container h2 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin: 0 0 10px;
+  text-shadow: 
+    0px 0px 15px rgba(255, 255, 255, 1),
+    0px 0px 30px rgba(255, 255, 255, 0.8),
+    2px 2px 0px rgba(255, 255, 255, 1);
+  text-align: center;
+}
+
+.crear-container p {
+  color: #4b6584;
+  font-size: 1.2rem;
+  margin: 0 auto 2rem;
   max-width: 600px;
-  margin: 0 auto;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-  text-align: left;
+  font-weight: 600;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.8rem 2.5rem;
+  border-radius: 50px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid #fff;
+}
+
+/* ── FORMULARIO PRINCIPAL ── */
+.crear-form {
+  background: #fffbe8; /* Amarillo claro original */
+  border: 5px solid #fff;
+  border-radius: 30px;
+  padding: 2.5rem 3rem;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 8px 0px #ffd28a;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .crear-form label {
-  font-weight: 600;
-  display: block;
-  margin-top: 1rem;
-  margin-bottom: 0.3rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin-bottom: -0.5rem;
 }
 
 .crear-form input,
 .crear-form textarea,
 .crear-form select {
   width: 100%;
-  padding: 0.6rem;
-  border-radius: 10px;
-  border: 2px solid #ffd28a;
-  outline: none;
-  font-size: 1rem;
-}
-
-.crear-btn {
-  margin-top: 1.5rem;
-  background-color: #3fa072;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 0.8rem 1.5rem;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.crear-btn:hover {
-  background-color: #2e855a;
-}
-
-.crear-mensaje {
-  margin-top: 1rem;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 3px solid #ffd28a;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
   font-weight: 600;
+  color: #2c3e50;
+  background: #fff;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
-.volver-btn {
-  margin-top: 2rem;
-  background-color: #ff8b7b;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 0.7rem 1.5rem;
+.crear-form input:focus,
+.crear-form textarea:focus,
+.crear-form select:focus {
+  border-color: #ffb84c;
+  box-shadow: 0 0 0 4px rgba(255, 184, 76, 0.3);
+}
+
+.crear-form select {
   cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+/* ── BOTÓN CREAR ACT. (Verde Esmeralda) ── */
+.crear-btn {
+  background: #3fa072;
+  color: #fff;
+  border: 3px solid #fff;
+  border-radius: 50px;
+  padding: 16px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #2e855a, 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.1s ease;
+  margin-top: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.crear-btn:active {
+  transform: translateY(6px);
+  box-shadow: 0 0px 0 #2e855a, 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ── MENSAJE DE ÉXITO/ERROR ── */
+.crear-mensaje {
+  margin-top: 2rem;
+  font-weight: 800;
+  font-size: 1.2rem;
+  background: #ffffff;
+  padding: 14px 28px;
+  border-radius: 50px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border: 3px solid #fff;
+}
+
+.crear-mensaje:contains('✅') { color: #1dd1a1; }
+.crear-mensaje:contains('❌') { color: #ff6b6b; }
+
+/* Responsive */
+@media (max-width: 800px) {
+  .crear-container { padding-top: 6rem; }
+  .volver-btn { top: 1rem; left: 1rem; padding: 8px 18px; font-size: 1rem; }
+  .crear-container h2 { font-size: 2.2rem; }
+  .crear-form { padding: 2rem 1.5rem; }
 }

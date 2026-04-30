@@ -8,20 +8,17 @@ import { useNavigate } from 'react-router-dom';
 export default function Register() {
   const navigate = useNavigate();
 
-  // 🔹 Datos de autenticación
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail]                   = useState('');
+  const [password, setPassword]             = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [nombre, setNombre]                 = useState('');
+  const [apellido, setApellido]             = useState('');
+  const [edad, setEdad]                     = useState('');
+  const [grado, setGrado]                   = useState('');
+  const [error, setError]                   = useState('');
+  const [loading, setLoading]               = useState(false);
 
-  // 🔹 Datos del estudiante
-  const [nombre, setNombre] = useState('');
-  const [apellido, setApellido] = useState('');
-  const [edad, setEdad] = useState('');
-  const [grado, setGrado] = useState('');
-
-  const [error, setError] = useState('');
-
-  const edades = Array.from({ length: 10 }, (_, i) => i + 5); // 5 a 14
+  const edades = Array.from({ length: 10 }, (_, i) => i + 5);
   const grados = ['1°', '2°', '3°', '4°', '5°'];
 
   const handleRegister = async (e) => {
@@ -32,20 +29,16 @@ export default function Register() {
       setError('Completa todos los datos del estudiante 👀');
       return;
     }
-
     if (password !== confirmPassword) {
       setError('Las contraseñas no coinciden.');
       return;
     }
 
+    setLoading(true);
     try {
-      // 🔹 Crear usuario en Firebase Auth
-      const userCredential =
-        await createUserWithEmailAndPassword(auth, email, password);
-
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // 🔹 Guardar perfil del estudiante en Firestore
       await setDoc(doc(db, 'usuarios', user.uid), {
         uid: user.uid,
         email: user.email,
@@ -59,121 +52,182 @@ export default function Register() {
 
       alert('¡Registro exitoso! 🎉');
       navigate('/login');
-    } catch (error) {
-      console.error(error);
-      if (error.code === 'auth/email-already-in-use') {
-        setError('El correo ya está registrado.');
-      } else if (error.code === 'auth/invalid-email') {
-        setError('Correo inválido.');
-      } else if (error.code === 'auth/weak-password') {
-        setError('La contraseña es muy débil (mínimo 6 caracteres).');
-      } else {
-        setError('No se pudo registrar. Intenta más tarde.');
-      }
+    } catch (err) {
+      const codes = {
+        'auth/email-already-in-use': 'El correo ya está registrado.',
+        'auth/invalid-email':        'Correo inválido.',
+        'auth/weak-password':        'Contraseña muy débil (mínimo 6 caracteres).',
+      };
+      setError(codes[err.code] || 'No se pudo registrar. Intenta más tarde.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2>Regístrate en Play And Learn</h2>
+    <div className="rg-root">
 
-        <form onSubmit={handleRegister}>
-          {/* DATOS DEL ESTUDIANTE */}
-          <input
-            type="text"
-            placeholder="Nombre"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            className="login-input"
-            required
-          />
+      {/* Animated background */}
+      <div className="rg-bg">
+        <div className="rg-blob rg-blob-1" />
+        <div className="rg-blob rg-blob-2" />
+        <div className="rg-blob rg-blob-3" />
+        {Array.from({ length: 18 }).map((_, i) => (
+          <div key={i} className="rg-star" style={{
+            left:              `${(i * 37 + 11) % 100}%`,
+            top:               `${(i * 53 + 7)  % 100}%`,
+            animationDelay:    `${(i * 0.4) % 3}s`,
+            animationDuration: `${2 + (i % 3)}s`,
+            width:             `${4 + (i % 3) * 3}px`,
+            height:            `${4 + (i % 3) * 3}px`,
+          }} />
+        ))}
+      </div>
 
-          <input
-            type="text"
-            placeholder="Apellido"
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
-            className="login-input"
-            required
-          />
+      {/* Card */}
+      <div className="rg-card">
 
-          <select
-            className="login-input"
-            value={edad}
-            onChange={(e) => setEdad(e.target.value)}
-            required
-          >
-            <option value="">Edad</option>
-            {edades.map((e) => (
-              <option key={e} value={e}>
-                {e} años
-              </option>
-            ))}
-          </select>
+        {/* Mascot */}
+        <div className="rg-mascot">
+          <div className="rg-mascot-ring">
+            <span className="rg-mascot-emoji">🌟</span>
+          </div>
+        </div>
 
-          <select
-            className="login-input"
-            value={grado}
-            onChange={(e) => setGrado(e.target.value)}
-            required
-          >
-            <option value="">Grado</option>
-            {grados.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
+        {/* Title */}
+        <div className="rg-titles">
+          <h1 className="rg-title">¡Únete a Play & Learn!</h1>
+          <p className="rg-subtitle">Crea tu cuenta y empieza a aprender 🚀</p>
+        </div>
 
-          {/* AUTENTICACIÓN */}
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="login-input"
-            required
-          />
+        {/* Form */}
+        <form className="rg-form" onSubmit={handleRegister} noValidate>
 
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="login-input"
-            required
-          />
+          {/* Section label */}
+          <div className="rg-section-label">👤 Datos del estudiante</div>
 
-          <input
-            type="password"
-            placeholder="Confirmar contraseña"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="login-input"
-            required
-          />
+          {/* Name row */}
+          <div className="rg-row">
+            <div className="rg-field">
+              <span className="rg-field-icon">😊</span>
+              <input
+                className="rg-input"
+                type="text"
+                placeholder="Nombre"
+                value={nombre}
+                onChange={e => setNombre(e.target.value)}
+                required
+              />
+            </div>
+            <div className="rg-field">
+              <span className="rg-field-icon">😊</span>
+              <input
+                className="rg-input"
+                type="text"
+                placeholder="Apellido"
+                value={apellido}
+                onChange={e => setApellido(e.target.value)}
+                required
+              />
+            </div>
+          </div>
 
-          {error && <div className="error-message">{error}</div>}
+          {/* Edad + Grado row */}
+          <div className="rg-row">
+            <div className="rg-field">
+              <span className="rg-field-icon">🎂</span>
+              <select
+                className="rg-input rg-select"
+                value={edad}
+                onChange={e => setEdad(e.target.value)}
+                required
+              >
+                <option value="">Edad</option>
+                {edades.map(e => (
+                  <option key={e} value={e}>{e} años</option>
+                ))}
+              </select>
+            </div>
+            <div className="rg-field">
+              <span className="rg-field-icon">📚</span>
+              <select
+                className="rg-input rg-select"
+                value={grado}
+                onChange={e => setGrado(e.target.value)}
+                required
+              >
+                <option value="">Grado</option>
+                {grados.map(g => (
+                  <option key={g} value={g}>{g}</option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-          <button type="submit" className="login-button">
-            Registrarse
+          {/* Section label */}
+          <div className="rg-section-label">🔐 Datos de acceso</div>
+
+          <div className="rg-field">
+            <span className="rg-field-icon">✉️</span>
+            <input
+              className="rg-input"
+              type="email"
+              placeholder="Correo electrónico"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              autoComplete="email"
+            />
+          </div>
+
+          <div className="rg-field">
+            <span className="rg-field-icon">🔒</span>
+            <input
+              className="rg-input"
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              autoComplete="new-password"
+            />
+          </div>
+
+          <div className="rg-field">
+            <span className="rg-field-icon">🔑</span>
+            <input
+              className="rg-input"
+              type="password"
+              placeholder="Confirmar contraseña"
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
+              required
+              autoComplete="new-password"
+            />
+          </div>
+
+          {error && (
+            <div className="rg-error">
+              <span>⚠️</span> {error}
+            </div>
+          )}
+
+          <button className="rg-btn" type="submit" disabled={loading}>
+            {loading ? (
+              <span className="rg-spinner" />
+            ) : (
+              <>Crear cuenta <span className="rg-btn-arrow">→</span></>
+            )}
           </button>
         </form>
 
-        <div className="login-links">
-          <p>
-            ¿Ya tienes cuenta?{' '}
-            <span
-              className="link-text"
-              onClick={() => navigate('/login')}
-              role="button"
-              tabIndex={0}
-            >
-              Inicia sesión aquí
-            </span>
-          </p>
+        {/* Link to login */}
+        <div className="rg-links">
+          <span className="rg-link" onClick={() => navigate('/login')}>
+            ¿Ya tienes cuenta? <strong>Inicia sesión</strong>
+          </span>
         </div>
+
       </div>
     </div>
   );

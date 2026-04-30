@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap');
+
+/* ══ HEADER ══ */
+.ni-header-bar{width:100%;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:rgba(0,0,0,0.45);backdrop-filter:blur(16px);border-bottom:2px solid rgba(255,255,255,0.12);box-sizing:border-box;}
+.ni-header-left{display:flex;align-items:center;gap:12px;}
+.ni-header-badge{background:linear-gradient(135deg,#22C55E,#3B82F6);color:#fff;font-family:"Nunito",sans-serif;font-weight:900;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:6px 18px;border-radius:50px;box-shadow:0 3px 14px rgba(34,197,94,0.5);}
+.ni-header-title{font-family:"Fredoka One",cursive;font-size:22px;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.4);}
+.ni-header-right{display:flex;align-items:center;gap:10px;}
+.ni-header-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:8px 18px;border-radius:50px;color:#fff;font-family:"Nunito",sans-serif;font-weight:900;font-size:16px;}
+.ni-streak-pill{background:linear-gradient(135deg,#FF6B35,#FFD500)!important;border-color:transparent!important;animation:niStreakGlow 0.9s ease infinite alternate;}
+@keyframes niStreakGlow{from{transform:scale(1);}to{transform:scale(1.07);}}
+
+/* ══ FLOATING POINTS ══ */
+.ni-fp{position:fixed;top:28%;left:50%;font-family:"Fredoka One",cursive;font-size:72px;pointer-events:none;z-index:9999;animation:niFpRise 1.1s cubic-bezier(0.22,1,0.36,1) forwards;filter:drop-shadow(0 4px 0 rgba(0,0,0,0.4));}
+.ni-fp-pos{color:#FFE234;}.ni-fp-neg{color:#FF4D6D;}
+@keyframes niFpRise{0%{opacity:1;transform:translateX(-50%) translateY(0) scale(1.6);}40%{opacity:1;transform:translateX(-50%) translateY(-55px) scale(1.1);}100%{opacity:0;transform:translateX(-50%) translateY(-140px) scale(0.7);}}
+
+/* ══ ROOT — fondo oscuro para que brillen las estrellas ══ */
+.ni-root{width:100%;flex:1;min-height:0;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;background:#08001F;}
+
+/* ── Estrellas estáticas ── */
+.ni-star{position:absolute;pointer-events:none;z-index:0;border-radius:50%;background:#fff;animation:niStarTwinkle var(--sdur,2s) ease infinite alternate;animation-delay:var(--sdel,0s);}
+@keyframes niStarTwinkle{from{opacity:0.15;transform:scale(1);}to{opacity:1;transform:scale(1.5);}}
+
+/* ── Partículas de colores flotantes ── */
+.ni-particle{position:absolute;pointer-events:none;z-index:1;border-radius:50%;animation:niParticleFloat var(--pdur,6s) ease infinite alternate;animation-delay:var(--pdel,0s);}
+@keyframes niParticleFloat{0%{transform:translateY(0) rotate(0deg) scale(1);opacity:0.85;}50%{opacity:1;}100%{transform:translateY(-80px) rotate(180deg) scale(1.5);opacity:0.5;}}
+
+/* ── Destellos ── */
+.ni-sparkle{position:absolute;pointer-events:none;z-index:1;font-size:var(--ssize,18px);animation:niSparkleSpin var(--sdurs,4s) ease infinite;animation-delay:var(--sdels,0s);}
+@keyframes niSparkleSpin{0%{transform:scale(0) rotate(0deg);opacity:0;}30%{opacity:1;}70%{opacity:1;}100%{transform:scale(1.4) rotate(360deg);opacity:0;}}
+
+/* ══ PROGRESS ══ */
+.ni-progress-wrap{position:relative;width:60%;max-width:560px;margin:14px auto 0;z-index:20;}
+.ni-progress-track{width:100%;height:14px;background:rgba(0,0,0,0.4);border-radius:50px;overflow:hidden;border:2px solid rgba(255,255,255,0.15);position:relative;}
+.ni-progress-fill{height:100%;background:linear-gradient(90deg,#22C55E,#3B82F6 50%,#A855F7);border-radius:50px;transition:width 0.55s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 0 16px rgba(34,197,94,0.7);}
+.ni-progress-steps{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-around;padding:0 10px;}
+.ni-progress-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.1);transition:all 0.3s;}
+.ni-progress-dot.done{background:rgba(255,255,255,0.9);}
+.ni-progress-dot.active{background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,0.3);transform:scale(1.5);}
+
+/* ══ GAME AREA ══ */
+.ni-game-area{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:clamp(10px,1.8vh,18px);padding:10px 20px 16px;flex:1;width:100%;max-width:920px;justify-content:center;}
+
+/* ══ TOP ROW ══ */
+.ni-top-row{display:flex;align-items:flex-end;justify-content:center;gap:clamp(14px,2.5vw,36px);width:100%;}
+
+/* ── PINTOR — más grande y con aura ── */
+.ni-painter-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0;position:relative;}
+.ni-painter-wrap::before{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:90%;height:24px;background:radial-gradient(ellipse,rgba(168,85,247,0.45) 0%,transparent 70%);filter:blur(8px);border-radius:50%;pointer-events:none;}
+.ni-painter{width:clamp(110px,14vw,180px);height:auto;object-fit:contain;animation:niPainterBob 3s ease infinite alternate;filter:drop-shadow(0 10px 32px rgba(168,85,247,0.6)) drop-shadow(0 4px 12px rgba(0,0,0,0.6));user-select:none;}
+.ni-painter.celebrate{animation:niPainterCelebrate 0.45s ease infinite alternate;}
+@keyframes niPainterBob{from{transform:translateY(0) rotate(-4deg);}to{transform:translateY(-18px) rotate(4deg);}}
+@keyframes niPainterCelebrate{from{transform:scale(1.1) rotate(-15deg);}to{transform:scale(1.28) rotate(15deg) translateY(-24px);}}
+.ni-lives{display:flex;gap:6px;justify-content:center;}
+.ni-life{font-size:24px;transition:all 0.3s;}
+.ni-life.lost{filter:grayscale(1);opacity:0.2;transform:scale(0.7);}
+.ni-life.alive{animation:niHeart 1.1s ease infinite alternate;}
+@keyframes niHeart{from{transform:scale(1);}to{transform:scale(1.4);}}
+
+/* ── BURBUJA ── */
+.ni-bubble{flex:1;min-width:0;background:rgba(255,255,255,0.12);backdrop-filter:blur(20px);border:3px solid rgba(255,255,255,0.22);border-radius:24px;padding:14px 20px;box-shadow:0 10px 30px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.15);position:relative;align-self:center;transition:border-color 0.2s,box-shadow 0.2s;}
+.ni-bubble::before{content:'';position:absolute;left:-16px;top:50%;transform:translateY(-50%);border:8px solid transparent;border-right-color:rgba(255,255,255,0.22);}
+.ni-bubble.correct{border-color:#4ADE80;box-shadow:0 0 0 5px rgba(74,222,128,0.2),0 10px 30px rgba(0,0,0,0.35);}
+.ni-bubble.wrong{border-color:#FF4D6D;box-shadow:0 0 0 5px rgba(255,77,109,0.2),0 10px 30px rgba(0,0,0,0.35);}
+.ni-bubble.active{border-color:#A855F7;box-shadow:0 0 0 5px rgba(168,85,247,0.2),0 10px 30px rgba(0,0,0,0.35);}
+.ni-bubble-text{font-family:"Fredoka One",cursive;font-size:clamp(16px,2.2vw,26px);color:#fff;white-space:nowrap;}
+
+/* ── SHAPE CARD ── */
+.ni-shape-card{display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.09);backdrop-filter:blur(20px);border:3px solid rgba(255,255,255,0.18);border-radius:26px;padding:clamp(14px,2vh,26px) clamp(18px,2.5vw,36px);box-shadow:0 16px 48px rgba(0,0,0,0.45);flex-shrink:0;animation:niCardIn 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+@keyframes niCardIn{from{transform:scale(0.85) translateY(16px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.ni-shape-display{display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.5));animation:niShapeBob 3s ease infinite alternate;}
+.ni-shape-display.celebrate{animation:niShapeCelebrate 0.5s ease infinite alternate;}
+@keyframes niShapeBob{from{transform:translateY(0) scale(1);}to{transform:translateY(-10px) scale(1.04);}}
+@keyframes niShapeCelebrate{from{transform:scale(1) rotate(-6deg);}to{transform:scale(1.12) rotate(6deg) translateY(-12px);}}
+
+/* ══ PALABRAS CON HUECOS ══ */
+.ni-words-row{display:flex;align-items:center;gap:clamp(10px,2vw,24px);flex-wrap:wrap;justify-content:center;}
+.ni-word-separator{font-family:"Fredoka One",cursive;font-size:clamp(22px,3vw,36px);color:rgba(255,255,255,0.4);}
+.ni-word-group{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.ni-word-label{font-family:"Nunito",sans-serif;font-weight:900;font-size:clamp(12px,1.5vw,16px);text-transform:uppercase;letter-spacing:3px;opacity:0.7;}
+.ni-word{display:flex;gap:clamp(6px,1vw,12px);flex-wrap:wrap;justify-content:center;}
+
+/* ── CELDAS — grandes y vistosas ── */
+.ni-cell{
+  width:clamp(52px,7vw,78px);
+  height:clamp(58px,8vw,88px);
+  display:flex;align-items:center;justify-content:center;
+  border-radius:16px;
+  font-family:"Fredoka One",cursive;
+  font-size:clamp(26px,3.8vw,44px);
+  color:#fff;
+  text-shadow:0 2px 8px rgba(0,0,0,0.5);
+  transition:all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  text-transform:uppercase;
+  position:relative;
+}
+/* Letra visible — tile revelado */
+.ni-cell.visible{
+  background:linear-gradient(160deg,rgba(124,58,237,0.5),rgba(79,70,229,0.35));
+  border:3px solid rgba(167,139,250,0.6);
+  box-shadow:0 6px 0 rgba(79,70,229,0.5),0 10px 24px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.2);
+}
+/* Hueco vacío */
+.ni-cell.blank.empty{
+  background:rgba(0,0,0,0.4);
+  border:3px dashed rgba(167,139,250,0.4);
+  color:transparent;
+  box-shadow:inset 0 3px 10px rgba(0,0,0,0.3);
+}
+/* Hueco activo — pulsando */
+.ni-cell.blank.active{
+  background:rgba(167,139,250,0.2);
+  border:3px solid #a78bfa;
+  box-shadow:0 0 0 6px rgba(167,139,250,0.25),0 6px 0 rgba(79,70,229,0.4),0 12px 28px rgba(0,0,0,0.4);
+  animation:niCellPulse 0.75s ease infinite alternate;
+}
+@keyframes niCellPulse{from{transform:scale(1);}to{transform:scale(1.1);}}
+/* Error */
+.ni-cell.blank.active-wrong{
+  background:rgba(255,77,109,0.25);
+  border:3px solid #FF4D6D;
+  box-shadow:0 0 0 6px rgba(255,77,109,0.3),0 6px 0 rgba(185,28,28,0.5);
+  animation:niCellShake 0.4s ease;
+}
+@keyframes niCellShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-12px);}75%{transform:translateX(12px);}}
+/* Letra escrita */
+.ni-cell.blank.filled{
+  background:linear-gradient(160deg,rgba(167,139,250,0.4),rgba(124,58,237,0.3));
+  border:3px solid #a78bfa;
+  box-shadow:0 6px 0 rgba(79,70,229,0.45),0 10px 24px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.2);
+  animation:niCellPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes niCellPop{from{transform:scale(0.4) rotate(-10deg);opacity:0;}to{transform:scale(1) rotate(0);opacity:1;}}
+/* Completado */
+.ni-cell.blank.done{
+  background:linear-gradient(160deg,rgba(74,222,128,0.35),rgba(34,197,94,0.25));
+  border:3px solid #4ADE80;
+  box-shadow:0 0 0 5px rgba(74,222,128,0.2),0 6px 0 rgba(21,128,61,0.4),0 10px 24px rgba(0,0,0,0.3);
+  animation:niCellDone 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes niCellDone{from{transform:scale(1.3);opacity:0.5;}to{transform:scale(1);opacity:1;}}
+
+/* ══ TECLADO ══ */
+.ni-keyboard{display:flex;flex-direction:column;gap:clamp(5px,0.9vh,9px);align-items:center;width:100%;max-width:620px;}
+.ni-kb-row{display:flex;gap:clamp(4px,0.7vw,8px);justify-content:center;}
+.ni-key{font-family:"Fredoka One",cursive;font-size:clamp(14px,1.9vw,21px);color:#fff;background:linear-gradient(160deg,rgba(124,58,237,0.55),rgba(79,70,229,0.4));border:2px solid rgba(167,139,250,0.55);border-radius:12px;width:clamp(34px,4.8vw,52px);height:clamp(38px,5.2vh,54px);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform 0.12s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.12s,background 0.1s;box-shadow:0 5px 14px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.18);-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden;text-shadow:0 1px 4px rgba(0,0,0,0.4);flex-shrink:0;}
+.ni-key::before{content:'';position:absolute;top:0;left:0;right:0;height:40%;background:linear-gradient(180deg,rgba(255,255,255,0.14),transparent);pointer-events:none;}
+.ni-key:not(:disabled):hover{transform:translateY(-5px) scale(1.1);box-shadow:0 0 0 3px rgba(167,139,250,0.4),0 10px 24px rgba(0,0,0,0.45);border-color:#a78bfa;}
+.ni-key:not(:disabled):active{transform:scale(0.9) translateY(2px);}
+.ni-key:disabled{opacity:0.3;cursor:not-allowed;}
+.ni-key.backspace{width:clamp(50px,6.5vw,72px);background:linear-gradient(160deg,rgba(239,68,68,0.4),rgba(220,38,38,0.28));border-color:rgba(252,165,165,0.45);}
+.ni-key.backspace:not(:disabled):hover{border-color:#FCA5A5;box-shadow:0 0 0 3px rgba(252,165,165,0.3),0 10px 24px rgba(0,0,0,0.45);}
+.ni-key.wrong-flash{background:linear-gradient(160deg,rgba(255,77,109,0.65),rgba(220,38,38,0.55))!important;border-color:#FF4D6D!important;box-shadow:0 0 0 4px rgba(255,77,109,0.35)!important;animation:niKeyWrong 0.4s ease;}
+@keyframes niKeyWrong{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+
+/* ══ SKIP ══ */
+.ni-skip-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.ni-skip-warning{font-family:"Nunito",sans-serif;font-weight:900;font-size:clamp(12px,1.4vw,15px);color:#FCA5A5;background:rgba(255,77,109,0.18);border:2px solid rgba(255,77,109,0.4);padding:7px 20px;border-radius:50px;animation:niWarnPop 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+@keyframes niWarnPop{from{transform:scale(0.7);opacity:0;}to{transform:scale(1);opacity:1;}}
+.ni-skip-btn{font-family:"Fredoka One",cursive;font-size:clamp(14px,1.7vw,19px);color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:50px;padding:9px 26px;cursor:pointer;transition:all 0.2s;}
+.ni-skip-btn:hover{color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.11);border-color:rgba(255,255,255,0.3);transform:scale(1.04);}
+.ni-skip-btn.confirm{color:#fff;background:rgba(255,77,109,0.3);border-color:#FF4D6D;box-shadow:0 0 0 4px rgba(255,77,109,0.2);animation:niConfirmPulse 0.7s ease infinite alternate;}
+@keyframes niConfirmPulse{from{transform:scale(1);}to{transform:scale(1.06);}}
+
+/* ══ RESULT ══ */
+.ni-result-root{width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;background:transparent;position:relative;}
+.ni-result-card{position:relative;z-index:1;background:rgba(255,255,255,0.09);backdrop-filter:blur(28px);border:2px solid rgba(255,255,255,0.18);border-radius:36px;padding:48px 52px;text-align:center;max-width:460px;width:90%;color:#fff;box-shadow:0 36px 90px rgba(0,0,0,0.55);animation:niCardIn 0.55s cubic-bezier(0.34,1.56,0.64,1);}
+.ni-result-emoji{font-size:80px;display:block;margin-bottom:10px;animation:niTrophyBob 1s ease infinite alternate;}
+@keyframes niTrophyBob{from{transform:translateY(0) rotate(-5deg);}to{transform:translateY(-16px) rotate(5deg);}}
+.ni-result-badge{display:inline-block;background:rgba(34,197,94,0.22);border:1px solid rgba(34,197,94,0.45);color:#86EFAC;font-family:"Nunito",sans-serif;font-weight:900;font-size:12px;letter-spacing:1px;text-transform:uppercase;padding:5px 18px;border-radius:50px;margin-bottom:14px;}
+.ni-result-title{font-family:"Fredoka One",cursive!important;font-size:36px!important;font-weight:400!important;margin:0 0 20px!important;color:#86EFAC!important;background:none!important;-webkit-background-clip:unset!important;background-clip:unset!important;-webkit-text-fill-color:#86EFAC!important;}
+.ni-result-stars{display:flex;justify-content:center;gap:12px;margin-bottom:28px;}
+.ni-rstar{font-size:46px;}.ni-rstar.dim{filter:grayscale(1);opacity:0.22;}
+.ni-rstar.lit{animation:niStarPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;}
+.ni-rstar.lit:nth-child(1){animation-delay:0.1s;}.ni-rstar.lit:nth-child(2){animation-delay:0.28s;}.ni-rstar.lit:nth-child(3){animation-delay:0.46s;}
+@keyframes niStarPop{from{transform:scale(0) rotate(-40deg);opacity:0;}to{transform:scale(1) rotate(0);opacity:1;}}
+.ni-result-stats{display:flex;justify-content:center;gap:10px;margin-bottom:32px;flex-wrap:wrap;}
+.ni-rstat{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:16px 18px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:85px;font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.8px;font-family:"Nunito",sans-serif;}
+.ni-rstat span:first-child{font-size:22px;}
+.ni-rstat strong{font-family:"Fredoka One",cursive;font-size:28px;font-weight:400;color:#fff;text-transform:none;}
+.ni-result-btn{width:100%;padding:18px;font-family:"Fredoka One",cursive;font-size:24px;border:none;border-radius:50px;background:linear-gradient(135deg,#22C55E,#3B82F6);color:#fff;cursor:pointer;box-shadow:0 10px 30px rgba(34,197,94,0.5);transition:transform 0.2s,box-shadow 0.2s;}
+.ni-result-btn:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 16px 40px rgba(34,197,94,0.65);}
+
+@media(max-width:600px){
+  .ni-top-row{flex-direction:column;align-items:center;gap:12px;}
+  .ni-bubble::before{display:none;}
+  .ni-painter{width:90px;}
+  .ni-words-row{gap:8px;}
+  .ni-cell{width:42px;height:50px;font-size:22px;}
+  .ni-key{width:30px;height:36px;font-size:12px;}
+  .ni-key.backspace{width:44px;}
+}

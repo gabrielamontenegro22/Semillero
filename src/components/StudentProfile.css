@@ -1,112 +1,609 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── KEYFRAMES ─────────────────────────────────────────── */
+@keyframes titleRainbow {
+  0%   { color: #FF6B6B; }
+  16%  { color: #FF9F43; }
+  33%  { color: #f9ca24; }
+  50%  { color: #55EFC4; }
+  66%  { color: #74B9FF; }
+  83%  { color: #A29BFE; }
+  100% { color: #FF6B6B; }
+}
+@keyframes cardIn {
+  from { transform: scale(0.9) translateY(30px); opacity: 0; }
+  to   { transform: scale(1) translateY(0);       opacity: 1; }
+}
+@keyframes rainbowBorder {
+  0%   { border-color: #FF6B6B; }
+  25%  { border-color: #FF9F43; }
+  50%  { border-color: #74B9FF; }
+  75%  { border-color: #A29BFE; }
+  100% { border-color: #FF6B6B; }
+}
+@keyframes fieldIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes avatarBounce {
+  0%,100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-8px) scale(1.04); }
+}
+@keyframes avatarRing {
+  0%   { box-shadow: 0 0 0 0 rgba(162,155,254,0.7), 0 12px 40px rgba(0,0,0,0.25); }
+  70%  { box-shadow: 0 0 0 16px rgba(162,155,254,0), 0 12px 40px rgba(0,0,0,0.25); }
+  100% { box-shadow: 0 0 0 0 rgba(162,155,254,0), 0 12px 40px rgba(0,0,0,0.25); }
+}
+@keyframes sparkleAnim {
+  0%,100% { opacity:0; transform: scale(0) rotate(0deg); }
+  50%      { opacity:1; transform: scale(1) rotate(180deg); }
+}
+@keyframes crownBounce {
+  0%,100% { transform: translateX(-50%) rotate(-6deg) scale(1); }
+  50%      { transform: translateX(-50%) rotate(6deg) scale(1.15); }
+}
+@keyframes btnPress {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -300% center; }
+  100% { background-position:  300% center; }
+}
+@keyframes badgePop {
+  0%,100% { transform: scale(1) rotate(-2deg); }
+  50%      { transform: scale(1.1) rotate(2deg); }
+}
+@keyframes titleWiggle {
+  0%,100% { transform: rotate(-1.5deg) scale(1); }
+  50%      { transform: rotate(1.5deg) scale(1.04); }
+}
+
+/* ── BASE ──────────────────────────────────────────────── */
 .student-profile {
   min-height: 100vh;
-  padding: 60px 80px;
-  box-sizing: border-box;
-  background-image: url('../assets/fondoo.jpg');
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.student-profile h1 {
-  font-size: 3rem;
-  margin-bottom: 50px;
-  color: #1f4f60;
-}
-
-/* GRID */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px 80px;
-  max-width: 900px;
-}
-
-
-/* CAMPOS */
-.field label {
-  display: block;
-  font-weight: bold;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-  color: #245a6d;
-}
-
-.field span {
-  font-size: 1.4rem;
-  color: #123;
-}
-
-.field input,
-.field select {
-  font-size: 1.2rem;
-  padding: 12px 14px;
-  width: 260px;
-  border-radius: 10px;
-  border: 2px solid #9dd7e8;
-  outline: none;
-  background: white;
-}
-
-/* NIVEL */
-.nivel {
-  display: inline-block;
-  font-size: 1.2rem;
-  background: #ffd966;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-weight: bold;
-}
-
-/* BOTÓN */
-.edit-btn {
-  margin-top: 60px;
-  padding: 16px 40px;
-  font-size: 1.1rem;
-  border-radius: 30px;
-  border: none;
-  background: #4db6ff;
-  color: white;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.edit-btn:hover {
-  background: #2fa3f7;
-  transform: scale(1.05);
-}
-.volver-wrapper {
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  font-family: 'Nunito', cursive;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #87CEEB 0%, #B8E4F7 40%, #C8F0A0 70%, #7EC850 100%);
+  padding: 20px 20px 40px;
 }
 
-.volver-btn {
-  background-color: #3fa072;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  padding: 0.7rem 1.4rem;
-  font-size: 1rem;
-  margin-top: 1rem;
-  cursor: pointer;
-  transition: 0.3s ease;
+.sp-svg-bg {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
 }
-/* Botón volver fijo en la esquina superior izquierda */
+.student-profile > *:not(.sp-svg-bg) { position: relative; z-index: 2; }
+
+/* ── BACK BUTTON ────────────────────────────────────────── */
 .volver-btn {
-  position: absolute;
-  top: 20px;       /* Distancia desde arriba */
-  left: 20px;      /* Distancia desde la izquierda */
-  background: #ff9800;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  z-index: 10;     /* Para que quede encima de todo */
-  transition: 0.3s ease;
+  position: fixed; top: 14px; left: 14px; z-index: 999;
+  background: linear-gradient(135deg, #FF9F43, #FF6B6B);
+  border: 3px solid #fff;
+  padding: 10px 22px; border-radius: 50px;
+  font-family: 'Fredoka One', cursive; font-size: 15px;
+  color: white; cursor: pointer;
+  box-shadow: 0 5px 0 rgba(180,60,60,0.4), 0 8px 18px rgba(255,107,107,0.35);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.volver-btn:hover  { transform: scale(1.07) rotate(1deg); }
+.volver-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 rgba(180,60,60,0.4); }
+
+/* ── AVATAR ─────────────────────────────────────────────── */
+.sp-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
-.volver-btn:hover {
-  background: #e68a00;
-  transform: scale(1.05);
+.sp-avatar {
+  width: 95px; height: 95px; border-radius: 50%;
+  background: linear-gradient(135deg, #A29BFE 0%, #74B9FF 50%, #55EFC4 100%);
+  border: 6px solid #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bangers', cursive; font-size: 44px; color: #fff;
+  text-shadow: 3px 4px 0 rgba(0,0,0,0.22);
+  position: relative;
+  animation: avatarBounce 3s ease-in-out infinite, avatarRing 2.2s ease-out infinite;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.28));
+}
+
+.sp-avatar::before {
+  content: '👑';
+  position: absolute; top: -26px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px;
+  animation: crownBounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* ── NAME ───────────────────────────────────────────────── */
+.sp-avatar-name {
+  font-family: 'Bangers', cursive;
+  font-size: 2rem; letter-spacing: 3px;
+  margin-top: 8px; text-align: center;
+  background: rgba(255,255,255,0.95);
+  border: 3px solid #fff;
+  border-radius: 50px;
+  padding: 5px 24px 4px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.14);
+  animation: titleRainbow 4s ease-in-out infinite;
+}
+
+/* ── GRADE BADGE ────────────────────────────────────────── */
+.sp-avatar-grade {
+  font-family: 'Fredoka One', cursive; font-size: 15px;
+  background: linear-gradient(135deg, #FFD700, #FF9F43);
+  border: 3px solid #fff;
+  border-radius: 50px; padding: 5px 20px;
+  color: #fff; margin-top: 8px;
+  box-shadow: 0 5px 0 rgba(180,100,0,0.28), 0 8px 16px rgba(255,159,67,0.35);
+  animation: badgePop 2.5s ease-in-out infinite;
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.18);
+}
+
+/* ── TITLE PLAQUE ───────────────────────────────────────── */
+.sp-title {
+  font-family: 'Bangers', cursive; font-size: 1.8rem;
+  letter-spacing: 4px; margin: 6px 0 6px;
+  background: linear-gradient(160deg, #fff9e6, #fff3c4, #fff9e6);
+  border: 4px solid #FFD700;
+  border-radius: 18px;
+  padding: 8px 32px;
+  box-shadow: 0 6px 0 #c9960a, 0 10px 24px rgba(0,0,0,0.18),
+              inset 0 2px 0 rgba(255,255,255,0.9);
+  animation: titleRainbow 3s ease-in-out infinite,
+             titleWiggle 2.5s ease-in-out infinite;
+}
+
+/* ── CARD ───────────────────────────────────────────────── */
+.sp-card {
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(20px);
+  border: 5px solid #FF6B6B;
+  border-radius: 36px;
+  padding: 6px 24px 18px;
+  width: 100%; max-width: 480px;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.7) inset,
+    0 20px 55px rgba(0,0,0,0.22);
+  animation: cardIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both,
+             rainbowBorder 5s linear infinite;
+  display: flex; flex-direction: column; gap: 5px;
+}
+
+.sp-card::before {
+  content: '';
+  display: block; width: 100%; height: 7px;
+  background: linear-gradient(90deg,#FF6B6B,#FF9F43,#f9ca24,#55EFC4,#74B9FF,#A29BFE,#FF6B6B);
+  border-radius: 50px; margin-bottom: 6px;
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* ── FIELDS ─────────────────────────────────────────────── */
+.sp-field {
+  display: flex; flex-direction: column; gap: 3px;
+  animation: fieldIn 0.4s ease both;
+}
+.sp-field:nth-child(2) { animation-delay: 0.07s; }
+.sp-field:nth-child(3) { animation-delay: 0.14s; }
+.sp-field:nth-child(4) { animation-delay: 0.21s; }
+.sp-field:nth-child(5) { animation-delay: 0.28s; }
+.sp-field:nth-child(6) { animation-delay: 0.35s; }
+
+.sp-label {
+  font-family: 'Fredoka One', cursive;
+  font-size: 11px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #b2bec3;
+  padding-left: 4px;
+}
+.sp-label span { margin-right: 3px; font-size: 13px; }
+
+.sp-value {
+  font-family: 'Fredoka One', cursive; font-size: 1.05rem;
+  color: #2d3436; background: #f4f6ff;
+  border: 2px solid #e0e7ff;
+  border-radius: 14px; padding: 7px 14px;
+  min-height: 38px; display: flex; align-items: center;
+}
+
+.sp-input, .sp-select {
+  font-family: 'Fredoka One', cursive; font-size: 1rem;
+  padding: 8px 14px; border-radius: 14px;
+  border: 3px solid #A29BFE; outline: none;
+  background: #fff; color: #2d3436; width: 100%;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.sp-input:focus, .sp-select:focus {
+  border-color: #FF9F43;
+  transform: scale(1.015);
+  box-shadow: 0 0 0 4px rgba(255,159,67,0.18);
+}
+.sp-select option { background: #fff; color: #2d3436; }
+
+.sp-email {
+  font-family: 'Fredoka One', cursive; font-size: 1rem;
+  color: #a0a8b4; padding: 7px 14px;
+  background: #f8f9fa; border: 2px dashed #dfe6e9;
+  border-radius: 14px; min-height: 38px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ── BUTTONS ────────────────────────────────────────────── */
+.sp-actions {
+  display: flex; gap: 12px; margin-top: 6px;
+}
+
+.edit-btn, .save-btn {
+  flex: 1;
+  padding: 13px 16px; border-radius: 50px;
+  font-family: 'Fredoka One', cursive; font-size: 18px;
+  cursor: pointer;
+  border: 4px solid rgba(255,255,255,0.9);
+  color: #fff;
+  transition: transform 0.12s, box-shadow 0.12s;
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.2);
+  text-align: center; white-space: nowrap;
+}
+
+.edit-btn {
+  background: linear-gradient(160deg, #74B9FF, #A29BFE);
+  box-shadow: 0 7px 0 #5647c4, 0 12px 26px rgba(116,185,255,0.4);
+  animation: btnPress 2.5s ease-in-out infinite;
+}
+.edit-btn:hover  { transform: translateY(-3px); }
+.edit-btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #5647c4; }
+
+.save-btn {
+  background: linear-gradient(160deg, #55EFC4, #00b894);
+  box-shadow: 0 7px 0 #007a5e, 0 12px 26px rgba(85,239,196,0.4);
+}
+.save-btn:hover  { transform: translateY(-3px); }
+.save-btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #007a5e; }
+
+.cancel-btn {
+  flex: 1;
+  padding: 13px 16px; border-radius: 50px;
+  font-family: 'Fredoka One', cursive; font-size: 18px;
+  cursor: pointer;
+  border: 4px solid rgba(255,255,255,0.9);
+  background: linear-gradient(160deg, #FF6B6B, #e84393);
+  color: #fff;
+  box-shadow: 0 7px 0 #a3002e, 0 12px 26px rgba(255,107,107,0.4);
+  transition: transform 0.12s, box-shadow 0.12s;
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.2);
+  text-align: center; white-space: nowrap;
+}
+.cancel-btn:hover  { transform: translateY(-3px); }
+.cancel-btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #a3002e; }
+
+/* ── SPARKLES ───────────────────────────────────────────── */
+.sp-sparkle {
+  position: fixed; pointer-events: none; z-index: 3;
+  animation: sparkleAnim 2.8s ease-in-out infinite;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .student-profile { padding: 20px 16px 32px; }
+  .sp-avatar { width: 100px; height: 100px; font-size: 46px; }
+  .sp-avatar-name { font-size: 1.8rem; }
+  .sp-title { font-size: 1.6rem; padding: 7px 22px; }
+  .sp-card { padding: 6px 16px 18px; }
+  .edit-btn, .save-btn { font-size: 17px; padding: 14px 20px; }
+}@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── KEYFRAMES ─────────────────────────────────────────── */
+@keyframes titleRainbow {
+  0%   { color: #FF6B6B; }
+  16%  { color: #FF9F43; }
+  33%  { color: #f9ca24; }
+  50%  { color: #55EFC4; }
+  66%  { color: #74B9FF; }
+  83%  { color: #A29BFE; }
+  100% { color: #FF6B6B; }
+}
+@keyframes cardIn {
+  from { transform: scale(0.9) translateY(30px); opacity: 0; }
+  to   { transform: scale(1) translateY(0);       opacity: 1; }
+}
+@keyframes rainbowBorder {
+  0%   { border-color: #FF6B6B; }
+  25%  { border-color: #FF9F43; }
+  50%  { border-color: #74B9FF; }
+  75%  { border-color: #A29BFE; }
+  100% { border-color: #FF6B6B; }
+}
+@keyframes fieldIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes avatarBounce {
+  0%,100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-8px) scale(1.04); }
+}
+@keyframes avatarRing {
+  0%   { box-shadow: 0 0 0 0 rgba(162,155,254,0.7), 0 12px 40px rgba(0,0,0,0.25); }
+  70%  { box-shadow: 0 0 0 16px rgba(162,155,254,0), 0 12px 40px rgba(0,0,0,0.25); }
+  100% { box-shadow: 0 0 0 0 rgba(162,155,254,0), 0 12px 40px rgba(0,0,0,0.25); }
+}
+@keyframes sparkleAnim {
+  0%,100% { opacity:0; transform: scale(0) rotate(0deg); }
+  50%      { opacity:1; transform: scale(1) rotate(180deg); }
+}
+@keyframes crownBounce {
+  0%,100% { transform: translateX(-50%) rotate(-6deg) scale(1); }
+  50%      { transform: translateX(-50%) rotate(6deg) scale(1.15); }
+}
+@keyframes btnPress {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -300% center; }
+  100% { background-position:  300% center; }
+}
+@keyframes badgePop {
+  0%,100% { transform: scale(1) rotate(-2deg); }
+  50%      { transform: scale(1.1) rotate(2deg); }
+}
+@keyframes titleWiggle {
+  0%,100% { transform: rotate(-1.5deg) scale(1); }
+  50%      { transform: rotate(1.5deg) scale(1.04); }
+}
+
+/* ── BASE ──────────────────────────────────────────────── */
+.student-profile {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: 'Nunito', cursive;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #87CEEB 0%, #B8E4F7 40%, #C8F0A0 70%, #7EC850 100%);
+  padding: 20px 20px 40px;
+}
+
+.sp-svg-bg {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
+.student-profile > *:not(.sp-svg-bg) { position: relative; z-index: 2; }
+
+/* ── BACK BUTTON ────────────────────────────────────────── */
+.volver-btn {
+  position: fixed; top: 14px; left: 14px; z-index: 999;
+  background: linear-gradient(135deg, #FF9F43, #FF6B6B);
+  border: 3px solid #fff;
+  padding: 10px 22px; border-radius: 50px;
+  font-family: 'Fredoka One', cursive; font-size: 15px;
+  color: white; cursor: pointer;
+  box-shadow: 0 5px 0 rgba(180,60,60,0.4), 0 8px 18px rgba(255,107,107,0.35);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.volver-btn:hover  { transform: scale(1.07) rotate(1deg); }
+.volver-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 rgba(180,60,60,0.4); }
+
+/* ── AVATAR ─────────────────────────────────────────────── */
+.sp-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.sp-avatar {
+  width: 95px; height: 95px; border-radius: 50%;
+  background: linear-gradient(135deg, #A29BFE 0%, #74B9FF 50%, #55EFC4 100%);
+  border: 6px solid #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bangers', cursive; font-size: 44px; color: #fff;
+  text-shadow: 3px 4px 0 rgba(0,0,0,0.22);
+  position: relative;
+  animation: avatarBounce 3s ease-in-out infinite, avatarRing 2.2s ease-out infinite;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.28));
+}
+
+.sp-avatar::before {
+  content: '👑';
+  position: absolute; top: -26px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px;
+  animation: crownBounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+/* ── NAME ───────────────────────────────────────────────── */
+.sp-avatar-name {
+  font-family: 'Bangers', cursive;
+  font-size: 2rem; letter-spacing: 3px;
+  margin-top: 8px; text-align: center;
+  background: rgba(255,255,255,0.95);
+  border: 3px solid #fff;
+  border-radius: 50px;
+  padding: 5px 24px 4px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.14);
+  animation: titleRainbow 4s ease-in-out infinite;
+}
+
+/* ── GRADE BADGE ────────────────────────────────────────── */
+.sp-avatar-grade {
+  font-family: 'Fredoka One', cursive; font-size: 15px;
+  background: linear-gradient(135deg, #FFD700, #FF9F43);
+  border: 3px solid #fff;
+  border-radius: 50px; padding: 5px 20px;
+  color: #fff; margin-top: 8px;
+  box-shadow: 0 5px 0 rgba(180,100,0,0.28), 0 8px 16px rgba(255,159,67,0.35);
+  animation: badgePop 2.5s ease-in-out infinite;
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.18);
+}
+
+/* ── TITLE PLAQUE ───────────────────────────────────────── */
+.sp-title {
+  font-family: 'Bangers', cursive; font-size: 1.8rem;
+  letter-spacing: 4px; margin: 6px 0 6px;
+  background: linear-gradient(160deg, #fff9e6, #fff3c4, #fff9e6);
+  border: 4px solid #FFD700;
+  border-radius: 18px;
+  padding: 8px 32px;
+  box-shadow: 0 6px 0 #c9960a, 0 10px 24px rgba(0,0,0,0.18),
+              inset 0 2px 0 rgba(255,255,255,0.9);
+  animation: titleRainbow 3s ease-in-out infinite,
+             titleWiggle 2.5s ease-in-out infinite;
+}
+
+/* ── CARD ───────────────────────────────────────────────── */
+.sp-card {
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(20px);
+  border: 5px solid #FF6B6B;
+  border-radius: 36px;
+  padding: 6px 24px 18px;
+  width: 100%; max-width: 480px;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.7) inset,
+    0 20px 55px rgba(0,0,0,0.22);
+  animation: cardIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both,
+             rainbowBorder 5s linear infinite;
+  display: flex; flex-direction: column; gap: 5px;
+}
+
+.sp-card::before {
+  content: '';
+  display: block; width: 100%; height: 7px;
+  background: linear-gradient(90deg,#FF6B6B,#FF9F43,#f9ca24,#55EFC4,#74B9FF,#A29BFE,#FF6B6B);
+  border-radius: 50px; margin-bottom: 6px;
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* ── FIELDS ─────────────────────────────────────────────── */
+.sp-field {
+  display: flex; flex-direction: column; gap: 3px;
+  animation: fieldIn 0.4s ease both;
+}
+.sp-field:nth-child(2) { animation-delay: 0.07s; }
+.sp-field:nth-child(3) { animation-delay: 0.14s; }
+.sp-field:nth-child(4) { animation-delay: 0.21s; }
+.sp-field:nth-child(5) { animation-delay: 0.28s; }
+.sp-field:nth-child(6) { animation-delay: 0.35s; }
+
+.sp-label {
+  font-family: 'Fredoka One', cursive;
+  font-size: 11px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #b2bec3;
+  padding-left: 4px;
+}
+.sp-label span { margin-right: 3px; font-size: 13px; }
+
+.sp-value {
+  font-family: 'Fredoka One', cursive; font-size: 1.05rem;
+  color: #2d3436; background: #f4f6ff;
+  border: 2px solid #e0e7ff;
+  border-radius: 14px; padding: 7px 14px;
+  min-height: 38px; display: flex; align-items: center;
+}
+
+.sp-input, .sp-select {
+  font-family: 'Fredoka One', cursive; font-size: 1rem;
+  padding: 8px 14px; border-radius: 14px;
+  border: 3px solid #A29BFE; outline: none;
+  background: #fff; color: #2d3436; width: 100%;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.sp-input:focus, .sp-select:focus {
+  border-color: #FF9F43;
+  transform: scale(1.015);
+  box-shadow: 0 0 0 4px rgba(255,159,67,0.18);
+}
+.sp-select option { background: #fff; color: #2d3436; }
+
+.sp-email {
+  font-family: 'Fredoka One', cursive; font-size: 1rem;
+  color: #a0a8b4; padding: 7px 14px;
+  background: #f8f9fa; border: 2px dashed #dfe6e9;
+  border-radius: 14px; min-height: 38px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ── BUTTONS ────────────────────────────────────────────── */
+.sp-actions {
+  display: flex; gap: 12px; margin-top: 6px;
+}
+
+.edit-btn, .save-btn {
+  flex: 1;
+  padding: 13px 16px; border-radius: 50px;
+  font-family: 'Fredoka One', cursive; font-size: 18px;
+  cursor: pointer;
+  border: 4px solid rgba(255,255,255,0.9);
+  color: #fff;
+  transition: transform 0.12s, box-shadow 0.12s;
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.2);
+  text-align: center; white-space: nowrap;
+}
+
+.edit-btn {
+  background: linear-gradient(160deg, #74B9FF, #A29BFE);
+  box-shadow: 0 7px 0 #5647c4, 0 12px 26px rgba(116,185,255,0.4);
+  animation: btnPress 2.5s ease-in-out infinite;
+}
+.edit-btn:hover  { transform: translateY(-3px); }
+.edit-btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #5647c4; }
+
+.save-btn {
+  background: linear-gradient(160deg, #55EFC4, #00b894);
+  box-shadow: 0 7px 0 #007a5e, 0 12px 26px rgba(85,239,196,0.4);
+}
+.save-btn:hover  { transform: translateY(-3px); }
+.save-btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #007a5e; }
+
+.cancel-btn {
+  flex: 1;
+  padding: 13px 16px; border-radius: 50px;
+  font-family: 'Fredoka One', cursive; font-size: 18px;
+  cursor: pointer;
+  border: 4px solid rgba(255,255,255,0.9);
+  background: linear-gradient(160deg, #FF6B6B, #e84393);
+  color: #fff;
+  box-shadow: 0 7px 0 #a3002e, 0 12px 26px rgba(255,107,107,0.4);
+  transition: transform 0.12s, box-shadow 0.12s;
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.2);
+  text-align: center; white-space: nowrap;
+}
+.cancel-btn:hover  { transform: translateY(-3px); }
+.cancel-btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #a3002e; }
+
+/* ── SPARKLES ───────────────────────────────────────────── */
+.sp-sparkle {
+  position: fixed; pointer-events: none; z-index: 3;
+  animation: sparkleAnim 2.8s ease-in-out infinite;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .student-profile { padding: 20px 16px 32px; }
+  .sp-avatar { width: 100px; height: 100px; font-size: 46px; }
+  .sp-avatar-name { font-size: 1.8rem; }
+  .sp-title { font-size: 1.6rem; padding: 7px 22px; }
+  .sp-card { padding: 6px 16px 18px; }
+  .edit-btn, .save-btn { font-size: 17px; padding: 14px 20px; }
 }

@@ -1,0 +1,609 @@
+/* ── ResultadosJuegos.css ── */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap");
+
+.rj-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  padding: 32px 24px 150px;
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+  overflow-y: auto;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* ── SCROLLBAR CUSTOM ── */
+.rj-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.rj-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.rj-container::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.5);
+  border-radius: 10px;
+}
+
+.rj-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.8);
+}
+
+/* ── HEADER GENERAL ── */
+.rj-volver {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 24px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.rj-volver:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-3px);
+}
+
+.rj-header {
+  margin-bottom: 32px;
+}
+
+.rj-titulo {
+  font-size: 28px;
+  font-weight: 900;
+  margin: 0 0 8px;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rj-subtitulo {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+/* ── FILTROS ── */
+.rj-filtros {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.rj-filtro-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 10px 18px;
+}
+
+.rj-filtro-group label {
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rj-filtro-group select {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+.rj-filtro-group select option {
+  background: #302b63;
+  color: #fff;
+}
+
+/* ── TABLA GENERAL ── */
+.rj-grupo {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.rj-grupo-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.rj-grupo-icon {
+  font-size: 28px;
+}
+
+.rj-grupo-titulo {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 0;
+  color: #fff;
+}
+
+.rj-grupo-count {
+  font-size: 13px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+  padding: 4px 14px;
+  margin-left: auto;
+}
+
+.rj-table-wrapper {
+  overflow-x: auto;
+}
+
+.rj-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.rj-tabla thead tr {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.rj-tabla th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.rj-tabla td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+.rj-tabla tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Celdas compuestas */
+.rj-td-estudiante {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rj-est-nombre {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.rj-est-grado {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+}
+
+.rj-td-fecha {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+}
+
+.rj-score-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.rj-val {
+  font-size: 16px;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.rj-score-frac {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+}
+
+.rj-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.rj-star.lit {
+  font-size: 14px;
+  filter: drop-shadow(0 0 3px #facc15);
+}
+
+.rj-star.dim {
+  font-size: 14px;
+  opacity: 0.2;
+}
+
+/* BADGES (Estados) */
+.rj-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.badge-excelente {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.badge-bueno {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.badge-regular {
+  background: rgba(234, 179, 8, 0.15);
+  color: #facc15;
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.badge-bajo {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.rj-btn-detalle {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.rj-btn-detalle:hover {
+  background: #a78bfa;
+  border-color: #a78bfa;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
+}
+
+/* ── BOLETÍN (DETALLE) ── */
+.rj-det-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px 32px;
+  border-radius: 24px;
+  margin-bottom: 24px;
+}
+
+.rj-det-student-info h2 {
+  font-size: 26px;
+  font-weight: 400;
+  margin: 0 0 6px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rj-det-student-info h2 span {
+  font-weight: 900;
+  color: #fff;
+}
+
+.rj-det-student-info p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.rj-det-unit-badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px 24px;
+  border-radius: 16px;
+}
+
+.rj-unit-icon {
+  font-size: 32px;
+}
+
+.rj-unit-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.rj-unit-text span {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.rj-unit-text strong {
+  font-size: 16px;
+  font-weight: 900;
+  color: #fff;
+}
+
+/* Diagnóstico General */
+.rj-diagnostico-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 24px;
+  padding: 28px;
+  margin-bottom: 36px;
+  border-left: 6px solid transparent;
+}
+
+.rj-diagnostico-card.excelente {
+  border-left-color: #4ade80;
+  background: linear-gradient(90deg, rgba(74, 222, 128, 0.05), transparent);
+}
+
+.rj-diagnostico-card.bueno {
+  border-left-color: #60a5fa;
+  background: linear-gradient(90deg, rgba(96, 165, 250, 0.05), transparent);
+}
+
+.rj-diagnostico-card.regular {
+  border-left-color: #facc15;
+  background: linear-gradient(90deg, rgba(250, 204, 21, 0.05), transparent);
+}
+
+.rj-diagnostico-card.bajo {
+  border-left-color: #f87171;
+  background: linear-gradient(90deg, rgba(248, 113, 113, 0.05), transparent);
+}
+
+.rj-diag-header {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.rj-diag-score-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+}
+
+.rj-circle-val {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.rj-circle-pts {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.rj-diag-resume {
+  flex: 1;
+}
+
+.rj-diag-resume h3 {
+  font-size: 18px;
+  font-weight: 900;
+  margin: 0 0 8px;
+  color: #fff;
+}
+
+.rj-diag-resume p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  font-weight: 600;
+}
+
+.rj-section-title {
+  font-size: 22px;
+  font-weight: 900;
+  margin: 0 0 24px;
+  color: #fff;
+}
+
+/* Tarjetas por Nivel */
+.rj-niveles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rj-nivel-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.rj-niv-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.rj-niv-number {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+}
+
+.rj-niv-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  margin: 0;
+}
+
+.rj-niv-points {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.rj-niv-points strong {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.rj-niv-habilidad {
+  font-size: 13px;
+  font-weight: 700;
+  color: #a78bfa;
+  margin-bottom: 16px;
+}
+
+/* Barra de progreso */
+.rj-niv-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.rj-bar-bg {
+  flex: 1;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.rj-bar-fill {
+  height: 100%;
+  border-radius: 50px;
+  transition: width 0.5s ease;
+}
+
+.rj-bar-pct {
+  font-size: 15px;
+  font-weight: 900;
+  width: 45px;
+  text-align: right;
+}
+
+.exc {
+  color: #4ade80;
+  background-color: #4ade80;
+}
+
+.bue {
+  color: #60a5fa;
+  background-color: #60a5fa;
+}
+
+.reg {
+  color: #facc15;
+  background-color: #facc15;
+}
+
+.baj {
+  color: #f87171;
+  background-color: #f87171;
+}
+
+.rj-niv-observacion {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.rj-niv-observacion strong {
+  color: #fff;
+  font-weight: 800;
+  margin-right: 6px;
+}
+
+/* Loading/Empty */
+.rj-loading-full {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.rj-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #a78bfa;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rj-empty-icon {
+  font-size: 56px;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}

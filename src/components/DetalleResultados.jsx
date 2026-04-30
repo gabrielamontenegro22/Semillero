@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, query, where } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import "./DetalleResultados.css";
 
@@ -13,14 +13,17 @@ export default function DetalleResultados() {
   useEffect(() => {
     const cargarDatos = async () => {
       try {
-        // 🔹 Obtener la actividad específica
-        const actSnap = await getDocs(
-          query(collection(db, "resultados"), where("__name__", "==", id))
-        );
-        const actData = actSnap.docs[0]?.data();
-        setActividad(actData);
+        // 🔹 Obtener la actividad específica (¡De la colección correcta "actividades"!)
+        const actRef = doc(db, "actividades", id);
+        const actSnap = await getDoc(actRef);
+        
+        if (actSnap.exists()) {
+          setActividad(actSnap.data());
+        } else {
+          setActividad({ titulo: "Actividad no encontrada", area: "-", tipo_juego: "-" });
+        }
 
-        // 🔹 Obtener resultados asociados
+        // 🔹 Obtener resultados asociados a esa actividad
         const resSnap = await getDocs(
           query(collection(db, "resultados"), where("id_actividad", "==", id))
         );
@@ -41,60 +44,56 @@ export default function DetalleResultados() {
   return (
     <div className="detalle-container">
       {/* 🔙 Botón Volver */}
-      <div className="volver-wrapper">
-        <button className="btn-volver" onClick={() => navigate(-1)}>
-          ⬅️ Volver
-        </button>
+      <button className="btn-volver" onClick={() => navigate(-1)}>
+        ⬅️ Volver
+      </button>
+
+      {/* 🧾 Encabezado Premium */}
+      <div className="detalle-header-card">
+        <h2>📘 {actividad.titulo}</h2>
+        <div className="detalle-info-chips">
+          <span className="chip"><strong>Área:</strong> {actividad.area}</span>
+          <span className="chip"><strong>Juego:</strong> {actividad.tipo_juego}</span>
+        </div>
       </div>
 
-      {/* 🧾 Encabezado */}
-      <h2>📘 {actividad.titulo}</h2>
-      <p>
-        <strong>Área:</strong> {actividad.area}
-      </p>
-      <p>
-        <strong>Tipo de juego:</strong> {actividad.tipo_juego}
-      </p>
-
-      <h3>📊 Resultados de los estudiantes</h3>
+      <h3>🏆 Rendimiento de Alumnos</h3>
 
       {resultados.length === 0 ? (
-        <p>No hay resultados aún.</p>
+        <p style={{background: '#fff', padding: '1rem 2rem', borderRadius: '20px', fontWeight: 'bold'}}>
+          Ningún estudiante ha tomado esta prueba aún.
+        </p>
       ) : (
-        <table className="tabla-detalle">
-          <thead>
-            <tr>
-              <th>👩‍🎓 Estudiante</th>
-              <th>🎯 Puntaje (%)</th>
-              <th>✅ Correctas</th>
-              <th>📘 Total</th>
-              <th>📅 Fecha</th>
-            </tr>
-          </thead>
-          <tbody>
-            {resultados.map((r, i) => (
-              <tr key={i}>
-                <td>{r.correo}</td>
-                <td>
-                  <span
-                    className={`puntaje ${
-                      r.puntaje >= 80
-                        ? "excelente"
-                        : r.puntaje >= 50
-                        ? "bueno"
-                        : "bajo"
-                    }`}
-                  >
-                    {r.puntaje}%
-                  </span>
-                </td>
-                <td>{r.correctas ?? "-"}</td>
-                <td>{r.total ?? "-"}</td>
-                <td>{r.fecha ? new Date(r.fecha).toLocaleString() : "—"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="grid-resultados">
+          {resultados.map((r, i) => (
+            <div className="estudiante-card" key={i}>
+              <h4>{r.correo}</h4>
+              
+              <div
+                className={`puntaje-circulo ${
+                  r.puntaje >= 80 ? "excelente" : r.puntaje >= 50 ? "bueno" : "bajo"
+                }`}
+              >
+                {r.puntaje}%
+              </div>
+
+              <div className="stats-estudiante">
+                <div className="stat-item">
+                  <span>Correctas</span>
+                  <span>✅ {r.correctas ?? "-"}</span>
+                </div>
+                <div className="stat-item">
+                  <span>Preguntas</span>
+                  <span>📘 {r.total ?? "-"}</span>
+                </div>
+              </div>
+
+              <div className="fecha-badge">
+                📅 {r.fecha ? new Date(r.fecha).toLocaleDateString() : "—"}
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

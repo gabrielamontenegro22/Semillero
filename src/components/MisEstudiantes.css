@@ -44,6 +44,7 @@
   font-size: 1.2rem;
   font-weight: bold;
 }
+
 .volver-wrapper {
   display: flex;
   justify-content: flex-start;
@@ -61,11 +62,14 @@
   cursor: pointer;
   transition: 0.3s ease;
 }
+
 /* Botón volver fijo en la esquina superior izquierda */
 .volver-btn {
   position: absolute;
-  top: 20px;       /* Distancia desde arriba */
-  left: 20px;      /* Distancia desde la izquierda */
+  top: 20px;
+  /* Distancia desde arriba */
+  left: 20px;
+  /* Distancia desde la izquierda */
   background: #ff9800;
   border: none;
   padding: 10px 20px;
@@ -73,7 +77,8 @@
   color: white;
   cursor: pointer;
   font-weight: bold;
-  z-index: 10;     /* Para que quede encima de todo */
+  z-index: 10;
+  /* Para que quede encima de todo */
   transition: 0.3s ease;
 }
 

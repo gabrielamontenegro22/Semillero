@@ -1,87 +1,177 @@
+/* ── ResultadosDocente.css ── */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap");
+
 .resultados-container {
-  text-align: center;
-  padding: 2rem;
-  font-family: "Comic Neue", "Poppins", sans-serif;
-    padding-top: 70px; /* ⬅ baja TODO: botón, título y tabla */
-
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  padding: 32px 24px 150px;
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
-.filtros {
-  margin-bottom: 20px;
+/* ── SCROLLBAR CUSTOM ── */
+.resultados-container::-webkit-scrollbar { width: 10px; }
+.resultados-container::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+.resultados-container::-webkit-scrollbar-thumb { background: rgba(167, 139, 250, 0.5); border-radius: 10px; }
+.resultados-container::-webkit-scrollbar-thumb:hover { background: rgba(167, 139, 250, 0.8); }
+
+/* ── HEADER ── */
+.rj-header { margin-bottom: 32px; width: 100%; top: 0;}
+
+.rj-volver {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 24px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+.rj-volver:hover { background: rgba(255, 255, 255, 0.2); transform: translateX(-3px); }
+
+.rj-titulo {
+  font-size: 28px;
+  font-weight: 900;
+  margin: 0 0 8px 0;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
 }
 
+/* ── FILTROS ── */
+.filtros-rj {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 24px;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: max-content;
+}
+
+.filtros-rj label {
+  font-weight: 800;
+  color: #a78bfa;
+  font-size: 14px;
+}
+
+.filtros-rj select {
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+}
+.filtros-rj select:focus {
+  border-color: #60a5fa;
+}
+
+/* ── TABLAS (Actividades) ── */
 .actividad-resultados {
-  background: rgba(255, 255, 255, 0.9);
-  margin: 1.5rem auto;
-  padding: 1.5rem;
-  border-radius: 18px;
-  width: 85%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  transition: transform 0.2s;
 }
 
-table {
+.actividad-resultados:hover {
+  transform: translateY(-2px);
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+.actividad-titulo-header {
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 20px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: rgba(167, 139, 250, 0.1);
+  border-radius: 12px;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.actividad-resultados table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  min-width: 600px;
 }
-
-th {
-  background-color: #ffb84d;
+.actividad-resultados thead tr {
+  background: rgba(0, 0, 0, 0.2);
+}
+.actividad-resultados th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.actividad-resultados td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
   color: #fff;
-  padding: 10px;
+  font-weight: 600;
+  font-size: 15px;
+}
+.actividad-resultados tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
 }
 
-td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+/* PUNTUACIÓN BADGE */
+.puntaje-badge {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 14px;
+  display: inline-block;
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.1);
 }
 
-tr:hover {
-  background-color: #fff9e6;
-}
-.actividad-enlace {
-  cursor: pointer;
-  color: #0077cc;
-  text-decoration: underline;
-}
-
-.actividad-enlace:hover {
-  color: #005999;
-}
-.volver-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 10px;
+/* MENSAJE VACÍO */
+.resultados-container > p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px;
+  border-radius: 16px;
+  text-align: center;
 }
 
-.volver-btn {
-  background-color: #3fa072;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  padding: 0.7rem 1.4rem;
-  font-size: 1rem;
-  margin-top: 1rem;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-/* Botón volver fijo en la esquina superior izquierda */
-.volver-btn {
-  position: absolute;
-  top: 20px;       /* Distancia desde arriba */
-  left: 20px;      /* Distancia desde la izquierda */
-  background: #ff9800;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  z-index: 10;     /* Para que quede encima de todo */
-  transition: 0.3s ease;
-}
-
-.volver-btn:hover {
-  background: #e68a00;
-  transform: scale(1.05);
+/* Responsive */
+@media (max-width: 850px) {
+  .resultados-container { padding: 24px 16px 100px; }
+  .filtros-rj { flex-direction: column; align-items: stretch; width: 100%; }
 }

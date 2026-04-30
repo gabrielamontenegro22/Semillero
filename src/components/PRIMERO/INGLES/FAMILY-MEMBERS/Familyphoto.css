@@ -1,0 +1,1270 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap');
+
+/* ── Floaters ── */
+.fp3-float {
+  position: fixed;
+  top: 28%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Fredoka One", cursive;
+  font-size: 42px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: fpUp 1.2s ease forwards;
+  text-shadow: 0 4px 14px rgba(0, 0, 0, .4);
+}
+
+.fpos {
+  color: #16A34A;
+}
+
+.fneg {
+  color: #DC2626;
+}
+
+@keyframes fpUp {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0)
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-110px)
+  }
+}
+
+/* ════════════════════════════════════════
+   TUTORIAL
+════════════════════════════════════════ */
+.fp3-tut-screen {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  font-family: "Nunito", sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Park scene — full screen */
+.fp3-tut-park {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.park-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Animated clouds */
+.cloud-1 {
+  animation: cloudDrift 20s linear infinite;
+}
+
+.cloud-2 {
+  animation: cloudDrift 26s linear infinite reverse;
+  animation-delay: -9s;
+}
+
+@keyframes cloudDrift {
+  0% {
+    transform: translateX(0)
+  }
+
+  100% {
+    transform: translateX(160px)
+  }
+}
+
+/* Tutorial near char — BIG, above the panel overlay */
+.fp3-tut-near-char {
+  position: absolute;
+  bottom: 46%;
+  left: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all .5s ease;
+  z-index: 4;
+}
+
+.tut-char-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tut-char-dim {
+  opacity: .35;
+  transform: scale(.9);
+}
+
+.fp3-tut-bounce-arrow {
+  font-size: 28px;
+  animation: bounceDown .7s ease-in-out infinite;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .4));
+}
+
+@keyframes bounceDown {
+
+  0%,
+  100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(8px)
+  }
+}
+
+.fp3-tut-near-img {
+  width: clamp(100px, 18vw, 160px);
+  height: auto;
+  max-height: clamp(160px, 28vh, 230px);
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, .5));
+  animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+
+  0%,
+  100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(-6px)
+  }
+}
+
+/* Tutorial far char — SMALL, upper center-right */
+.fp3-tut-far-char {
+  position: absolute;
+  bottom: 55%;
+  right: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: all .5s ease;
+  z-index: 3;
+}
+
+.fp3-tut-far-img {
+  width: clamp(44px, 8vw, 68px);
+  height: auto;
+  max-height: clamp(64px, 12vh, 100px);
+  object-fit: contain;
+  filter: brightness(.72) saturate(.6) drop-shadow(0 3px 8px rgba(0, 0, 0, .4));
+}
+
+.tut-char-active .fp3-tut-far-img {
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, .4));
+}
+
+.fp3-tut-far-arrow {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, .8);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .5);
+  animation: fadeInUp .4s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px)
+  }
+
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+/* ── Label badges on chars — MEJORADO ── */
+.fp3-tut-label-badge {
+  font-family: "Fredoka One", cursive;
+  border-radius: 50px;
+  padding: 6px 18px;
+  color: #fff;
+  white-space: nowrap;
+  font-size: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .35);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.badge-this-big {
+  background: linear-gradient(135deg, #1D4ED8, #0EA5E9);
+  font-size: 16px;
+  box-shadow: 0 4px 18px rgba(14, 165, 233, 0.65);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 18px;
+}
+
+.badge-that-big {
+  background: linear-gradient(135deg, #6D28D9, #8B5CF6);
+  font-size: 12px;
+  box-shadow: 0 4px 14px rgba(109, 40, 217, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.badge-dim {
+  background: rgba(0, 0, 0, .3);
+  font-size: 11px;
+  opacity: .6;
+}
+
+/* YOU marker tutorial */
+.fp3-you-here {
+  position: absolute;
+  bottom: 37%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Fredoka One", cursive;
+  font-size: 13px;
+  color: #FCD34D;
+  background: rgba(0, 0, 0, .6);
+  backdrop-filter: blur(6px);
+  border: 2px solid rgba(252, 211, 77, .5);
+  border-radius: 50px;
+  padding: 4px 14px;
+  z-index: 4;
+  white-space: nowrap;
+}
+
+/* ── Bottom panel — MEJORADO ── */
+.fp3-tut-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px 90px;
+  border-radius: 32px 32px 0 0;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.45), 0 -1px 0 rgba(255, 255, 255, 0.08) inset;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.panel-blue {
+  background: linear-gradient(180deg, rgba(22, 64, 200, 0.93) 0%, rgba(10, 28, 110, 0.97) 100%);
+  border-top: 2px solid rgba(100, 160, 255, 0.35);
+}
+
+.panel-purple {
+  background: linear-gradient(180deg, rgba(90, 28, 195, 0.93) 0%, rgba(45, 8, 110, 0.97) 100%);
+  border-top: 2px solid rgba(180, 130, 255, 0.35);
+}
+
+.fp3-tut-panel-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 620px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 22px;
+  padding: 12px 20px;
+}
+
+/* ── Step tag — MEJORADO ── */
+.fp3-tut-step-tag {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 4px 14px;
+}
+
+.fp3-tut-big-text {
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(22px, 4.5vw, 36px);
+  color: #fff;
+  margin: 0;
+  text-align: center;
+  text-shadow: 0 3px 20px rgba(0, 0, 0, .5);
+  background: transparent;
+  animation: headPop .5s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+@keyframes headPop {
+  from {
+    opacity: 0;
+    transform: scale(.85)
+  }
+
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+.word-this {
+  color: #FCD34D;
+  text-shadow: 0 2px 12px rgba(252, 211, 77, 0.5);
+}
+
+.word-that {
+  color: #FCD34D;
+  text-shadow: 0 2px 12px rgba(252, 211, 77, 0.5);
+}
+
+.fp3-tut-sub-text {
+  font-size: 13px;
+  color: rgba(255, 255, 255, .8);
+  margin: 0;
+  text-align: center;
+}
+
+/* ── Sentence pill — MEJORADO ── */
+.fp3-tut-sentence-pill {
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(15px, 3.2vw, 19px);
+  padding: 10px 22px;
+  border-radius: 50px;
+  color: #fff;
+  text-align: center;
+  animation: sentPop .4s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+@keyframes sentPop {
+  from {
+    opacity: 0;
+    transform: translateY(12px)
+  }
+
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+.pill-this {
+  background: rgba(252, 211, 77, .2);
+  border: 2px solid rgba(252, 211, 77, .55);
+  box-shadow: 0 4px 16px rgba(252, 211, 77, 0.2);
+}
+
+.pill-that {
+  background: rgba(192, 132, 252, .2);
+  border: 2px solid rgba(192, 132, 252, .55);
+  box-shadow: 0 4px 16px rgba(192, 132, 252, 0.2);
+}
+
+/* ── Progress dots — MEJORADO ── */
+.fp3-tut-dots-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.fp3-tdot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .25);
+  transition: all .3s;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+}
+
+.tdot-active {
+  background: #FFD700;
+  width: 32px;
+  border-radius: 50px;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.65);
+}
+
+/* ── Tutorial button — MEJORADO ── */
+.fp3-tut-btn {
+  width: 100%;
+  max-width: 620px;
+  padding: 14px 24px;
+  font-family: "Fredoka One", cursive;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.tbtn-blue {
+  background: linear-gradient(135deg, #FFE033, #FFA500);
+  color: #1a3a8f;
+  box-shadow: 0 8px 28px rgba(255, 180, 0, 0.55), 0 2px 0 rgba(255, 255, 255, 0.35) inset;
+}
+
+.tbtn-purple {
+  background: linear-gradient(135deg, #FFE033, #FFA500);
+  color: #3b0764;
+  box-shadow: 0 8px 28px rgba(255, 180, 0, 0.55), 0 2px 0 rgba(255, 255, 255, 0.35) inset;
+}
+
+.fp3-tut-btn:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 14px 36px rgba(255, 180, 0, 0.65), 0 2px 0 rgba(255, 255, 255, 0.35) inset;
+}
+
+/* ════════════════════════════════════════
+   GAME ROOT
+════════════════════════════════════════ */
+.fp3-game-root {
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  font-family: "Nunito", sans-serif;
+  color: #F1F0FF;
+  overflow: hidden;
+  position: relative;
+}
+
+@keyframes shakeAnim {
+
+  0%,
+  100% {
+    transform: translateX(0)
+  }
+
+  20%,
+  60% {
+    transform: translateX(-9px)
+  }
+
+  40%,
+  80% {
+    transform: translateX(9px)
+  }
+}
+
+.fp3-shake {
+  animation: shakeAnim .45s ease;
+}
+
+/* Shared pill styles */
+.fp3-pill {
+  background: rgba(255, 255, 255, .15);
+  border: 1px solid rgba(255, 255, 255, .2);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  color: #fff;
+}
+
+.score-pill {
+  background: rgba(252, 211, 77, .25);
+  border-color: rgba(252, 211, 77, .5);
+  color: #FCD34D;
+}
+
+.streak-pill {
+  background: rgba(245, 158, 11, .3);
+  border-color: rgba(245, 158, 11, .6);
+  color: #FCD34D;
+}
+
+/* ── Question button ── */
+.fp3-question-btn {
+  width: 100%;
+  padding: 13px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(14px, 2.8vw, 19px);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 20;
+  transition: transform .2s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .4);
+}
+
+.qbtn-this {
+  background: linear-gradient(135deg, #1D4ED8, #38BDF8);
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(29, 78, 216, .5);
+}
+
+.qbtn-that {
+  background: linear-gradient(135deg, #6D28D9, #A78BFA);
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(109, 40, 217, .5);
+}
+
+.qbtn-playing {
+  background: linear-gradient(135deg, #059669, #34D399) !important;
+  box-shadow: 0 6px 24px rgba(5, 150, 105, .5) !important;
+}
+
+.fp3-question-btn:hover:not(:disabled) {
+  transform: scale(1.03);
+}
+
+.fp3-question-btn:disabled {
+  cursor: default;
+  opacity: .85;
+}
+
+.qbtn-pulse {
+  animation: btnPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes btnPulse {
+
+  0%,
+  100% {
+    transform: scale(1)
+  }
+
+  50% {
+    transform: scale(1.05)
+  }
+}
+
+/* Wave animation */
+.fp3-wave {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 18px;
+  margin-right: 4px;
+}
+
+.fp3-wave i {
+  display: block;
+  width: 4px;
+  background: #fff;
+  border-radius: 3px;
+  font-style: normal;
+  animation: waveA .8s ease-in-out infinite;
+}
+
+.fp3-wave i:nth-child(2) {
+  animation-delay: .1s
+}
+
+.fp3-wave i:nth-child(3) {
+  animation-delay: .2s
+}
+
+.fp3-wave i:nth-child(4) {
+  animation-delay: .3s
+}
+
+.fp3-wave i:nth-child(5) {
+  animation-delay: .4s
+}
+
+@keyframes waveA {
+
+  0%,
+  100% {
+    height: 4px
+  }
+
+  50% {
+    height: 18px
+  }
+}
+
+/* ════════════════════════════════════════
+   PARK SCENE (GAME)
+════════════════════════════════════════ */
+.fp3-park-scene {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  z-index: 2;
+  cursor: default;
+}
+
+/* ── Question button wrapper — top of scene ── */
+.fp3-question-wrap {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  width: calc(100% - 28px);
+  max-width: 680px;
+  display: flex;
+  justify-content: center;
+}
+
+/* YOU marker game */
+.fp3-you-game {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Fredoka One", cursive;
+  font-size: 12px;
+  color: #FCD34D;
+  background: rgba(0, 0, 0, .55);
+  backdrop-filter: blur(6px);
+  border: 2px solid rgba(252, 211, 77, .4);
+  border-radius: 50px;
+  padding: 4px 14px;
+  z-index: 10;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ── FAR CHARACTER ── */
+.fp3-char-far {
+  position: absolute;
+  bottom: 40%;
+  right: 18%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  z-index: 5;
+  transition: transform .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fp3-char-far:hover {
+  transform: scale(1.08);
+}
+
+.fp3-far-img {
+  width: clamp(56px, 9vw, 95px);
+  height: auto;
+  max-height: clamp(80px, 15vw, 130px);
+  object-fit: contain;
+  filter: brightness(.72) saturate(.6) drop-shadow(0 3px 8px rgba(0, 0, 0, .5));
+  transition: filter .3s;
+}
+
+.fp3-char-far.char-correct .fp3-far-img,
+.fp3-char-far.char-correct-reveal .fp3-far-img {
+  filter: drop-shadow(0 0 14px #22C55E) !important;
+}
+
+.fp3-char-far.char-wrong .fp3-far-img {
+  filter: drop-shadow(0 0 14px #EF4444) !important;
+}
+
+.fp3-far-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  pointer-events: none;
+}
+
+.label-that {
+  font-family: "Fredoka One", cursive;
+  font-size: 10px;
+  background: linear-gradient(135deg, #6D28D9, #8B5CF6);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(109, 40, 217, .5);
+}
+
+/* ── NEAR CHARACTER ── */
+.fp3-char-near {
+  position: absolute;
+  bottom: 8%;
+  left: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 6;
+  transition: transform .2s;
+  -webkit-tap-highlight-color: transparent;
+  animation: nearBob 3.5s ease-in-out infinite;
+}
+
+@keyframes nearBob {
+
+  0%,
+  100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(-6px)
+  }
+}
+
+.fp3-char-near:hover {
+  animation: none;
+  transform: scale(1.06);
+}
+
+.fp3-near-img {
+  width: clamp(140px, 22vw, 240px);
+  height: auto;
+  max-height: clamp(220px, 42vh, 380px);
+  object-fit: contain;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .55));
+  transition: filter .3s;
+}
+
+.fp3-char-near.char-correct .fp3-near-img,
+.fp3-char-near.char-correct-reveal .fp3-near-img {
+  filter: drop-shadow(0 0 20px #22C55E) drop-shadow(0 10px 24px rgba(0, 0, 0, .55)) !important;
+}
+
+.fp3-char-near.char-wrong .fp3-near-img {
+  filter: drop-shadow(0 0 20px #EF4444) drop-shadow(0 10px 24px rgba(0, 0, 0, .55)) !important;
+}
+
+.fp3-near-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.label-this {
+  font-family: "Fredoka One", cursive;
+  font-size: 14px;
+  background: linear-gradient(135deg, #1D4ED8, #0EA5E9);
+  color: #fff;
+  padding: 4px 14px;
+  border-radius: 50px;
+  box-shadow: 0 3px 14px rgba(29, 78, 216, .55);
+}
+
+.label-sub {
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, .8);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+}
+
+/* Tap hint */
+.fp3-tap-hint {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "Fredoka One", cursive;
+  font-size: 11px;
+  color: #FCD34D;
+  background: rgba(0, 0, 0, .55);
+  border-radius: 50px;
+  padding: 2px 10px;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: tapBounce 1.2s ease-in-out infinite;
+}
+
+@keyframes tapBounce {
+
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0)
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-4px)
+  }
+}
+
+/* Ripple on tap */
+@keyframes rippleAnim {
+  0% {
+    box-shadow: 0 0 0 0 rgba(252, 211, 77, .6);
+  }
+
+  100% {
+    box-shadow: 0 0 0 32px rgba(252, 211, 77, 0);
+  }
+}
+
+.char-ripple {
+  animation: rippleAnim .6s ease forwards;
+  border-radius: 50%;
+}
+
+/* Verdict badge on char */
+.fp3-char-verdict {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 900;
+  z-index: 8;
+  animation: verdPop .4s cubic-bezier(.34, 1.56, .64, 1);
+  pointer-events: none;
+}
+
+.verd-ok {
+  background: #22C55E;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, .6);
+}
+
+.verd-fail {
+  background: #EF4444;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, .6);
+}
+
+@keyframes verdPop {
+  from {
+    transform: translate(-50%, -50%) scale(0)
+  }
+
+  to {
+    transform: translate(-50%, -50%) scale(1)
+  }
+}
+
+/* ── Correct reveal state ── */
+.char-correct-reveal {
+  animation: correctReveal .5s ease both;
+}
+
+@keyframes correctReveal {
+  0% {
+    opacity: .4
+  }
+
+  100% {
+    opacity: 1
+  }
+}
+
+/* ════════════════════════════════════════
+   FEEDBACK
+════════════════════════════════════════ */
+.fp3-feedback {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 16px 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.97) 80%, transparent);
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.fp3-fb-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 20px;
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(16px, 2.8vw, 20px);
+}
+
+.fb-ok {
+  background: rgba(34, 197, 94, .15);
+  border: 2px solid rgba(34, 197, 94, .5);
+}
+
+.fb-fail {
+  background: rgba(239, 68, 68, .15);
+  border: 2px solid rgba(239, 68, 68, .5);
+}
+
+.fp3-fb-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.fp3-fb-text {
+  flex: 1;
+  color: #F1F0FF;
+}
+
+.fp3-fb-sound {
+  background: rgba(255, 255, 255, .15);
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  cursor: pointer;
+  font-size: 17px;
+  color: #fff;
+  transition: background .2s;
+}
+
+.fp3-fb-sound:hover {
+  background: rgba(255, 255, 255, .28);
+}
+
+.fp3-next-btn {
+  width: 100%;
+  padding: 15px;
+  font-family: "Fredoka One", cursive;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #7C5CFC, #0EA5E9);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 28px rgba(124, 92, 252, .6);
+  transition: transform .2s;
+  letter-spacing: .02em;
+  flex-shrink: 0;
+}
+
+.fp3-next-btn:hover {
+  transform: translateY(-3px) scale(1.01);
+}
+
+/* ════════════════════════════════════════
+/* ════════════════════════════════════════
+   RESULT (estilo BodyLevel1)
+════════════════════════════════════════ */
+.fp3-result-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.fp3-result-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 32px;
+  padding: 44px 48px;
+  text-align: center;
+  max-width: 440px;
+  width: 90%;
+  color: #fff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  animation: fp3CardResIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin: auto;
+}
+
+@keyframes fp3CardResIn {
+  from {
+    transform: scale(0.85) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fp3CardIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fp3-result-emoji {
+  font-size: 72px;
+  display: block;
+  margin-bottom: 8px;
+  animation: fp3EmojiBob 1s ease infinite alternate;
+}
+
+@keyframes fp3EmojiBob {
+  from { transform: translateY(0) rotate(-4deg); }
+  to { transform: translateY(-14px) rotate(4deg); }
+}
+
+.fp3-result-badge {
+  display: inline-block;
+  background: rgba(124, 92, 252, 0.3);
+  border: 1px solid rgba(124, 92, 252, 0.5);
+  color: #c4b5fd;
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 50px;
+  margin-bottom: 12px;
+}
+
+.fp3-result-title {
+  font-family: "Nunito", sans-serif !important;
+  font-size: 30px !important;
+  font-weight: 900 !important;
+  margin: 0 0 18px !important;
+  color: #fff !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.fp3-result-stars {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.fp3-rstar {
+  font-size: 38px;
+}
+
+.fp3-rstar.dim {
+  filter: grayscale(1);
+  opacity: 0.25;
+}
+
+.fp3-rstar.lit {
+  animation: fp3StarPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes fp3StarPop {
+  from { transform: scale(0) rotate(-40deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.fp3-result-stats {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.fp3-rstat {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.fp3-rstat span:first-child {
+  font-size: 20px;
+}
+
+.fp3-rstat strong {
+  font-family: "Nunito", sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  color: #fff;
+  text-transform: none;
+}
+
+.fp3-result-btn {
+  width: 100%;
+  padding: 17px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #7C5CFC, #5B3FD4);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 26px rgba(124, 92, 252, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fp3-result-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 14px 36px rgba(124, 92, 252, 0.65);
+}
+
+/* ─── HEADER BAR — copia exacta de DragGame ─────────────── */
+.fp3-header-bar {
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.fp3-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fp3-level-tag {
+  background: linear-gradient(135deg, #00C6FF, #0072FF);
+  color: #fff;
+  font-family: "Fredoka One", sans-serif;
+  font-size: 13px;
+  letter-spacing: 1px;
+  padding: 5px 14px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 3px 12px rgba(0, 114, 255, 0.5);
+}
+
+.fp3-title {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 22px;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 114, 255, 0.5);
+}
+
+.fp3-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fp3-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #00C6FF;
+  padding: 6px 16px;
+  border-radius: 50px;
+  color: #0F172A;
+  font-family: "Fredoka One", sans-serif;
+  font-size: 15px;
+  box-shadow: 0 2px 10px rgba(0, 114, 255, 0.25);
+}
+
+.fp3-streak {
+  background: linear-gradient(135deg, #FF6B35, #FFD500) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  animation: fp3StreakGlow 0.9s ease infinite alternate;
+  box-shadow: 0 0 14px rgba(255, 107, 53, 0.5);
+}
+
+@keyframes fp3StreakGlow {
+  from {
+    transform: scale(1)
+  }
+
+  to {
+    transform: scale(1.07)
+  }
+}
+
+.fp3-funbg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.fp3-svg-bg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Y asegúrate que la card quede por encima */
+.fp3-result-card {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── QUESTION TEXT (Reading puro, sin audio) ─── */
+.fp3-question-text {
+  width: 100%;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(15px, 2.9vw, 20px);
+  border-radius: 50px;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 22px rgba(0, 0, 0, .4);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  animation: questionAppear .5s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+@keyframes questionAppear {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.qtxt-this {
+  background: linear-gradient(135deg, #1D4ED8, #38BDF8);
+}
+
+.qtxt-that {
+  background: linear-gradient(135deg, #6D28D9, #A78BFA);
+}
+
+.fp3-question-emoji {
+  font-size: 22px;
+  flex-shrink: 0;
+}

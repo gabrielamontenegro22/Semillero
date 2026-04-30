@@ -1,0 +1,935 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&family=Poppins:wght@400;600&display=swap');
+
+/* ─── BASE ─────────────────────────────────────────────── */
+.fl2-game-root {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+
+.fl2-bg-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.fl2-listen-container {
+    width: 100%;
+    flex: 1;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 40px 80px;
+    position: relative;
+    z-index: 1;
+}
+
+.fl2-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.fl2-wrapper.fl2-shake {
+    animation: fl2-shake 0.45s ease;
+}
+
+@keyframes fl2-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    60% {
+        transform: translateX(-8px);
+    }
+
+    80% {
+        transform: translateX(8px);
+    }
+}
+
+.fl2-wrapper.fl2-bounce {
+    animation: fl2-bounceUp 0.5s ease;
+}
+
+@keyframes fl2-bounceUp {
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-12px);
+    }
+
+    70% {
+        transform: translateY(4px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* ─── PO FLOTANTE ─────────────────────────────────────── */
+.fl2-po-float {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 5;
+    pointer-events: none;
+    width: clamp(110px, 13vw, 170px);
+}
+
+.fl2-po-float img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 24px rgba(251, 146, 60, 0.55));
+}
+
+.fl2-po-float--idle img {
+    animation: fl2-PoIdle 3s ease-in-out infinite alternate;
+}
+
+.fl2-po-float--correct img {
+    animation: fl2-PoJump 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 10px 28px rgba(74, 222, 128, 0.85));
+}
+
+.fl2-po-float--wrong img {
+    animation: fl2-PoShake 0.45s ease;
+    filter: drop-shadow(0 10px 28px rgba(255, 77, 109, 0.85));
+}
+
+@keyframes fl2-PoIdle {
+    from {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    to {
+        transform: translateY(-10px) rotate(3deg);
+    }
+}
+
+@keyframes fl2-PoJump {
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-22px) scale(1.1);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fl2-PoShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-8px) rotate(-5deg);
+    }
+
+    75% {
+        transform: translateX(8px) rotate(5deg);
+    }
+}
+
+/* ─── HEADER BAR ──────────────────────────────────────── */
+.fl2-header-bar {
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.fl2-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.fl2-header-badge {
+    background: linear-gradient(135deg, #A78BFA, #6366F1);
+    color: #fff;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    padding: 4px 14px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+.fl2-header-title {
+    font-family: "Fredoka One", cursive;
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 0.3px;
+}
+
+.fl2-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fl2-header-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 16px;
+    border-radius: 50px;
+    color: #fff;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.fl2-streak-pill {
+    background: linear-gradient(135deg, #FF6B35, #FFD500) !important;
+    border-color: transparent !important;
+    animation: fl2-StreakGlow 0.9s ease infinite alternate;
+    box-shadow: 0 0 16px rgba(255, 107, 53, 0.55);
+}
+
+@keyframes fl2-StreakGlow {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.07);
+    }
+}
+
+/* ─── PROGRESS BAR ────────────────────────────────────── */
+.fl2-progress-track {
+    width: 100%;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.fl2-progress-fill {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fl2-progress-steps {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10px;
+}
+
+.fl2-progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+}
+
+.fl2-progress-dot.done {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.fl2-progress-dot.active {
+    transform: scale(1.6);
+    animation: fl2-DotPulse 1s ease infinite alternate;
+}
+
+@keyframes fl2-DotPulse {
+    from {
+        filter: brightness(1);
+    }
+
+    to {
+        filter: brightness(1.4);
+    }
+}
+
+/* ─── INSTRUCCIÓN ─────────────────────────────────────── */
+.fl2-instruction {
+    text-align: center;
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(22px, 3vw, 32px);
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 18px rgba(167, 139, 250, 0.4);
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+/* ─── BIG EMOJI CARD ──────────────────────────────────── */
+.fl2-emoji-card {
+    width: clamp(220px, 28vw, 340px);
+    height: clamp(220px, 28vw, 340px);
+    border: 5px solid;
+    border-radius: 32px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.75));
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: border-color 0.4s, box-shadow 0.4s;
+    animation: fl2-EmojiCardIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fl2-emoji-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 30%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent);
+    border-radius: 32px 32px 50% 50%;
+    pointer-events: none;
+}
+
+@keyframes fl2-EmojiCardIn {
+    from {
+        transform: scale(0.7) rotate(-8deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+.fl2-big-emoji {
+    font-size: clamp(130px, 18vw, 220px);
+    line-height: 1;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
+    user-select: none;
+    animation: fl2-EmojiBob 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes fl2-EmojiBob {
+    from {
+        transform: translateY(0) rotate(-4deg);
+    }
+
+    to {
+        transform: translateY(-10px) rotate(4deg);
+    }
+}
+
+/* ─── WORD GRID ───────────────────────────────────────── */
+.fl2-word-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 720px;
+}
+
+.fl2-word-card {
+    position: relative;
+    padding: 24px 20px;
+    border-radius: 20px;
+    border: 4px solid var(--card-color, rgba(255, 255, 255, 0.25));
+    background: linear-gradient(160deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.85));
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, opacity 0.25s;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), 0 0 20px var(--card-glow, rgba(255, 255, 255, 0.1));
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    animation: fl2-WordCardIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.fl2-word-card:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.fl2-word-card:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+.fl2-word-card:nth-child(3) {
+    animation-delay: 0.16s;
+}
+
+.fl2-word-card:nth-child(4) {
+    animation-delay: 0.24s;
+}
+
+@keyframes fl2-WordCardIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.fl2-word-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), transparent);
+    border-radius: 20px 20px 50% 50%;
+    pointer-events: none;
+}
+
+.fl2-word-card.hoverable:hover {
+    transform: translateY(-6px) scale(1.04);
+    border-color: #fff;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), 0 0 38px var(--card-glow, rgba(255, 255, 255, 0.4));
+}
+
+.fl2-word-card:active:not(:disabled) {
+    transform: translateY(2px) scale(0.97);
+}
+
+.fl2-word-card.locked {
+    opacity: 0.35;
+    pointer-events: none;
+    filter: grayscale(50%);
+}
+
+.fl2-word-card.correct {
+    border-color: #4ADE80 !important;
+    background: linear-gradient(160deg, rgba(74, 222, 128, 0.25), rgba(22, 163, 74, 0.4));
+    box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.4), 0 14px 34px rgba(74, 222, 128, 0.55) !important;
+    animation: fl2-CorrectPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes fl2-CorrectPop {
+    0% {
+        transform: scale(1);
+    }
+
+    30% {
+        transform: scale(1.12) translateY(-6px) rotate(-2deg);
+    }
+
+    60% {
+        transform: scale(1.04) translateY(-2px) rotate(2deg);
+    }
+
+    100% {
+        transform: scale(1) translateY(0) rotate(0);
+    }
+}
+
+.fl2-word-card.wrong {
+    border-color: #F87171 !important;
+    background: linear-gradient(160deg, rgba(248, 113, 113, 0.25), rgba(185, 28, 28, 0.4));
+    box-shadow: 0 0 0 5px rgba(248, 113, 113, 0.4), 0 14px 34px rgba(248, 113, 113, 0.55) !important;
+    animation: fl2-wrongShake 0.5s ease;
+}
+
+@keyframes fl2-wrongShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-8px) rotate(-2deg);
+    }
+
+    75% {
+        transform: translateX(8px) rotate(2deg);
+    }
+}
+
+.fl2-word-card.wrong-prev {
+    border-color: rgba(248, 113, 113, 0.6);
+    opacity: 0.5;
+}
+
+.fl2-word-text {
+    display: block;
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(24px, 3vw, 34px);
+    color: #fff;
+    text-align: center;
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+    position: relative;
+    z-index: 2;
+    line-height: 1;
+}
+
+.fl2-card-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    animation: fl2-badgePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 3;
+    border: 2.5px solid #fff;
+}
+
+@keyframes fl2-badgePop {
+    from {
+        transform: scale(0) rotate(-30deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+.fl2-correct-badge {
+    background: #4ADE80;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(74, 222, 128, 0.7);
+}
+
+.fl2-wrong-badge {
+    background: #F87171;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(248, 113, 113, 0.7);
+}
+
+/* ─── LIVES ───────────────────────────────────────────── */
+.fl2-lives-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 4px 0 12px;
+}
+
+.fl2-heart {
+    font-size: 30px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fl2-heart.lost {
+    opacity: 0.4;
+    transform: scale(0.85);
+    filter: grayscale(1);
+}
+
+.fl2-heart.alive {
+    animation: fl2-heartPulse 1.2s infinite alternate;
+    filter: drop-shadow(0 4px 12px rgba(255, 0, 0, 0.4));
+}
+
+@keyframes fl2-heartPulse {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.18);
+    }
+}
+
+/* ─── NEXT BUTTON ─────────────────────────────────────── */
+.fl2-next-btn {
+    padding: 15px 40px;
+    font-size: 18px;
+    font-family: "Fredoka One", cursive;
+    font-weight: 400;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: not-allowed;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(8px);
+}
+
+.fl2-next-btn.ready {
+    background: var(--round-color, #FB923C);
+    color: #fff;
+    cursor: pointer;
+    border-color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 24px var(--round-glow, rgba(251, 146, 60, 0.6));
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.fl2-next-btn.ready:hover {
+    transform: scale(1.07) translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 32px var(--round-glow, rgba(251, 146, 60, 0.8));
+}
+
+/* ─── RETRY BANNER ────────────────────────────────────── */
+.fl2-retry-banner {
+    background: linear-gradient(135deg, rgba(255, 200, 0, 0.3), rgba(255, 150, 0, 0.25));
+    border: 2px solid rgba(255, 220, 50, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 12px 26px;
+    color: #fff;
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    text-align: center;
+    animation: fl2-retryPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 24px rgba(255, 200, 0, 0.4);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes fl2-retryPop {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.fl2-retry-banner.failed {
+    background: linear-gradient(135deg, rgba(248, 113, 113, 0.3), rgba(185, 28, 28, 0.25));
+    border-color: rgba(248, 113, 113, 0.7);
+    box-shadow: 0 4px 24px rgba(248, 113, 113, 0.4);
+}
+
+/* ─── FLOATING POINTS ─────────────────────────────────── */
+.fl2-floating-points {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Fredoka One", cursive;
+    font-size: 48px;
+    color: #FFD700;
+    text-shadow: 0 3px 0 rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.8);
+    pointer-events: none;
+    z-index: 999;
+    animation: fl2-floatUp 1.2s ease forwards;
+}
+
+@keyframes fl2-floatUp {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(1.4);
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-40px) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-100px) scale(0.7);
+        opacity: 0;
+    }
+}
+
+/* ─── RESULT CARD ─────────────────────────────────────── */
+.fl2-result-container {
+    align-items: center;
+    justify-content: center;
+}
+
+.fl2-result-card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(28px);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 32px;
+    padding: 44px 48px;
+    text-align: center;
+    max-width: 440px;
+    width: 90%;
+    color: #fff;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    animation: fl2-CardIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin: auto;
+}
+
+@keyframes fl2-CardIn {
+    from {
+        transform: scale(0.85) translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.fl2-result-po {
+    width: 110px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 10px;
+    animation: fl2-PoResultBob 1s ease infinite alternate;
+    filter: drop-shadow(0 8px 20px rgba(167, 139, 250, 0.6));
+}
+
+@keyframes fl2-PoResultBob {
+    from {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    to {
+        transform: translateY(-12px) rotate(5deg);
+    }
+}
+
+.fl2-result-badge {
+    display: inline-block;
+    background: rgba(167, 139, 250, 0.25);
+    border: 1px solid rgba(167, 139, 250, 0.5);
+    color: #C4B5FD;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+}
+
+.fl2-result-title {
+    font-family: "Fredoka One", cursive !important;
+    font-size: 32px !important;
+    font-weight: 400 !important;
+    margin: 0 0 18px !important;
+    color: #fff !important;
+}
+
+.fl2-result-stars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 26px;
+}
+
+.fl2-rstar {
+    font-size: 42px;
+}
+
+.fl2-rstar.dim {
+    filter: grayscale(1);
+    opacity: 0.25;
+}
+
+.fl2-rstar.lit {
+    animation: fl2-StarPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.fl2-rstar.lit:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.fl2-rstar.lit:nth-child(2) {
+    animation-delay: 0.28s;
+}
+
+.fl2-rstar.lit:nth-child(3) {
+    animation-delay: 0.46s;
+}
+
+@keyframes fl2-StarPop {
+    from {
+        transform: scale(0) rotate(-40deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+.fl2-result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.fl2-rstat {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 18px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 80px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.fl2-rstat span:first-child {
+    font-size: 20px;
+}
+
+.fl2-rstat strong {
+    font-family: "Fredoka One", cursive;
+    font-size: 24px;
+    font-weight: 400;
+    color: #fff;
+    text-transform: none;
+}
+
+.fl2-result-btn {
+    width: 100%;
+    padding: 17px;
+    font-family: "Fredoka One", cursive;
+    font-weight: 400;
+    font-size: 22px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #A78BFA, #6366F1);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 8px 26px rgba(167, 139, 250, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fl2-result-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 14px 36px rgba(167, 139, 250, 0.65);
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 900px) {
+    .fl2-po-float {
+        width: 90px;
+        bottom: 16px;
+        left: 16px;
+    }
+
+    .fl2-listen-container {
+        padding: 16px 20px;
+    }
+
+    .fl2-emoji-card {
+        width: 200px;
+        height: 200px;
+    }
+
+    .fl2-big-emoji {
+        font-size: 130px;
+    }
+
+    .fl2-word-text {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 500px) {
+    .fl2-po-float {
+        width: 70px;
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .fl2-header-title {
+        font-size: 14px;
+    }
+
+    .fl2-header-pill {
+        font-size: 13px;
+        padding: 5px 12px;
+    }
+
+    .fl2-emoji-card {
+        width: 170px;
+        height: 170px;
+    }
+
+    .fl2-big-emoji {
+        font-size: 100px;
+    }
+
+    .fl2-word-grid {
+        gap: 10px;
+    }
+
+    .fl2-word-card {
+        padding: 18px 10px;
+    }
+
+    .fl2-word-text {
+        font-size: 18px;
+        letter-spacing: 0.5px;
+    }
+
+    .fl2-instruction {
+        font-size: 20px;
+    }
+}

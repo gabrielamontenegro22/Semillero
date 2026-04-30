@@ -1,0 +1,955 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&family=Poppins:wght@400;600&display=swap');
+
+/* ─── BASE ─────────────────────────────────────────────── */
+.bl1-game-root {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #FDE68A;
+}
+
+.bl1-bg-svg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.bl1-listen-container {
+    width: 100%;
+    flex: 1;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 40px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ─── WRAPPER ─────────────────────────────────────────── */
+.bl1-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(6px, 1vh, 12px);
+}
+
+.bl1-wrapper.bl1-shake {
+    animation: bl1-shake 0.45s ease;
+}
+
+@keyframes bl1-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    60% {
+        transform: translateX(-8px);
+    }
+
+    80% {
+        transform: translateX(8px);
+    }
+}
+
+.bl1-wrapper.bl1-bounce {
+    animation: bl1-bounceUp 0.5s ease;
+}
+
+@keyframes bl1-bounceUp {
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-12px);
+    }
+
+    70% {
+        transform: translateY(4px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* ─── HEADER BAR ──────────────────────────────────────── */
+.bl1-header-bar {
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, rgba(120, 53, 15, 0.92), rgba(146, 64, 14, 0.92));
+    backdrop-filter: blur(18px);
+    border-bottom: 3px solid #D97706;
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(120, 53, 15, 0.4);
+}
+
+.bl1-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bl1-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bl1-header-badge {
+    background: linear-gradient(135deg, #DC2626, #991B1B);
+    color: #FEF3C7;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    padding: 4px 14px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 12px rgba(220, 38, 38, 0.6);
+    border: 1px solid #FBBF24;
+}
+
+.bl1-header-title {
+    font-family: "Fredoka One", cursive;
+    font-size: 20px;
+    color: #FEF3C7;
+    letter-spacing: 0.3px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.bl1-header-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(254, 243, 199, 0.95);
+    border: 2px solid #D97706;
+    padding: 6px 16px;
+    border-radius: 50px;
+    color: #78350F;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bl1-streak-pill {
+    background: linear-gradient(135deg, #DC2626, #FBBF24) !important;
+    border-color: #FEF3C7 !important;
+    color: #fff !important;
+    animation: bl1-StreakGlow 0.9s ease infinite alternate;
+    box-shadow: 0 0 16px rgba(220, 38, 38, 0.7);
+}
+
+@keyframes bl1-StreakGlow {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.07);
+    }
+}
+
+/* ─── PROGRESS BAR ────────────────────────────────────── */
+.bl1-progress-track {
+    width: 100%;
+    height: 14px;
+    background: rgba(120, 53, 15, 0.25);
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #92400E;
+    box-shadow: inset 0 2px 6px rgba(120, 53, 15, 0.4);
+}
+
+.bl1-progress-fill {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bl1-progress-steps {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10px;
+}
+
+.bl1-progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(120, 53, 15, 0.3);
+    border: 2px solid rgba(120, 53, 15, 0.5);
+    transition: all 0.3s;
+}
+
+.bl1-progress-dot.done {
+    background: #D97706;
+}
+
+.bl1-progress-dot.active {
+    transform: scale(1.6);
+    animation: bl1-DotPulse 1s ease infinite alternate;
+}
+
+@keyframes bl1-DotPulse {
+    from {
+        filter: brightness(1);
+    }
+
+    to {
+        filter: brightness(1.4);
+    }
+}
+
+/* ─── INSTRUCCIÓN ─────────────────────────────────────── */
+.bl1-instruction {
+    text-align: center;
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(20px, 2.6vw, 26px);
+    color: #78350F;
+    text-shadow: 0 2px 4px rgba(254, 243, 199, 0.9);
+    margin: 0;
+    letter-spacing: 0.5px;
+    padding: 6px 20px;
+    background: rgba(254, 243, 199, 0.7);
+    border: 2px dashed #D97706;
+    border-radius: 16px;
+    backdrop-filter: blur(4px);
+}
+
+@keyframes bl1-lupaFloat {
+    from {
+        transform: translate(0, 0) rotate(var(--rot, 0deg));
+    }
+
+    to {
+        transform: translate(18px, -20px) rotate(var(--rot, 0deg));
+    }
+}
+
+@keyframes bl1-qFloat {
+    0% {
+        transform: translateY(0) rotate(var(--rot, 0deg));
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.55;
+    }
+
+    100% {
+        transform: translateY(-18px) rotate(var(--rot, 0deg));
+        opacity: 0.3;
+    }
+}
+
+/* ─── PLAY ROW: Botón + Vidas en la misma fila ────────── */
+.bl1-play-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+/* ─── PLAY BUTTON ─────────────────────────────────────── */
+.bl1-play-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 30px;
+    font-size: 17px;
+    font-family: "Fredoka One", cursive;
+    font-weight: 400;
+    border: 3px solid var(--round-color, #DC2626);
+    border-radius: 50px;
+    background: #FEF3C7;
+    color: var(--round-color, #DC2626);
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(120, 53, 15, 0.3), 0 0 20px var(--round-glow, rgba(220, 38, 38, 0.35));
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.bl1-play-btn:hover:not(:disabled) {
+    transform: scale(1.07);
+    box-shadow: 0 10px 28px rgba(120, 53, 15, 0.4), 0 0 30px var(--round-glow, rgba(220, 38, 38, 0.6));
+}
+
+.bl1-play-btn:disabled {
+    cursor: default;
+}
+
+.bl1-play-btn.playing {
+    background: var(--round-color, #DC2626);
+    color: #fff;
+}
+
+/* ─── WAVE BARS ───────────────────────────────────────── */
+.bl1-wave-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 20px;
+}
+
+.bl1-wave-bars span {
+    display: block;
+    width: 4px;
+    border-radius: 4px;
+    background: #fff;
+    animation: bl1-barBounce 0.6s ease infinite alternate;
+}
+
+.bl1-wave-bars span:nth-child(1) {
+    height: 8px;
+    animation-delay: 0s;
+}
+
+.bl1-wave-bars span:nth-child(2) {
+    height: 14px;
+    animation-delay: 0.1s;
+}
+
+.bl1-wave-bars span:nth-child(3) {
+    height: 20px;
+    animation-delay: 0.2s;
+}
+
+.bl1-wave-bars span:nth-child(4) {
+    height: 14px;
+    animation-delay: 0.3s;
+}
+
+.bl1-wave-bars span:nth-child(5) {
+    height: 8px;
+    animation-delay: 0.4s;
+}
+
+@keyframes bl1-barBounce {
+    from {
+        transform: scaleY(0.4);
+    }
+
+    to {
+        transform: scaleY(1);
+    }
+}
+
+/* ─── LIVES ───────────────────────────────────────────── */
+.bl1-lives-container {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+}
+
+.bl1-heart {
+    font-size: 26px;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bl1-heart.lost {
+    opacity: 0.35;
+    transform: scale(0.82);
+    filter: grayscale(1);
+}
+
+.bl1-heart.alive {
+    animation: bl1-heartPulse 1.2s infinite alternate;
+    filter: drop-shadow(0 4px 12px rgba(220, 38, 38, 0.6));
+}
+
+@keyframes bl1-heartPulse {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.2);
+    }
+}
+
+/* ─── BANNER SLOT (reserva espacio siempre) ─────────────── */
+.bl1-banner-slot {
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ─── RETRY BANNER ────────────────────────────────────── */
+.bl1-retry-banner {
+    background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+    border: 3px dashed #D97706;
+    border-radius: 16px;
+    padding: 12px 26px;
+    color: #78350F;
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    text-align: center;
+    animation: bl1-retryPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 16px rgba(217, 119, 6, 0.35);
+}
+
+@keyframes bl1-retryPop {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.bl1-retry-banner.failed {
+    background: linear-gradient(135deg, #FECACA, #FCA5A5);
+    border-color: #B91C1C;
+    color: #7F1D1D;
+}
+
+/* ─── GRID DE CARDS ───────────────────────────────────── */
+.bl1-images-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    width: 100%;
+    align-items: start;
+}
+
+/* ─── IMAGE CARD ──────────────────────────────────────── */
+.bl1-image-card {
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 4px solid var(--card-color, #D97706);
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, opacity 0.25s;
+    box-shadow: 0 10px 26px rgba(120, 53, 15, 0.35), 0 0 20px var(--card-glow, rgba(255, 255, 255, 0.1));
+    position: relative;
+    background: linear-gradient(160deg, #FFFBEB, #FEF3C7);
+}
+
+.bl1-image-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(225deg, rgba(217, 119, 6, 0.35) 50%, transparent 50%);
+    border-radius: 0 18px 0 0;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.bl1-image-card::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    right: 40px;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, rgba(120, 53, 15, 0.15) 0 4px, transparent 4px 8px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bl1-image-card.hoverable:hover {
+    transform: translateY(-8px) scale(1.04) rotate(-1deg);
+    border-color: var(--card-color, #DC2626);
+    box-shadow: 0 20px 40px rgba(120, 53, 15, 0.45), 0 0 42px var(--card-glow, rgba(220, 38, 38, 0.5));
+}
+
+.bl1-image-card.locked {
+    opacity: 0.35;
+    pointer-events: none;
+    filter: grayscale(50%);
+}
+
+.bl1-image-card.correct {
+    border-color: #047857 !important;
+    box-shadow: 0 0 0 5px rgba(4, 120, 87, 0.3), 0 14px 34px rgba(4, 120, 87, 0.5) !important;
+    background: linear-gradient(160deg, #D1FAE5, #A7F3D0);
+    animation: bl1-CardCorrect 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bl1-CardCorrect {
+    0% {
+        transform: scale(1);
+    }
+
+    30% {
+        transform: scale(1.12) translateY(-6px) rotate(-2deg);
+    }
+
+    60% {
+        transform: scale(1.06) translateY(-2px) rotate(2deg);
+    }
+
+    100% {
+        transform: scale(1) translateY(0) rotate(0);
+    }
+}
+
+.bl1-image-card.wrong {
+    border-color: #DC2626 !important;
+    box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.3), 0 14px 34px rgba(220, 38, 38, 0.5) !important;
+    background: linear-gradient(160deg, #FECACA, #FCA5A5);
+    animation: bl1-wrongShake 0.5s ease;
+}
+
+@keyframes bl1-wrongShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-8px) rotate(-1deg);
+    }
+
+    75% {
+        transform: translateX(8px) rotate(1deg);
+    }
+}
+
+.bl1-image-card.wrong-prev {
+    border-color: rgba(220, 38, 38, 0.6);
+    opacity: 0.5;
+}
+
+/* CARD INNER */
+.bl1-card-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 14px 44px;
+    height: clamp(160px, 22vh, 210px);
+    z-index: 2;
+}
+
+.bl1-card-img-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    animation: bl1-imgBob 2.5s ease-in-out infinite alternate;
+}
+
+.bl1-card-img {
+    max-width: 80%;
+    max-height: 95px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    filter: drop-shadow(0 8px 14px rgba(120, 53, 15, 0.35)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+@keyframes bl1-imgBob {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-8px);
+    }
+}
+
+.bl1-image-card.hoverable:hover .bl1-card-img {
+    filter: drop-shadow(0 12px 18px rgba(120, 53, 15, 0.5)) drop-shadow(0 0 12px var(--card-glow, rgba(255, 255, 255, 0.5)));
+}
+
+.bl1-card-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 9px 6px;
+    text-align: center;
+    font-family: "Fredoka One", cursive;
+    font-weight: 400;
+    font-size: clamp(15px, 1.8vw, 20px);
+    color: #fff;
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    background: linear-gradient(transparent, var(--card-color, #DC2626));
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.bl1-card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    animation: bl1-badgePop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 4;
+    border: 3px solid #FEF3C7;
+}
+
+@keyframes bl1-badgePop {
+    from {
+        transform: scale(0) rotate(-30deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+.bl1-correct-badge {
+    background: #047857;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(4, 120, 87, 0.7);
+}
+
+.bl1-wrong-badge {
+    background: #DC2626;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.7);
+}
+
+/* ─── FLOATING POINTS ─────────────────────────────────── */
+.bl1-floating-points {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Fredoka One", cursive;
+    font-size: 48px;
+    font-weight: 400;
+    color: #DC2626;
+    text-shadow: 0 3px 0 #FEF3C7, 0 0 20px rgba(220, 38, 38, 0.8);
+    pointer-events: none;
+    z-index: 999;
+    animation: bl1-floatUp 1.2s ease forwards;
+}
+
+@keyframes bl1-floatUp {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(1.4);
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-40px) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-100px) scale(0.7);
+        opacity: 0;
+    }
+}
+
+/* ─── RESULT CARD ─────────────────────────────────────── */
+.bl1-result-container {
+    align-items: center;
+    justify-content: center;
+}
+
+.bl1-result-card {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(160deg, #FFFBEB, #FEF3C7);
+    backdrop-filter: blur(28px);
+    border: 4px solid #92400E;
+    border-radius: 24px;
+    padding: 44px 48px;
+    text-align: center;
+    max-width: 440px;
+    width: 90%;
+    color: #78350F;
+    box-shadow: 0 30px 80px rgba(120, 53, 15, 0.5);
+    animation: bl1-CardIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin: auto;
+}
+
+.bl1-result-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(225deg, rgba(217, 119, 6, 0.5) 50%, transparent 50%);
+    border-radius: 0 24px 0 0;
+    pointer-events: none;
+}
+
+@keyframes bl1-CardIn {
+    from {
+        transform: scale(0.85) translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.bl1-result-emoji {
+    font-size: 72px;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px;
+    animation: bl1-EmojiResultBob 1.8s ease infinite alternate;
+    filter: drop-shadow(0 8px 20px rgba(120, 53, 15, 0.5));
+}
+
+@keyframes bl1-EmojiResultBob {
+    from {
+        transform: translateY(0) rotate(-5deg) scale(1);
+    }
+
+    to {
+        transform: translateY(-12px) rotate(5deg) scale(1.08);
+    }
+}
+
+.bl1-result-badge {
+    display: inline-block;
+    background: #78350F;
+    border: 2px solid #FBBF24;
+    color: #FEF3C7;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+}
+
+.bl1-result-title {
+    font-family: "Fredoka One", cursive !important;
+    font-size: 32px !important;
+    font-weight: 400 !important;
+    margin: 0 0 18px !important;
+    color: #78350F !important;
+}
+
+.bl1-result-stars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 26px;
+}
+
+.bl1-rstar {
+    font-size: 42px;
+}
+
+.bl1-rstar.dim {
+    filter: grayscale(1);
+    opacity: 0.25;
+}
+
+.bl1-rstar.lit {
+    animation: bl1-StarPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.bl1-rstar.lit:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.bl1-rstar.lit:nth-child(2) {
+    animation-delay: 0.28s;
+}
+
+.bl1-rstar.lit:nth-child(3) {
+    animation-delay: 0.46s;
+}
+
+@keyframes bl1-StarPop {
+    from {
+        transform: scale(0) rotate(-40deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+.bl1-result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.bl1-rstat {
+    background: rgba(217, 119, 6, 0.1);
+    border: 2px solid rgba(217, 119, 6, 0.35);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 80px;
+    font-size: 11px;
+    color: #92400E;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-family: "Nunito", sans-serif;
+}
+
+.bl1-rstat span:first-child {
+    font-size: 20px;
+}
+
+.bl1-rstat strong {
+    font-family: "Fredoka One", cursive;
+    font-size: 24px;
+    font-weight: 400;
+    color: #78350F;
+    text-transform: none;
+}
+
+.bl1-result-btn {
+    width: 100%;
+    padding: 17px;
+    font-family: "Fredoka One", cursive;
+    font-weight: 400;
+    font-size: 22px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #DC2626, #92400E);
+    color: #FEF3C7;
+    cursor: pointer;
+    box-shadow: 0 8px 26px rgba(120, 53, 15, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bl1-result-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 14px 36px rgba(120, 53, 15, 0.7);
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 900px) {
+    .bl1-listen-container {
+        padding: 8px 20px 16px;
+    }
+
+    .bl1-card-inner {
+        height: 180px;
+        padding: 12px 10px 40px;
+    }
+
+    .bl1-card-img {
+        max-height: 80px;
+    }
+
+    .bl1-card-label {
+        font-size: 14px;
+        padding: 7px 4px;
+    }
+}
+
+@media (max-width: 500px) {
+    .bl1-header-title {
+        font-size: 14px;
+    }
+
+    .bl1-header-pill {
+        font-size: 13px;
+        padding: 5px 12px;
+    }
+
+    .bl1-card-inner {
+        height: 150px;
+        padding: 10px 8px 36px;
+    }
+
+    .bl1-card-img {
+        max-height: 70px;
+    }
+
+    .bl1-card-label {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        padding: 6px 4px;
+    }
+
+    .bl1-images-grid {
+        gap: 12px;
+    }
+
+    .bl1-instruction {
+        font-size: 17px;
+        padding: 6px 14px;
+    }
+
+    .bl1-play-btn {
+        padding: 10px 22px;
+        font-size: 15px;
+    }
+
+    .bl1-heart {
+        font-size: 22px;
+    }
+}

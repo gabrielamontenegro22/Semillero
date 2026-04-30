@@ -1,0 +1,976 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap');
+
+/* ══ ROOT ══ */
+.hm1-root {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: "Nunito", sans-serif;
+    background: #000a1a;
+}
+
+.hm1-bg-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ══ RESULT ══ */
+.hm1-result-root {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hm1-result-card {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(28px);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 36px;
+    padding: 36px 48px;
+    text-align: center;
+    max-width: 460px;
+    width: 90%;
+    color: #fff;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+    animation: hm1CardIn .55s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+@keyframes hm1CardIn {
+    from {
+        transform: scale(.85) translateY(20px);
+        opacity: 0
+    }
+
+    to {
+        transform: none;
+        opacity: 1
+    }
+}
+
+.hm1-result-stitch {
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    animation: hm1StitchBob 1s ease infinite alternate;
+    filter: drop-shadow(0 8px 20px rgba(167, 139, 250, 0.6));
+    margin-bottom: 8px;
+}
+
+@keyframes hm1StitchBob {
+    from {
+        transform: translateY(0) rotate(-5deg)
+    }
+
+    to {
+        transform: translateY(-12px) rotate(5deg)
+    }
+}
+
+.hm1-result-badge {
+    display: inline-block;
+    background: rgba(167, 139, 250, 0.2);
+    border: 1px solid rgba(167, 139, 250, 0.45);
+    color: #C4B5FD;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+}
+
+.hm1-result-title {
+    font-family: "Fredoka One", cursive;
+    font-size: 32px;
+    margin: 0 0 14px;
+    color: #fff;
+}
+
+.hm1-result-stars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.hm1-rstar {
+    font-size: 42px;
+}
+
+.hm1-rstar.dim {
+    filter: grayscale(1);
+    opacity: .22;
+}
+
+.hm1-rstar.lit {
+    animation: hm1StarPop .5s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+.hm1-rstar.lit:nth-child(1) {
+    animation-delay: .1s
+}
+
+.hm1-rstar.lit:nth-child(2) {
+    animation-delay: .28s
+}
+
+.hm1-rstar.lit:nth-child(3) {
+    animation-delay: .46s
+}
+
+@keyframes hm1StarPop {
+    from {
+        transform: scale(0) rotate(-40deg);
+        opacity: 0
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1
+    }
+}
+
+.hm1-result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.hm1-rstat {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 78px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.hm1-rstat span:first-child {
+    font-size: 18px;
+}
+
+.hm1-rstat strong {
+    font-family: "Fredoka One", cursive;
+    font-size: 24px;
+    font-weight: 400;
+    color: #fff;
+    text-transform: none;
+}
+
+.hm1-result-btn {
+    width: 100%;
+    padding: 16px;
+    font-family: "Fredoka One", cursive;
+    font-size: 21px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #A78BFA, #6366F1);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 8px 28px rgba(167, 139, 250, 0.5);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.hm1-result-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+}
+
+/* ══ HEADER ══ */
+.hm1-header {
+    position: relative;
+    z-index: 200;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 28px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hm1-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.hm1-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hm1-badge {
+    color: #fff;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 50px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+.hm1-header-title {
+    font-family: "Fredoka One", cursive;
+    font-size: 20px;
+    color: #fff;
+}
+
+.hm1-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 7px 18px;
+    border-radius: 50px;
+    color: #fff;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.hm1-pill-streak {
+    background: linear-gradient(135deg, #FF6B35, #FFD500) !important;
+    border-color: transparent !important;
+    animation: hm1Streak .9s ease infinite alternate;
+    box-shadow: 0 0 16px rgba(255, 107, 53, .55);
+}
+
+@keyframes hm1Streak {
+    from {
+        transform: scale(1)
+    }
+
+    to {
+        transform: scale(1.07)
+    }
+}
+
+/* ══ PROGRESS ══ */
+.hm1-progress-wrap {
+    position: relative;
+    z-index: 200;
+    padding: 8px 28px;
+    flex-shrink: 0;
+}
+
+.hm1-progress-track {
+    width: 100%;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+}
+
+.hm1-progress-fill {
+    height: 100%;
+    border-radius: 50px;
+    transition: width .6s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.hm1-progress-dots {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10px;
+}
+
+.hm1-pdot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, .1);
+    transition: all .3s;
+}
+
+.hm1-pdot.done {
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.hm1-pdot.active {
+    transform: scale(1.6);
+    animation: hm1DotPulse 1s ease infinite alternate;
+}
+
+@keyframes hm1DotPulse {
+    from {
+        box-shadow: 0 0 4px rgba(255, 255, 255, .4)
+    }
+
+    to {
+        box-shadow: 0 0 14px rgba(255, 255, 255, .8)
+    }
+}
+
+/* ══ GAME — 3 COLUMNS ══ */
+.hm1-game {
+    position: relative;
+    z-index: 10;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2vw, 36px);
+    padding: 14px 28px;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* ── LEFT ── */
+.hm1-left-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    width: clamp(140px, 16vw, 220px);
+}
+
+/* Stitch */
+.hm1-stitch {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hm1-stitch-img {
+    width: clamp(100px, 14vw, 180px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 24px rgba(167, 139, 250, 0.6));
+}
+
+.hm1-stitch--idle .hm1-stitch-img {
+    animation: hm1StitchIdle 3s ease-in-out infinite alternate;
+}
+
+.hm1-stitch--playing .hm1-stitch-img {
+    animation: hm1StitchTalk .4s ease-in-out infinite alternate;
+    filter: drop-shadow(0 8px 32px rgba(96, 165, 250, 0.8));
+}
+
+.hm1-stitch--correct .hm1-stitch-img {
+    animation: hm1StitchJump .55s cubic-bezier(.34, 1.56, .64, 1);
+    filter: drop-shadow(0 8px 32px rgba(74, 222, 128, 0.8));
+}
+
+.hm1-stitch--wrong .hm1-stitch-img {
+    animation: hm1StitchShake .45s ease;
+    filter: drop-shadow(0 8px 32px rgba(255, 77, 109, 0.8));
+}
+
+@keyframes hm1StitchIdle {
+    from {
+        transform: translateY(0) rotate(-3deg)
+    }
+
+    to {
+        transform: translateY(-12px) rotate(3deg)
+    }
+}
+
+@keyframes hm1StitchTalk {
+    from {
+        transform: scaleY(1)
+    }
+
+    to {
+        transform: scaleY(1.05) translateY(-4px)
+    }
+}
+
+@keyframes hm1StitchJump {
+    0% {
+        transform: translateY(0)
+    }
+
+    40% {
+        transform: translateY(-28px) scale(1.1)
+    }
+
+    100% {
+        transform: translateY(0)
+    }
+}
+
+@keyframes hm1StitchShake {
+
+    0%,
+    100% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(-10px) rotate(-5deg)
+    }
+
+    75% {
+        transform: translateX(10px) rotate(5deg)
+    }
+}
+
+/* Wave under stitch when playing */
+.hm1-stitch-wave {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 3px;
+    align-items: flex-end;
+    height: 18px;
+}
+
+.hm1-stitch-wave span {
+    display: block;
+    width: 4px;
+    background: #60A5FA;
+    border-radius: 3px;
+    animation: hm1WaveBar .8s ease-in-out infinite;
+}
+
+.hm1-stitch-wave span:nth-child(2) {
+    animation-delay: .1s
+}
+
+.hm1-stitch-wave span:nth-child(3) {
+    animation-delay: .2s
+}
+
+.hm1-stitch-wave span:nth-child(4) {
+    animation-delay: .3s
+}
+
+.hm1-stitch-wave span:nth-child(5) {
+    animation-delay: .4s
+}
+
+@keyframes hm1WaveBar {
+
+    0%,
+    100% {
+        height: 4px
+    }
+
+    50% {
+        height: 18px
+    }
+}
+
+.hm1-play-btn {
+    font-family: "Fredoka One", cursive;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid;
+    border-radius: 50px;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: all .2s;
+    color: #fff;
+    backdrop-filter: blur(8px);
+}
+
+.hm1-play-btn:hover:not(:disabled) {
+    transform: scale(1.06);
+}
+
+.hm1-play-btn:disabled {
+    opacity: .4;
+    cursor: default;
+}
+
+.hm1-play-btn--playing {
+    opacity: .7;
+}
+
+.hm1-lives-row {
+    display: flex;
+    gap: 8px;
+}
+
+.hm1-life {
+    font-size: 22px;
+    transition: all .3s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.hm1-life.alive {
+    animation: hm1Heart 1.1s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 8px rgba(255, 77, 109, .8));
+}
+
+.hm1-life.lost {
+    filter: grayscale(1) opacity(.25);
+    transform: scale(.65);
+}
+
+@keyframes hm1Heart {
+    from {
+        transform: scale(1)
+    }
+
+    to {
+        transform: scale(1.28)
+    }
+}
+
+.hm1-round-pill {
+    font-family: "Fredoka One", cursive;
+    font-size: 14px;
+    padding: 6px 16px;
+    border-radius: 50px;
+    border: 2px solid;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    white-space: nowrap;
+}
+
+/* ── CENTER ── */
+.hm1-center-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.hm1-question-label {
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(22px, 3.5vw, 42px);
+    text-align: center;
+    line-height: 1.2;
+    animation: hm1QLabelIn .45s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+@keyframes hm1QLabelIn {
+    from {
+        transform: scale(.8);
+        opacity: 0
+    }
+
+    to {
+        transform: none;
+        opacity: 1
+    }
+}
+
+.hm1-emoji-card {
+    width: 100%;
+    max-width: 380px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(14px);
+    border: 3px solid;
+    border-radius: 28px;
+    padding: clamp(18px, 2.5vh, 32px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    transition: border-color .4s, box-shadow .4s;
+    animation: hm1CardIn .45s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.hm1-emoji-card--celebrate {
+    animation: hm1CardCelebrate .6s ease infinite alternate !important;
+}
+
+@keyframes hm1CardCelebrate {
+    from {
+        transform: scale(1) rotate(-1deg)
+    }
+
+    to {
+        transform: scale(1.05) rotate(1deg)
+    }
+}
+
+/* Emoji grid for countable */
+.hm1-emoji-grid {
+    display: grid;
+    gap: clamp(6px, 1vw, 12px);
+    align-items: center;
+    justify-items: center;
+}
+
+.hm1-emoji-item {
+    font-size: clamp(28px, 4vw, 48px);
+    animation: hm1EmojiIn .35s cubic-bezier(.34, 1.56, .64, 1) both;
+    user-select: none;
+    line-height: 1;
+}
+
+@keyframes hm1EmojiIn {
+    from {
+        transform: scale(0) rotate(-20deg);
+        opacity: 0
+    }
+
+    to {
+        transform: none;
+        opacity: 1
+    }
+}
+
+.hm1-emoji-celebrate {
+    animation: hm1EmojiCelebrate .5s ease-in-out infinite alternate !important;
+}
+
+@keyframes hm1EmojiCelebrate {
+    from {
+        transform: scale(1) rotate(-5deg)
+    }
+
+    to {
+        transform: scale(1.3) rotate(5deg)
+    }
+}
+
+/* Uncountable display */
+.hm1-emoji-uncountable {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.hm1-emoji-big {
+    font-size: clamp(38px, 6vw, 64px);
+    user-select: none;
+    animation: hm1EmojiIn .4s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+
+.hm1-emoji-med {
+    font-size: clamp(28px, 4vw, 46px) !important;
+    opacity: .75;
+}
+
+.hm1-emoji-sm {
+    font-size: clamp(20px, 3vw, 32px) !important;
+    opacity: .5;
+}
+
+.hm1-uncountable-label {
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(14px, 1.8vw, 18px);
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+}
+
+/* ── RIGHT ── */
+.hm1-right-col {
+    flex-shrink: 0;
+    width: clamp(220px, 30vw, 380px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.hm1-options-label {
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(14px, 1.8vw, 18px);
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+}
+
+.hm1-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(10px, 1.5vw, 16px);
+    width: 100%;
+}
+
+/* Option buttons */
+.hm1-option {
+    position: relative;
+    padding: clamp(14px, 2vh, 22px) clamp(10px, 1.5vw, 16px);
+    background: rgba(0, 0, 0, 0.55);
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform .2s cubic-bezier(.34, 1.56, .64, 1), border-color .2s, box-shadow .2s;
+    animation: hm1OptIn .45s cubic-bezier(.34, 1.56, .64, 1) both;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes hm1OptIn {
+    from {
+        opacity: 0;
+        transform: scale(.75) translateY(16px)
+    }
+
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+
+.hm1-option::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 55%);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.hm1-option:hover:not(:disabled) {
+    transform: translateY(-6px) scale(1.04);
+    border-color: var(--oc);
+    box-shadow: 0 12px 32px var(--og), 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+.hm1-option:disabled {
+    cursor: default;
+}
+
+.hm1-opt-correct {
+    border-color: #4ADE80 !important;
+    background: rgba(74, 222, 128, 0.2) !important;
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.3), 0 14px 40px rgba(74, 222, 128, 0.35) !important;
+    animation: hm1OptCorrect .5s cubic-bezier(.34, 1.56, .64, 1) !important;
+}
+
+@keyframes hm1OptCorrect {
+    from {
+        transform: scale(.88)
+    }
+
+    60% {
+        transform: scale(1.12)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+.hm1-opt-wrong {
+    border-color: #FF4D6D !important;
+    background: rgba(255, 77, 109, 0.2) !important;
+    animation: hm1OptWrong .45s ease !important;
+}
+
+@keyframes hm1OptWrong {
+
+    0%,
+    100% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(-9px)
+    }
+
+    75% {
+        transform: translateX(9px)
+    }
+}
+
+.hm1-opt-reveal {
+    border-color: #4ADE80 !important;
+    background: rgba(74, 222, 128, 0.1) !important;
+    opacity: .8;
+}
+
+.hm1-opt-label {
+    display: block;
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(16px, 2.2vw, 24px);
+    color: #fff;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hm1-verdict {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 900;
+    z-index: 5;
+    animation: hm1VerdIn .35s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+@keyframes hm1VerdIn {
+    from {
+        transform: scale(0) rotate(-30deg)
+    }
+
+    to {
+        transform: scale(1) rotate(0)
+    }
+}
+
+.hm1-vok {
+    background: #22C55E;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, .6);
+}
+
+.hm1-vfail {
+    background: #EF4444;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, .6);
+}
+
+.hm1-vreveal {
+    background: #22C55E;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, .4);
+    opacity: .75;
+}
+
+/* ══ FLOATERS ══ */
+.hm1-fp {
+    position: fixed;
+    top: 28%;
+    left: 50%;
+    font-family: "Fredoka One", cursive;
+    font-size: 64px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: hm1FpRise 1.1s cubic-bezier(.22, 1, .36, 1) forwards;
+    filter: drop-shadow(0 4px 0 rgba(0, 0, 0, .4));
+}
+
+.hm1-fpp {
+    color: #FFE234;
+}
+
+.hm1-fpn {
+    color: #FF4D6D;
+}
+
+@keyframes hm1FpRise {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1.6);
+    }
+
+    40% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-55px) scale(1.1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-140px) scale(.7);
+    }
+}
+
+/* ══ COMBO ══ */
+.hm1-combo {
+    position: fixed;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(22px, 3.5vw, 36px);
+    color: #fff;
+    z-index: 9998;
+    pointer-events: none;
+    background: linear-gradient(135deg, #FF6B35, #FFD500);
+    padding: 10px 32px;
+    border-radius: 50px;
+    box-shadow: 0 8px 32px rgba(255, 107, 53, .65);
+    animation: hm1ComboPop 1.6s cubic-bezier(.34, 1.56, .64, 1) forwards;
+    white-space: nowrap;
+}
+
+@keyframes hm1ComboPop {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(.5) rotate(-10deg);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.15) rotate(3deg);
+    }
+
+    40% {
+        transform: translateX(-50%) scale(1) rotate(0);
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) scale(.8) translateY(-30px);
+    }
+}
+
+/* ══ RESPONSIVE ══ */
+@media (max-width:768px) {
+    .hm1-game {
+        flex-direction: column;
+        padding: 10px 14px;
+    }
+
+    .hm1-left-col {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .hm1-center-col {
+        width: 100%;
+    }
+
+    .hm1-right-col {
+        width: 100%;
+    }
+
+    .hm1-options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

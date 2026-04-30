@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap');
+
+.ri-root {
+  width:100%; flex:1; min-height:0; position:relative; overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; background:#08001F;
+}
+.ri-result-root {
+  width:100%; min-height:100vh; display:flex; align-items:center;
+  justify-content:center; background:transparent; position:relative;
+}
+.ri-game-area {
+  position:relative; z-index:10; display:flex; flex-direction:column;
+  align-items:center; gap:clamp(12px,2vh,22px); padding:10px 20px 18px;
+  flex:1; width:100%; max-width:860px; justify-content:center;
+}
+
+/* ── Question ── */
+.ri-question-wrap {
+  display:flex; flex-direction:column; align-items:center; gap:10px; width:100%;
+}
+.ri-question-label {
+  font-family:"Fredoka One",cursive; font-size:clamp(15px,2.2vw,22px);
+  color:rgba(255,255,255,0.85); text-align:center;
+}
+.ri-round-counter {
+  font-family:"Nunito",sans-serif; font-weight:800; font-size:13px;
+  color:rgba(255,255,255,0.35); letter-spacing:1px; text-transform:uppercase;
+}
+
+/* ── Display card ── */
+.ri-display-card {
+  background:rgba(255,255,255,0.07); backdrop-filter:blur(20px);
+  border:2px solid; border-radius:28px;
+  padding:clamp(16px,2.5vh,28px) clamp(20px,3vw,40px);
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  transition:border-color 0.4s, box-shadow 0.4s;
+  animation:riCardIn 0.45s cubic-bezier(0.34,1.56,0.64,1);
+  min-width:220px;
+}
+@keyframes riCardIn { from{opacity:0;transform:scale(0.88) translateY(20px)} to{opacity:1;transform:none} }
+.ri-display-celebrate { animation:riDisplayCelebrate 0.5s ease infinite alternate !important; }
+@keyframes riDisplayCelebrate { from{transform:scale(1) rotate(-1deg)} to{transform:scale(1.04) rotate(1deg)} }
+
+/* ── Emoji display ── */
+.ri-emoji-display {
+  display:grid; grid-template-columns:repeat(var(--cols,3), 1fr);
+  gap:clamp(6px,1vw,12px); align-items:center; justify-items:center;
+  min-height:80px;
+}
+.ri-emoji-item {
+  animation:riEmojiIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+  display:flex; align-items:center; justify-content:center;
+  user-select:none; line-height:1;
+}
+@keyframes riEmojiIn { from{transform:scale(0) rotate(-20deg);opacity:0} to{transform:none;opacity:1} }
+.ri-emoji-celebrate { animation:riEmojiCelebrate 0.5s ease-in-out infinite alternate !important; }
+@keyframes riEmojiCelebrate { from{transform:scale(1) rotate(-5deg)} to{transform:scale(1.25) rotate(5deg)} }
+
+.ri-empty-display { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.ri-empty-box {
+  font-size:52px; color:rgba(255,255,255,0.25);
+  font-family:"Fredoka One",cursive;
+}
+.ri-empty-label {
+  font-family:"Nunito",sans-serif; font-weight:900; font-size:13px;
+  color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1px;
+}
+
+/* ── Listen btn ── */
+.ri-listen-btn {
+  font-family:"Fredoka One",cursive; font-size:15px;
+  background:transparent; border:2px solid; border-radius:50px;
+  padding:6px 20px; cursor:pointer; transition:all 0.2s; opacity:0.7;
+}
+.ri-listen-btn:hover:not(:disabled) { opacity:1; transform:scale(1.05); }
+.ri-listen-btn:disabled { cursor:default; opacity:0.4; }
+
+/* ── Options grid ── */
+.ri-options-grid {
+  display:grid; grid-template-columns:repeat(4, 1fr);
+  gap:clamp(10px,1.8vw,18px); width:100%; max-width:760px;
+}
+.ri-option {
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  padding:clamp(14px,2vh,22px) clamp(10px,1.5vw,16px);
+  background:rgba(255,255,255,0.07); border:2px solid rgba(255,255,255,0.12);
+  border-radius:22px; cursor:pointer; position:relative; overflow:hidden;
+  transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  animation:riOptIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+  -webkit-tap-highlight-color:transparent;
+}
+@keyframes riOptIn { from{opacity:0;transform:scale(0.8) translateY(14px)} to{opacity:1;transform:none} }
+.ri-option:hover:not(:disabled) {
+  transform:translateY(-6px) scale(1.05);
+  border-color:var(--opt-color);
+  box-shadow:0 8px 28px var(--opt-glow), 0 0 0 3px rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.12);
+}
+.ri-option:disabled { cursor:default; }
+
+.ri-option.correct {
+  border-color:#4ADE80 !important; background:rgba(74,222,128,0.18) !important;
+  box-shadow:0 0 0 4px rgba(74,222,128,0.25), 0 12px 36px rgba(74,222,128,0.3) !important;
+  animation:riOptCorrect 0.5s cubic-bezier(0.34,1.56,0.64,1) !important;
+}
+@keyframes riOptCorrect { from{transform:scale(0.9)} 60%{transform:scale(1.12)} to{transform:scale(1)} }
+.ri-option.wrong {
+  border-color:#FF4D6D !important; background:rgba(255,77,109,0.18) !important;
+  animation:riOptWrong 0.45s ease !important;
+}
+@keyframes riOptWrong { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+.ri-option.reveal {
+  border-color:#4ADE80 !important; background:rgba(74,222,128,0.08) !important; opacity:0.8;
+}
+
+.ri-opt-num {
+  font-family:"Fredoka One",cursive; font-size:clamp(30px,4.5vw,50px);
+  line-height:1; text-shadow:0 2px 12px currentColor;
+}
+.ri-opt-word {
+  font-family:"Nunito",sans-serif; font-weight:900;
+  font-size:clamp(12px,1.6vw,17px); color:rgba(255,255,255,0.7);
+  text-transform:lowercase; letter-spacing:0.5px;
+}
+
+/* ── Floaters ── */
+.ri-fp {
+  position:fixed; top:28%; left:50%;
+  font-family:"Fredoka One",cursive; font-size:72px;
+  pointer-events:none; z-index:9999;
+  animation:niFpRise 1.1s cubic-bezier(0.22,1,0.36,1) forwards;
+  filter:drop-shadow(0 4px 0 rgba(0,0,0,0.4));
+}
+.ri-fp-pos { color:#FFE234; } .ri-fp-neg { color:#FF4D6D; }
+
+/* ── Combo ── */
+.ri-combo-banner {
+  position:fixed; top:18%; left:50%; transform:translateX(-50%);
+  font-family:"Fredoka One",cursive; font-size:clamp(22px,3.5vw,36px);
+  color:#fff; z-index:9998; pointer-events:none;
+  background:linear-gradient(135deg,#FF6B35,#FFD500);
+  padding:10px 32px; border-radius:50px;
+  box-shadow:0 8px 32px rgba(255,107,53,0.6);
+  animation:comboPop 1.6s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  white-space:nowrap;
+}
+@keyframes comboPop {
+  0%  { opacity:0; transform:translateX(-50%) scale(0.5) rotate(-10deg); }
+  20% { opacity:1; transform:translateX(-50%) scale(1.15) rotate(3deg); }
+  40% { transform:translateX(-50%) scale(1) rotate(0); }
+  80% { opacity:1; }
+  100%{ opacity:0; transform:translateX(-50%) scale(0.8) translateY(-30px); }
+}
+
+@media(max-width:600px) {
+  .ri-options-grid { grid-template-columns:repeat(2,1fr); }
+  .ri-opt-num { font-size:28px; }
+}

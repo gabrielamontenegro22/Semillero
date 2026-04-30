@@ -41,64 +41,89 @@ export default function MisActividadesDocente() {
 
   return (
     <div className="actividades-docente-container">
-      <button className="volver-btn" onClick={() => navigate("/docente")}>
-        ⬅ Volver
-      </button>
-
-      <h2>📝 Mis Actividades</h2>
+      {/* ── HEADER ── */}
+      <div className="rj-header">
+        <button className="rj-volver" onClick={() => navigate("/docente")}>
+          ⬅ Volver
+        </button>
+        <h2 className="rj-titulo">Mis Actividades</h2>
+        <p className="rj-subtitulo">
+          Aquí puedes gestionar los ejercicios y cuestionarios creados para tus estudiantes.
+        </p>
+      </div>
 
       {actividades.length === 0 ? (
         <p>No has creado actividades aún.</p>
       ) : (
-        <table className="tabla-actividades">
-          <thead>
-            <tr>
-              <th>Título</th>
-              <th>Área</th>
-              <th>Estado</th>
-              <th>Fecha creación</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
+        <div className="tabla-actividades">
+          <div className="rj-grupo-header">
+            <span className="rj-grupo-icon">📝</span>
+            <h3 className="rj-grupo-titulo">Listado General</h3>
+            <span className="rj-grupo-count">{actividades.length} Actividades</span>
+          </div>
 
-          <tbody>
-            {actividades.map((a) => (
-              <tr key={a.id}>
-                <td>{a.titulo}</td>
-                <td>{a.area}</td>
-                <td className={`estado ${a.estado}`}>{a.estado}</td>
-                <td>{new Date(a.fecha_creacion.seconds * 1000).toLocaleDateString()}</td>
-
-                <td className="acciones">
-                  {/* Activar / desactivar */}
-                  <button
-                    onClick={() => toggleEstado(a)}
-                    className="btn-estado"
-                  >
-                    {a.estado === "activa" ? "Desactivar" : "Activar"}
-                  </button>
-
-                  {/* EDITAR – USA EL MISMO CREADOR CON ID */}
-                  <button
-                    className="btn-editar"
-                    onClick={() => navigate(`/docente/crear-avanzada/${a.id}`)}
-                  >
-                    ✏ Editar
-                  </button>
-
-                  {/* ELIMINAR */}
-                  <button
-                    onClick={() => eliminarActividad(a.id)}
-                    className="btn-eliminar"
-                  >
-                    🗑 Eliminar
-                  </button>
-
-                </td>
+          <table className="rj-tabla">
+            <thead>
+              <tr>
+                <th>Título y Área</th>
+                <th>Estado actual</th>
+                <th>Fecha creación</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {actividades.map((a) => (
+                <tr key={a.id}>
+                  <td>
+                    <div className="rj-td-estudiante">
+                      <span className="rj-est-nombre">{a.titulo}</span>
+                      <span className="rj-est-grado">{a.area}</span>
+                    </div>
+                  </td>
+                  
+                  <td>
+                    <span className={`estado ${a.estado}`}>{a.estado}</span>
+                  </td>
+                  
+                  <td>
+                    <span className="rj-td-fecha">
+                      {new Date(a.fecha_creacion.seconds * 1000).toLocaleDateString()}
+                    </span>
+                  </td>
+
+                  <td>
+                    <div className="acciones">
+                      {/* Activar / desactivar */}
+                      <button
+                        onClick={() => toggleEstado(a)}
+                        className="btn-estado"
+                      >
+                        {a.estado === "activa" ? "Desactivar" : "Activar"}
+                      </button>
+
+                      {/* EDITAR */}
+                      <button
+                        className="btn-editar"
+                        onClick={() => navigate(`/docente/crear-avanzada/${a.id}`)}
+                      >
+                        ✏ Editar
+                      </button>
+
+                      {/* ELIMINAR */}
+                      <button
+                        onClick={() => eliminarActividad(a.id)}
+                        className="btn-eliminar"
+                      >
+                        🗑 Eliminar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

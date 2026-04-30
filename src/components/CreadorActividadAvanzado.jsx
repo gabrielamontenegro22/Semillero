@@ -62,6 +62,12 @@ export default function CreadorActividadAvanzado() {
     setOpciones(nuevas);
   };
 
+  const handleEliminarOpcion = (index) => {
+    const nuevas = [...opciones];
+    nuevas.splice(index, 1);
+    setOpciones(nuevas);
+  };
+
   const handleAgregarPregunta = () => {
     if (!preguntaActual.trim()) return;
 
@@ -177,12 +183,23 @@ export default function CreadorActividadAvanzado() {
           <label>Opciones:</label>
           <div className="opciones-container">
             {opciones.map((op, i) => (
-              <input
-                key={i}
-                value={op}
-                onChange={(e) => handleCambioOpcion(i, e.target.value)}
-                placeholder={`Opción ${i + 1}`}
-              />
+              <div key={i} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                <input
+                  value={op}
+                  onChange={(e) => handleCambioOpcion(i, e.target.value)}
+                  placeholder={`Opción ${i + 1}`}
+                  style={{ flex: 1 }}
+                />
+                {opciones.length > 1 && (
+                  <button
+                    onClick={() => handleEliminarOpcion(i)}
+                    className="eliminar-opcion-btn"
+                    title="Eliminar Opción"
+                  >
+                    ❌
+                  </button>
+                )}
+              </div>
             ))}
           </div>
 

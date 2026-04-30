@@ -1,104 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800;900&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes tp-cardIn {
+  from {
+    transform: scale(0.9) translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes tp-fieldIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes tp-avatarBounce {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-8px) scale(1.04);
+  }
+}
+
+@keyframes tp-btnPress {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes tp-sparkleAnim {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+}
+
+/* ── BASE ── */
 .teacher-profile {
   min-height: 100vh;
-  padding: 60px 80px;
-  background-image: url('../assets/fondoo.jpg');
-  font-family: 'Segoe UI', sans-serif;
-}
-
-.teacher-profile h1 {
-  font-size: 3rem;
-  margin-bottom: 50px;
-  color: #1f4f60;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px 80px;
-  max-width: 900px;
-}
-
-.field label {
-  display: block;
-  font-weight: bold;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-  color: #245a6d;
-}
-
-.field span {
-  font-size: 1.4rem;
-  color: #123;
-}
-
-.field input,
-.field select {
-  font-size: 1.2rem;
-  padding: 12px 14px;
-  width: 260px;
-  border-radius: 10px;
-  border: 2px solid #9dd7e8;
-  outline: none;
-}
-
-.nivel {
-  display: inline-block;
-  font-size: 1.2rem;
-  background: #ffd966;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-weight: bold;
-}
-
-.edit-btn {
-  margin-top: 60px;
-  padding: 16px 40px;
-  font-size: 1.1rem;
-  border-radius: 30px;
-  border: none;
-  background: #4db6ff;
-  color: white;
-  cursor: pointer;
-}
-
-.edit-btn:hover {
-  background: #2fa3f7;
-}
-
-.volver-wrapper {
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  padding: 20px 20px 60px;
+  color: #fff;
 }
 
-.volver-btn {
-  background-color: #3fa072;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  padding: 0.7rem 1.4rem;
-  font-size: 1rem;
-  margin-top: 1rem;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-/* Botón volver fijo en la esquina superior izquierda */
-.volver-btn {
-  position: absolute;
-  top: 20px;       /* Distancia desde arriba */
-  left: 20px;      /* Distancia desde la izquierda */
-  background: #ff9800;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  z-index: 10;     /* Para que quede encima de todo */
-  transition: 0.3s ease;
+.tp-svg-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.volver-btn:hover {
-  background: #e68a00;
+.teacher-profile>*:not(.tp-svg-bg) {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── BACK BUTTON ── */
+.tp-volver-btn {
+  position: fixed !important;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 15px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.tp-volver-btn:hover {
   transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── AVATAR ── */
+.tp-avatar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tp-avatar {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6, #6d28d9);
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fredoka One', cursive;
+  font-size: 40px;
+  color: #fff;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: tp-avatarBounce 4s ease-in-out infinite;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.tp-avatar::before {
+  content: '👨‍🏫';
+  position: absolute;
+  top: -16px;
+  right: -8px;
+  font-size: 26px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.tp-avatar-name {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  margin-top: 12px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tp-avatar-role {
+  font-family: 'Fredoka One', cursive;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  padding: 5px 16px;
+  color: #fff;
+  margin-top: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.tp-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  margin: 15px 0 20px;
+  color: #e2e8f0;
+  text-transform: uppercase;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* ── CARD ── */
+.tp-card {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 24px;
+  padding: 20px 28px 28px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  animation: tp-cardIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── FIELDS ── */
+.tp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  animation: tp-fieldIn 0.4s ease both;
+}
+
+.tp-field:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.tp-field:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.tp-field:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.tp-field:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+.tp-label {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #cbd5e1;
+  padding-left: 4px;
+}
+
+.tp-label span {
+  margin-right: 6px;
+  font-size: 15px;
+}
+
+.tp-value {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.tp-input,
+.tp-select {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 2px solid #8b5cf6;
+  outline: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1e1e2f;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tp-input:focus,
+.tp-select:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.3);
+}
+
+.tp-email {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #94a3b8;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── BUTTONS ── */
+.tp-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.tp-edit-btn,
+.tp-save-btn,
+.tp-cancel-btn {
+  flex: 1;
+  padding: 14px 16px;
+  border-radius: 50px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 17px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tp-edit-btn {
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
+  animation: tp-btnPress 3s ease-in-out infinite;
+}
+
+.tp-edit-btn:hover {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  transform: translateY(-3px);
+}
+
+.tp-save-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.tp-save-btn:hover {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  transform: translateY(-3px);
+}
+
+.tp-cancel-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+.tp-cancel-btn:hover {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+  transform: translateY(-3px);
+}
+
+.tp-sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 3;
+  animation: tp-sparkleAnim 4s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+  .teacher-profile {
+    padding: 20px 16px 40px;
+  }
+
+  .tp-avatar {
+    width: 85px;
+    height: 85px;
+    font-size: 36px;
+  }
+
+  .tp-avatar-name {
+    font-size: 1.5rem;
+  }
+
+  .tp-card {
+    padding: 18px 20px;
+  }
+
+  .tp-edit-btn,
+  .tp-save-btn,
+  .tp-cancel-btn {
+    font-size: 15px;
+    padding: 12px;
+  }
 }

@@ -1,77 +1,214 @@
+/* ── MisActividadesDocente.css ── */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap");
+
 .actividades-docente-container {
-  padding: 2rem;
-  background: url('../assets/fondoo.jpg') center/cover no-repeat;
-  min-height: 100vh;
-
-  padding-top: 70px; /* ⬅ baja TODO: botón, título y tabla */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  padding: 32px 24px 150px;
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+  overflow-y: auto;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-.volver-btn {
-  background: #ff9800;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 20px;
-  font-weight: bold;
+/* ── SCROLLBAR CUSTOM ── */
+.actividades-docente-container::-webkit-scrollbar {
+  width: 10px;
 }
 
-h2 {
-  text-align: center;
-  background: rgba(255,255,255,0.8);
-  padding: 10px 20px;
-  border-radius: 15px;
+.actividades-docente-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
 }
 
-.tabla-actividades {
+.actividades-docente-container::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.5);
+  border-radius: 10px;
+}
+
+.actividades-docente-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.8);
+}
+
+/* ── HEADER GENERAL ── */
+.rj-header {
+  margin-bottom: 32px;
   width: 100%;
-  background: rgba(255,255,255,0.95);
-  border-radius: 15px;
-  padding: 1rem;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.rj-volver {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 24px;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.rj-volver:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-3px);
+}
+
+.rj-titulo {
+  font-size: 28px;
+  font-weight: 900;
+  margin: 0 0 8px 0;
+  background: linear-gradient(90deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: left;
+}
+
+.rj-subtitulo {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* ── TABLA GENERAL ── */
+.tabla-actividades {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 }
 
 .tabla-actividades table {
   width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
 }
 
-thead {
-  background: #ffcc80;
+.tabla-actividades thead tr {
+  background: rgba(0, 0, 0, 0.2);
 }
 
-td, th {
-  padding: 12px;
-  text-align: center;
+.tabla-actividades th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.estado.activa { color: #2ecc71; font-weight: bold; }
-.estado.inactiva { color: #e74c3c; font-weight: bold; }
-.estado.expirada { color: #9b59b6; font-weight: bold; }
+.tabla-actividades td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.tabla-actividades tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Mensaje Vacío */
+.actividades-docente-container p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* ── BADGES (Estados) ── */
+.estado {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
+}
+
+.estado.activa {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.estado.inactiva {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.estado.expirada {
+  background: rgba(167, 139, 250, 0.15);
+  color: #a78bfa;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
+
+/* ── BOTONES DE ACCIÓN ── */
+.acciones {
+  display: flex;
+  gap: 8px;
+}
 
 .acciones button {
-  margin: 0 5px;
-  padding: 6px 10px;
-  border: none;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 50px;
   cursor: pointer;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 12px;
+  transition: all 0.2s;
 }
 
-.btn-estado {
-  background: #3498db;
-  color: white;
+.acciones button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.btn-editar {
-  background: #f1c40f;
+.btn-estado:hover {
+  background: rgba(96, 165, 250, 0.3);
+  border-color: #60a5fa;
+  color: #60a5fa;
 }
 
-.btn-eliminar {
-  background: #e74c3c;
-  color: white;
+.btn-editar:hover {
+  background: rgba(250, 204, 21, 0.3);
+  border-color: #facc15;
+  color: #facc15;
 }
 
-.btn-expirar {
-  background: #8e44ad;
-  color: white;
+.btn-eliminar:hover {
+  background: rgba(248, 113, 113, 0.3);
+  border-color: #f87171;
+  color: #f87171;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  .actividades-docente-container {
+    padding: 24px 16px 100px;
+  }
 }

@@ -1,0 +1,747 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&family=Poppins:wght@400;600&display=swap');
+
+/* ─── BASE ─────────────────────────────────────────────── */
+.hl2-game-root {
+    width: 100%;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: linear-gradient(180deg, #FEFCE8 0%, #FEF9C3 50%, #FEF3C7 100%);
+}
+
+.hl2-bg-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hl2-loading {
+    margin: auto;
+    text-align: center;
+    font-family: "Fredoka One", cursive;
+    font-size: 28px;
+    color: #7C2D12;
+    z-index: 3;
+    position: relative;
+}
+
+.hl2-read-container {
+    width: 100%;
+    flex: 1;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 32px 24px;
+    position: relative;
+    z-index: 2;
+}
+
+.hl2-wrapper {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(4px, 1vh, 10px);
+}
+
+.hl2-wrapper.hl2-shake {
+    animation: hl2-shake 0.45s ease;
+}
+
+@keyframes hl2-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    60% {
+        transform: translateX(-8px);
+    }
+
+    80% {
+        transform: translateX(8px);
+    }
+}
+
+.hl2-wrapper.hl2-bounce {
+    animation: hl2-bounceUp 0.5s ease;
+}
+
+@keyframes hl2-bounceUp {
+    0% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-12px);
+    }
+
+    70% {
+        transform: translateY(4px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes hl2-sparkle {
+    from {
+        opacity: 0.3;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* ─── HEADER BAR ──────────────────────────────────────── */
+.hl2-header-bar {
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.92), rgba(180, 83, 9, 0.92));
+    backdrop-filter: blur(18px);
+    border-bottom: 3px solid #FCD34D;
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(180, 83, 9, 0.4);
+}
+
+.hl2-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hl2-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hl2-header-badge {
+    background: linear-gradient(135deg, #FCD34D, #F59E0B);
+    color: #7C2D12;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    padding: 4px 14px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 12px rgba(252, 211, 77, 0.5);
+    border: 1px solid #fff;
+}
+
+.hl2-header-title {
+    font-family: "Fredoka One", cursive;
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 0.3px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hl2-header-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(254, 243, 199, 0.95);
+    border: 2px solid #FBBF24;
+    padding: 6px 16px;
+    border-radius: 50px;
+    color: #7C2D12;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.hl2-streak-pill {
+    background: linear-gradient(135deg, #FBBF24, #DC2626) !important;
+    border-color: #fff !important;
+    color: #fff !important;
+    animation: hl2-StreakGlow 0.9s ease infinite alternate;
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.7);
+}
+
+@keyframes hl2-StreakGlow {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.07);
+    }
+}
+
+/* ─── PROGRESS BAR ────────────────────────────────────── */
+.hl2-progress-track {
+    width: min(90%, 800px);
+    height: 18px;
+    background: rgba(180, 83, 9, 0.25);
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #B45309;
+    box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.2),
+        0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.hl2-progress-fill {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hl2-progress-steps {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10px;
+}
+
+.hl2-progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(180, 83, 9, 0.4);
+    border: 2px solid rgba(180, 83, 9, 0.6);
+    transition: all 0.3s;
+}
+
+.hl2-progress-dot.done {
+    background: #FBBF24;
+}
+
+.hl2-progress-dot.active {
+    transform: scale(1.6);
+    animation: hl2-DotPulse 1s ease infinite alternate;
+}
+
+@keyframes hl2-DotPulse {
+    from {
+        filter: brightness(1);
+    }
+
+    to {
+        filter: brightness(1.4);
+    }
+}
+
+/* ─── INSTRUCCIÓN ─────────────────────────────────────── */
+.hl2-instruction {
+    text-align: center;
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(16px, 2vw, 22px);
+    color: #7C2D12;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+    margin: 0;
+    letter-spacing: 0.5px;
+    padding: 4px 20px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1.5px dashed #FBBF24;
+    border-radius: 14px;
+    backdrop-filter: blur(4px);
+}
+
+/* ─── LIVES ─────────────────────────────────────────── */
+.hl2-lives-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: absolute;
+    right: clamp(10px, 2vw, 40px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.4);
+    padding: 10px;
+    border-radius: 50px;
+    border: 2px solid rgba(251, 191, 36, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.hl2-heart {
+    font-size: clamp(24px, 2vw, 32px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hl2-heart.lost {
+    opacity: 0.3;
+    transform: scale(0.7) rotate(-20deg);
+    filter: grayscale(1);
+}
+
+.hl2-heart.alive {
+    animation: hl2-heartPulse 1.2s infinite alternate;
+    filter: drop-shadow(0 4px 10px rgba(220, 38, 38, 0.5));
+}
+
+@keyframes hl2-heartPulse {
+    from {
+        transform: scale(1) rotate(-5deg);
+    }
+
+    to {
+        transform: scale(1.13) rotate(5deg);
+    }
+}
+
+/* ─── IMAGEN GRANDE ─────────────────────────────────── */
+.hl2-image-card {
+    background: linear-gradient(160deg, #FFFFFF, #FEF3C7);
+    border: 5px solid var(--card-color, #FBBF24);
+    border-radius: 24px;
+    padding: clamp(12px, 1.4vw, 22px);
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.6),
+        0 14px 28px rgba(180, 83, 9, 0.3),
+        0 0 28px var(--card-glow, rgba(251, 191, 36, 0.6));
+    position: relative;
+    overflow: hidden;
+    animation: hl2-cardEnter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hl2-image-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(225deg, rgba(252, 211, 77, 0.55) 50%, transparent 50%);
+    border-radius: 0 19px 0 0;
+    pointer-events: none;
+}
+
+@keyframes hl2-cardEnter {
+    from {
+        transform: scale(0.85) translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.hl2-image {
+    width: clamp(300px, 40vw, 550px);
+    height: clamp(240px, 32vw, 420px);
+    object-fit: cover;
+    border-radius: 14px;
+    display: block;
+    filter: drop-shadow(0 6px 14px rgba(180, 83, 9, 0.3));
+}
+
+/* ─── BANNER SLOT ─────────────────────────────────────── */
+.hl2-banner-slot {
+    width: 100%;
+    min-height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hl2-retry-banner {
+    background: linear-gradient(135deg, #FEF3C7, #FCD34D);
+    border: 3px dashed #B45309;
+    border-radius: 16px;
+    padding: 10px 28px;
+    color: #7C2D12;
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+    font-size: clamp(15px, 1.4vw, 18px);
+    text-align: center;
+    animation: hl2-retryPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 6px 18px rgba(180, 83, 9, 0.4);
+}
+
+@keyframes hl2-retryPop {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.hl2-retry-banner.found {
+    background: linear-gradient(135deg, #FEE2E2, #FCA5A5);
+    border-color: #DC2626;
+    color: #7F1D1D;
+}
+
+/* ─── PILLS DE OPCIONES ────────────────────────────────── */
+.hl2-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(14px, 1.6vw, 24px);
+    width: 100%;
+    max-width: 800px;
+    margin: 8px auto 0;
+    align-items: center;
+    justify-items: stretch;
+}
+
+.hl2-option {
+    background: var(--opt-color, #FBBF24);
+    border: 3.5px solid #fff;
+    border-radius: 50px;
+    padding: clamp(12px, 1.5vh, 20px) clamp(20px, 2.2vw, 34px);
+    color: #fff;
+    font-family: "Fredoka One", cursive;
+    font-size: clamp(20px, 2vw, 29px);
+    font-weight: 400;
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 6px 0 rgba(0, 0, 0, 0.2),
+        0 10px 24px var(--opt-glow, rgba(251, 191, 36, 0.5));
+    transition: transform 0.25s, box-shadow 0.25s;
+    text-transform: lowercase;
+    letter-spacing: 0.3px;
+    width: 100%;
+}
+
+.hl2-option:hover:not(:disabled) {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow:
+        0 10px 0 rgba(0, 0, 0, 0.2),
+        0 16px 32px var(--opt-glow, rgba(251, 191, 36, 0.7));
+}
+
+.hl2-option:active:not(:disabled) {
+    transform: translateY(2px) scale(0.97);
+}
+
+.hl2-option:disabled {
+    cursor: default;
+    opacity: 0.85;
+}
+
+.hl2-option.correct {
+    background: #10B981 !important;
+    box-shadow:
+        0 6px 0 rgba(0, 0, 0, 0.2),
+        0 0 24px rgba(16, 185, 129, 0.8) !important;
+    animation: hl2-correctBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes hl2-correctBounce {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12) rotate(2deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.hl2-option.wrong {
+    background: #DC2626 !important;
+    box-shadow:
+        0 6px 0 rgba(0, 0, 0, 0.2),
+        0 0 24px rgba(220, 38, 38, 0.8) !important;
+    animation: hl2-wrongShake 0.5s ease;
+}
+
+@keyframes hl2-wrongShake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-8px);
+    }
+
+    75% {
+        transform: translateX(8px);
+    }
+}
+
+.hl2-option.reveal-correct {
+    background: #10B981 !important;
+    box-shadow:
+        0 6px 0 rgba(0, 0, 0, 0.2),
+        0 0 24px rgba(16, 185, 129, 0.9) !important;
+    animation: hl2-revealPulse 1s ease infinite alternate;
+}
+
+@keyframes hl2-revealPulse {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.04);
+    }
+}
+
+/* ─── FLOATING POINTS ─────────────────────────────────── */
+.hl2-floating-points {
+    position: fixed;
+    top: 38%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Fredoka One", cursive;
+    font-size: 52px;
+    pointer-events: none;
+    z-index: 999;
+    animation: hl2-floatUp 1.2s ease forwards;
+}
+
+.hl2-floating-points.pos {
+    color: #047857;
+    text-shadow: 0 3px 0 #fff, 0 0 20px rgba(4, 120, 87, 0.8);
+}
+
+.hl2-floating-points.neg {
+    color: #DC2626;
+    text-shadow: 0 3px 0 #fff, 0 0 20px rgba(220, 38, 38, 0.8);
+}
+
+@keyframes hl2-floatUp {
+    0% {
+        transform: translateX(-50%) translateY(0) scale(1.4);
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-40px) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(-100px) scale(0.7);
+        opacity: 0;
+    }
+}
+
+/* ─── RESULT CARD ─────────────────────────────────────── */
+.hl2-result-container {
+    align-items: center;
+    justify-content: center;
+}
+
+.hl2-result-card {
+    position: relative;
+    z-index: 3;
+    background: linear-gradient(160deg, #FFFFFF, #FEF3C7);
+    backdrop-filter: blur(28px);
+    border: 4px solid #FBBF24;
+    border-radius: 24px;
+    padding: 44px 48px;
+    text-align: center;
+    max-width: 460px;
+    width: 90%;
+    color: #7C2D12;
+    box-shadow: 0 30px 80px rgba(180, 83, 9, 0.5);
+    animation: hl2-CardResIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin: auto;
+}
+
+@keyframes hl2-CardResIn {
+    from {
+        transform: scale(0.85) translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.hl2-result-emoji {
+    font-size: 76px;
+    display: block;
+    margin: 0 auto 10px;
+    animation: hl2-ResEmojiBob 1.8s ease infinite alternate;
+    filter: drop-shadow(0 8px 20px rgba(180, 83, 9, 0.5));
+}
+
+@keyframes hl2-ResEmojiBob {
+    from {
+        transform: translateY(0) rotate(-5deg) scale(1);
+    }
+
+    to {
+        transform: translateY(-12px) rotate(5deg) scale(1.08);
+    }
+}
+
+.hl2-result-badge {
+    display: inline-block;
+    background: #7C2D12;
+    border: 2px solid #FCD34D;
+    color: #FEF3C7;
+    font-family: "Nunito", sans-serif;
+    font-weight: 900;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+}
+
+.hl2-result-title {
+    font-family: "Fredoka One", cursive !important;
+    font-size: 30px !important;
+    font-weight: 400 !important;
+    margin: 0 0 18px !important;
+    color: #7C2D12 !important;
+}
+
+.hl2-result-stars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 26px;
+}
+
+.hl2-rstar {
+    font-size: 42px;
+}
+
+.hl2-rstar.dim {
+    filter: grayscale(1);
+    opacity: 0.25;
+}
+
+.hl2-rstar.lit {
+    animation: hl2-StarPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.hl2-rstar.lit:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.hl2-rstar.lit:nth-child(2) {
+    animation-delay: 0.28s;
+}
+
+.hl2-rstar.lit:nth-child(3) {
+    animation-delay: 0.46s;
+}
+
+@keyframes hl2-StarPop {
+    from {
+        transform: scale(0) rotate(-40deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+.hl2-result-stats {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.hl2-rstat {
+    background: rgba(251, 191, 36, 0.1);
+    border: 2px solid rgba(251, 191, 36, 0.35);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 80px;
+    font-size: 11px;
+    color: #B45309;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-family: "Nunito", sans-serif;
+}
+
+.hl2-rstat span:first-child {
+    font-size: 20px;
+}
+
+.hl2-rstat strong {
+    font-family: "Fredoka One", cursive;
+    font-size: 24px;
+    font-weight: 400;
+    color: #7C2D12;
+    text-transform: none;
+}
+
+.hl2-result-btn {
+    width: 100%;
+    padding: 17px;
+    font-family: "Fredoka One", cursive;
+    font-weight: 400;
+    font-size: 22px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #FBBF24, #B45309);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 8px 26px rgba(251, 191, 36, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hl2-result-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 14px 36px rgba(251, 191, 36, 0.7);
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 700px) {
+    .hl2-read-container {
+        padding: 10px 16px;
+    }
+
+    .hl2-options-grid {
+        grid-template-columns: 1fr;
+    }
+}

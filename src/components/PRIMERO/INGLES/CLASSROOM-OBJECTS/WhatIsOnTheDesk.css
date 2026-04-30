@@ -1,0 +1,1142 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap');
+
+/* ══ HEADER ══ */
+.witd-header-bar {
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+}
+
+.witd-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.witd-header-badge {
+  background: linear-gradient(135deg, #FF6B35, #FFD500);
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 50px;
+  box-shadow: 0 3px 10px rgba(255, 107, 53, 0.4);
+}
+
+.witd-header-title {
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  color: #fff;
+}
+
+.witd-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.witd-header-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 6px 16px;
+  border-radius: 50px;
+  color: #fff;
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.witd-streak-pill {
+  background: linear-gradient(135deg, #FF6B35, #FFD500) !important;
+  border-color: transparent !important;
+  animation: witdStreakGlow 0.9s ease infinite alternate;
+  box-shadow: 0 0 14px rgba(255, 107, 53, 0.5);
+}
+
+@keyframes witdStreakGlow {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.07);
+  }
+}
+
+/* ══ FLOATING POINTS ══ */
+.witd-fp {
+  position: fixed;
+  top: 28%;
+  left: 50%;
+  font-family: "Fredoka One", cursive;
+  font-size: 64px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: witdFpRise 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.5));
+}
+
+.witd-fp-pos {
+  color: #FFE234;
+}
+
+.witd-fp-neg {
+  color: #FF4D6D;
+}
+
+@keyframes witdFpRise {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.6);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-55px) scale(1.1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-140px) scale(0.7);
+  }
+}
+
+.witd-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  animation: witdParticleBurst 1s ease-out forwards;
+}
+
+@keyframes witdParticleBurst {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1.5);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(0.3) rotate(270deg);
+  }
+}
+
+/* ══ ROOT — SPACE SCENE ══ */
+.witd-root {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse 120% 100% at 50% 0%, #1B0A4F 0%, #0D0720 40%, #000510 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Stars layer */
+.witd-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.witd-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: witdTwinkle var(--d, 2s) ease infinite alternate;
+}
+
+@keyframes witdTwinkle {
+  from {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+/* Planets */
+.witd-planet {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.witd-planet-1 {
+  width: 90px;
+  height: 90px;
+  top: 8%;
+  right: 6%;
+  background: radial-gradient(circle at 35% 35%, #FF9A3C, #C95C00);
+  box-shadow: 0 0 40px rgba(255, 154, 60, 0.5), inset -15px -10px 0 rgba(0, 0, 0, 0.25);
+  animation: witdPlanetFloat 6s ease infinite alternate;
+}
+
+.witd-planet-2 {
+  width: 55px;
+  height: 55px;
+  top: 15%;
+  left: 5%;
+  background: radial-gradient(circle at 40% 30%, #7C5CFC, #3B1CA8);
+  box-shadow: 0 0 24px rgba(124, 92, 252, 0.5), inset -8px -6px 0 rgba(0, 0, 0, 0.3);
+  animation: witdPlanetFloat 8s ease infinite alternate-reverse;
+}
+
+.witd-planet-3 {
+  width: 36px;
+  height: 36px;
+  bottom: 18%;
+  left: 8%;
+  background: radial-gradient(circle at 38% 32%, #4ADE80, #16A34A);
+  box-shadow: 0 0 16px rgba(74, 222, 128, 0.5);
+  animation: witdPlanetFloat 5s ease infinite alternate;
+}
+
+@keyframes witdPlanetFloat {
+  from {
+    transform: translateY(0) rotate(0);
+  }
+
+  to {
+    transform: translateY(-18px) rotate(8deg);
+  }
+}
+
+/* Saturn ring */
+.witd-planet-1::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140%;
+  height: 28%;
+  border-radius: 50%;
+  border: 7px solid rgba(255, 200, 100, 0.45);
+  transform: translate(-50%, -50%) rotateX(70deg);
+  pointer-events: none;
+}
+
+/* Rocket */
+.witd-rocket {
+  position: absolute;
+  right: 10%;
+  bottom: 22%;
+  font-size: clamp(36px, 4vw, 54px);
+  animation: witdRocketFloat 4s ease infinite alternate;
+  z-index: 2;
+  filter: drop-shadow(0 0 16px rgba(255, 200, 50, 0.6));
+  transform-origin: center;
+}
+
+@keyframes witdRocketFloat {
+  from {
+    transform: translateY(0) rotate(-15deg);
+  }
+
+  to {
+    transform: translateY(-22px) rotate(-8deg);
+  }
+}
+
+/* ══ PROGRESS ══ */
+.witd-progress-wrap {
+  position: relative;
+  width: 55%;
+  max-width: 480px;
+  margin: 14px auto 0;
+  z-index: 20;
+}
+
+.witd-progress-track {
+  width: 100%;
+  height: 13px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+}
+
+.witd-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4ADE80, #FFE234 55%, #FF6B6B);
+  border-radius: 50px;
+  transition: width 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 14px rgba(255, 226, 52, 0.8);
+}
+
+.witd-progress-steps {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+}
+
+.witd-progress-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s;
+}
+
+.witd-progress-dot.done {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: transparent;
+}
+
+.witd-progress-dot.active {
+  background: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  transform: scale(1.4);
+}
+
+/* ══ ASTRONAUT BUBBLE ══ */
+.witd-astronaut-row {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 16px auto 0;
+  padding: 0 24px;
+}
+
+.witd-astronaut {
+  font-size: clamp(48px, 6vw, 72px);
+  animation: witdAstroFloat 3s ease infinite alternate;
+  filter: drop-shadow(0 0 20px rgba(124, 92, 252, 0.6));
+  flex-shrink: 0;
+}
+
+@keyframes witdAstroFloat {
+  from {
+    transform: translateY(0) rotate(-5deg);
+  }
+
+  to {
+    transform: translateY(-14px) rotate(5deg);
+  }
+}
+
+.witd-speech {
+  position: relative;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  border-radius: 28px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  min-width: 220px;
+}
+
+/* Speech bubble tail pointing left */
+.witd-speech::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 8px solid transparent;
+  border-right-color: rgba(255, 255, 255, 0.3);
+}
+
+.witd-speech.listening {
+  border-color: #4ADE80;
+  box-shadow: 0 0 0 5px rgba(74, 222, 128, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4);
+  animation: witdSpeechPulse 0.6s ease infinite alternate;
+}
+
+@keyframes witdSpeechPulse {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.03);
+  }
+}
+
+.witd-speech-text {
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(15px, 1.8vw, 20px);
+  color: #fff;
+  white-space: nowrap;
+}
+
+.witd-sound-wave {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #4ADE80;
+}
+
+.witd-dots {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+}
+
+.witd-dots span {
+  display: block;
+  width: 5px;
+  border-radius: 3px;
+  background: #4ADE80;
+  animation: witdDot 0.6s ease infinite alternate;
+}
+
+.witd-dots span:nth-child(1) {
+  height: 8px;
+  animation-delay: 0s;
+}
+
+.witd-dots span:nth-child(2) {
+  height: 16px;
+  animation-delay: 0.15s;
+}
+
+.witd-dots span:nth-child(3) {
+  height: 10px;
+  animation-delay: 0.3s;
+}
+
+@keyframes witdDot {
+  from {
+    transform: scaleY(0.3);
+  }
+
+  to {
+    transform: scaleY(1.2);
+  }
+}
+
+.witd-replay-btn {
+  background: rgba(74, 222, 128, 0.2);
+  border: 2px solid #4ADE80;
+  color: #4ADE80;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.witd-replay-btn:hover {
+  transform: scale(1.2) rotate(-12deg);
+  background: rgba(74, 222, 128, 0.35);
+}
+
+.witd-lives {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.witd-life {
+  font-size: 22px;
+  transition: all 0.3s;
+}
+
+.witd-life.lost {
+  filter: grayscale(1);
+  opacity: 0.2;
+  transform: scale(0.7);
+}
+
+.witd-life.alive {
+  animation: witdHeart 1s ease infinite alternate;
+}
+
+@keyframes witdHeart {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.25);
+  }
+}
+
+/* ══ ITEMS GRID — floating in space ══ */
+.witd-items-grid {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.8vw, 32px);
+  /* ← antes clamp(12px, 2vw, 24px) */
+  padding: 20px clamp(16px, 4vw, 60px);
+  width: 100%;
+  max-width: 920px;
+  /* ← antes 780px */
+  margin: 0 auto;
+  flex: 1;
+  align-content: center;
+}
+
+/* ══ ITEM CARD ══ */
+.witd-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  animation: witdItemFloat var(--float-d, 3s) ease infinite alternate;
+  animation-delay: var(--float-off, 0s);
+  transition: transform 0.2s;
+}
+
+@keyframes witdItemFloat {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.witd-item:hover .witd-item-card {
+  transform: scale(1.12);
+  border-color: var(--item-color);
+  box-shadow: 0 0 0 4px var(--item-color), 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--item-glow);
+}
+
+.witd-item-card {
+  width: clamp(120px, 14vw, 180px);
+  height: clamp(120px, 14vw, 180px);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.15);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glassy shine */
+.witd-item-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent);
+  border-radius: 25px 25px 0 0;
+  pointer-events: none;
+}
+
+/* Color glow undercard */
+.witd-item-card::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 15%;
+  right: 15%;
+  height: 18px;
+  background: var(--item-color);
+  filter: blur(12px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.witd-item-img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s;
+}
+
+.witd-item:hover .witd-item-img {
+  transform: scale(1.12) rotate(5deg);
+}
+
+.witd-item-label {
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(14px, 1.6vw, 20px);
+  /* ← antes clamp(12px, 1.3vw, 16px) */
+  color: #fff;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  padding: 3px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ── State: correct → rocket launch ── */
+.witd-item-correct .witd-item-card {
+  border-color: #4ADE80 !important;
+  box-shadow: 0 0 0 5px #4ADE80, 0 0 50px rgba(74, 222, 128, 0.8) !important;
+  background: rgba(74, 222, 128, 0.15) !important;
+}
+
+.witd-item-correct {
+  animation: witdLaunch 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+}
+
+@keyframes witdLaunch {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+
+  30% {
+    transform: scale(1.35) translateY(-12px) rotate(8deg);
+  }
+
+  100% {
+    transform: scale(0.1) translateY(-200px) rotate(40deg);
+    opacity: 0;
+  }
+}
+
+/* ── State: wrong → shake ── */
+.witd-item-wrong .witd-item-card {
+  border-color: #FF4D6D !important;
+  box-shadow: 0 0 0 4px #FF4D6D, 0 0 30px rgba(255, 77, 109, 0.7) !important;
+  background: rgba(255, 77, 109, 0.12) !important;
+}
+
+.witd-item-wrong {
+  animation: witdWrong 0.5s ease !important;
+}
+
+@keyframes witdWrong {
+
+  0%,
+  100% {
+    transform: translateX(0) rotate(0);
+  }
+
+  20% {
+    transform: translateX(-14px) rotate(-8deg);
+  }
+
+  40% {
+    transform: translateX(14px) rotate(7deg);
+  }
+
+  60% {
+    transform: translateX(-9px) rotate(-5deg);
+  }
+
+  80% {
+    transform: translateX(9px) rotate(4deg);
+  }
+}
+
+/* ── State: gone ── */
+.witd-item-gone {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+/* ══ RESULT ══ */
+.witd-result-root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse 120% 100% at 50% 0%, #1B0A4F, #0D0720 50%, #000510);
+  position: relative;
+}
+
+.witd-result-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(124, 92, 252, 0.2), transparent);
+  pointer-events: none;
+}
+
+.witd-result-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 32px;
+  padding: 44px 48px;
+  text-align: center;
+  max-width: 440px;
+  width: 90%;
+  color: #fff;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  animation: witdCardIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes witdCardIn {
+  from {
+    transform: scale(0.85) translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.witd-result-emoji {
+  font-size: 72px;
+  display: block;
+  margin-bottom: 8px;
+  animation: witdTrophyBob 1s ease infinite alternate;
+}
+
+@keyframes witdTrophyBob {
+  from {
+    transform: translateY(0) rotate(-4deg);
+  }
+
+  to {
+    transform: translateY(-14px) rotate(4deg);
+  }
+}
+
+.witd-result-badge {
+  display: inline-block;
+  background: rgba(255, 107, 53, 0.25);
+  border: 1px solid rgba(255, 107, 53, 0.5);
+  color: #FDBA74;
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 50px;
+  margin-bottom: 12px;
+}
+
+.witd-result-title {
+  font-family: "Fredoka One", cursive !important;
+  font-size: 34px !important;
+  font-weight: 400 !important;
+  margin: 0 0 18px !important;
+  color: #fff !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.witd-result-stars {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.witd-rstar {
+  font-size: 42px;
+}
+
+.witd-rstar.dim {
+  filter: grayscale(1);
+  opacity: 0.25;
+}
+
+.witd-rstar.lit {
+  animation: witdStarPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.witd-rstar.lit:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.witd-rstar.lit:nth-child(2) {
+  animation-delay: 0.28s;
+}
+
+.witd-rstar.lit:nth-child(3) {
+  animation-delay: 0.46s;
+}
+
+@keyframes witdStarPop {
+  from {
+    transform: scale(0) rotate(-40deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+.witd-result-stats {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.witd-rstat {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-family: "Nunito", sans-serif;
+}
+
+.witd-rstat span:first-child {
+  font-size: 20px;
+}
+
+.witd-rstat strong {
+  font-family: "Fredoka One", cursive;
+  font-size: 26px;
+  font-weight: 400;
+  color: #fff;
+  text-transform: none;
+}
+
+.witd-result-btn {
+  width: 100%;
+  padding: 17px;
+  font-family: "Fredoka One", cursive;
+  font-size: 22px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #FF6B35, #FFD500);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 26px rgba(255, 107, 53, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.witd-result-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 14px 36px rgba(255, 107, 53, 0.65);
+}
+
+@media(max-width:600px) {
+  .witd-items-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .witd-item-card {
+    width: 80px;
+    height: 80px;
+  }
+
+  .witd-astronaut {
+    font-size: 40px;
+  }
+
+  .witd-speech-text {
+    font-size: 13px;
+  }
+
+  .witd-planet-1,
+  .witd-planet-2,
+  .witd-planet-3 {
+    display: none;
+  }
+}
+
+/* ─── READING MODE: palabra grande para LEER ─── */
+.witd-speech-reading {
+  gap: 16px;
+  padding: 12px 22px;
+}
+
+.witd-speech-lead {
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(14px, 1.6vw, 18px);
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.witd-word-big {
+  font-family: "Fredoka One", cursive;
+  font-size: clamp(28px, 3.6vw, 46px);
+  letter-spacing: 3px;
+  padding: 4px 18px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  white-space: nowrap;
+  animation: witdWordPulse 2s ease infinite alternate;
+}
+
+@keyframes witdWordPulse {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.04);
+  }
+}
+
+/* ─── REVEAL VERDE (cuando pierde vidas) ─── */
+.witd-item-reveal {
+  pointer-events: none !important;
+  animation: none !important;
+}
+
+.witd-item-reveal .witd-item-card {
+  border-color: #4ADE80 !important;
+  background: rgba(74, 222, 128, 0.25) !important;
+  box-shadow:
+    0 0 0 6px #4ADE80,
+    0 0 50px rgba(74, 222, 128, 0.9),
+    0 18px 40px rgba(0, 0, 0, 0.4) !important;
+  animation: witdRevealPulse 0.5s ease-in-out infinite alternate !important;
+}
+
+.witd-item-reveal::before {
+  content: "✅";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 32px;
+  z-index: 10;
+  filter: drop-shadow(0 4px 8px rgba(74, 222, 128, 0.8));
+  animation: witdRevealCheck 0.6s ease-in-out infinite alternate;
+}
+
+.witd-item-reveal .witd-item-label {
+  background: #4ADE80 !important;
+  color: #052e16 !important;
+  border-color: #fff !important;
+}
+
+@keyframes witdRevealPulse {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes witdRevealCheck {
+  from {
+    transform: scale(1) rotate(-10deg);
+  }
+
+  to {
+    transform: scale(1.2) rotate(10deg);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/* 🚀 RESULT SCREEN - FONDO ESPACIAL ANIMADO                 */
+/* ═══════════════════════════════════════════════════════ */
+
+.witd-result-root {
+  overflow: hidden;
+  background: radial-gradient(ellipse 120% 100% at 50% 0%, #1B0A4F 0%, #0D0720 40%, #000510 100%);
+}
+
+/* Estrellas en el resultado heredan animación witdTwinkle */
+
+/* Planetas adicionales solo en el resultado */
+.witd-planet-result-1 {
+  width: 70px;
+  height: 70px;
+  top: 70%;
+  right: 12%;
+  background: radial-gradient(circle at 35% 35%, #F472B6, #BE185D);
+  box-shadow: 0 0 30px rgba(244, 114, 182, 0.6), inset -12px -8px 0 rgba(0, 0, 0, 0.25);
+  animation: witdPlanetFloat 7s ease infinite alternate;
+  z-index: 1;
+}
+
+.witd-planet-result-2 {
+  width: 45px;
+  height: 45px;
+  bottom: 8%;
+  right: 30%;
+  background: radial-gradient(circle at 38% 32%, #38BDF8, #0369A1);
+  box-shadow: 0 0 22px rgba(56, 189, 248, 0.5);
+  animation: witdPlanetFloat 9s ease infinite alternate-reverse;
+  z-index: 1;
+}
+
+/* Cohete en posición de victoria */
+.witd-rocket-result {
+  right: auto;
+  left: 8%;
+  bottom: auto;
+  top: 25%;
+  font-size: clamp(48px, 5vw, 72px);
+  animation: witdRocketCelebrate 3s ease infinite alternate;
+  z-index: 2;
+}
+
+@keyframes witdRocketCelebrate {
+  0% {
+    transform: translateY(0) rotate(-15deg) scale(1);
+  }
+
+  50% {
+    transform: translateY(-30px) rotate(15deg) scale(1.1);
+  }
+
+  100% {
+    transform: translateY(-10px) rotate(-5deg) scale(1.05);
+  }
+}
+
+/* Cometas atravesando la pantalla */
+.witd-comet {
+  position: absolute;
+  top: 15%;
+  left: -10%;
+  font-size: clamp(28px, 3vw, 42px);
+  z-index: 2;
+  pointer-events: none;
+  animation: witdCometFly 6s linear infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+}
+
+.witd-comet-2 {
+  top: 40%;
+  font-size: clamp(20px, 2.5vw, 32px);
+  animation-duration: 8s;
+  animation-delay: 3s;
+  filter: drop-shadow(0 0 15px rgba(255, 226, 52, 0.9));
+}
+
+@keyframes witdCometFly {
+  0% {
+    left: -10%;
+    top: 15%;
+    opacity: 0;
+    transform: rotate(-25deg);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: rotate(-15deg);
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 110%;
+    top: 35%;
+    opacity: 0;
+    transform: rotate(-5deg);
+  }
+}
+
+/* OVNI flotante */
+.witd-ufo {
+  position: absolute;
+  top: 12%;
+  right: 20%;
+  font-size: clamp(38px, 4vw, 56px);
+  z-index: 2;
+  pointer-events: none;
+  animation: witdUfoHover 4s ease infinite alternate;
+  filter: drop-shadow(0 0 18px rgba(124, 92, 252, 0.7));
+}
+
+@keyframes witdUfoHover {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateX(20px) translateY(-15px) rotate(3deg);
+  }
+
+  100% {
+    transform: translateX(-10px) translateY(8px) rotate(-2deg);
+  }
+}
+
+/* Satélite girando */
+.witd-satellite {
+  position: absolute;
+  bottom: 18%;
+  left: 18%;
+  font-size: clamp(32px, 3.5vw, 48px);
+  z-index: 2;
+  pointer-events: none;
+  animation: witdSatelliteOrbit 8s linear infinite;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
+}
+
+@keyframes witdSatelliteOrbit {
+  0% {
+    transform: rotate(0deg) translateX(40px) rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg) translateX(40px) rotate(-360deg);
+  }
+}
+
+/* La card del resultado tiene mayor z-index para que esté arriba de todo */
+.witd-result-card {
+  z-index: 5 !important;
+}

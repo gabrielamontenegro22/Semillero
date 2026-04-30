@@ -1,209 +1,384 @@
+/* ── CreadorActividadAvanzado.css ── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+
 .crear-form-container {
-  background: url('../assets/fondoo.jpg') no-repeat center/cover;
-  min-height: 100vh;
-  padding: 2rem;
-  color: #333;
+  padding: 40px 24px 40px;
+  background: url('../assets/fondoo.jpg') center/cover no-repeat;
+  background-attachment: fixed;
   font-family: 'Poppins', sans-serif;
+  color: #2c3e50;
   display: flex;
   flex-direction: column;
   align-items: center;
-    height: 100vh;         /* Mantiene el alto fijo */
-  overflow: hidden;      /* Evita scroll general */
+  position: relative;
+  /* Espacio extra superior para el botón volver */
+  padding-top: 5rem;
+  height: 100vh;
+  overflow: hidden;
 }
 
+/* ── BOTÓN VOLVER ── */
+.volver-btn {
+  background: #ff9f43;
+  border: 3px solid #fff;
+  padding: 10px 24px;
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: 0 6px 0 #ee5253, 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.1s ease;
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.volver-btn:active {
+  transform: translateY(6px);
+  box-shadow: 0 0px 0 #ee5253, 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ── TÍTULO ── */
 .crear-form-container h2 {
-  color: #283a2f;
-  padding: 0.8rem 2rem;
-  border-radius: 15px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin: 0 0 1.5rem;
+  text-shadow: 
+    0px 0px 15px rgba(255, 255, 255, 1),
+    0px 0px 30px rgba(255, 255, 255, 0.8),
+    2px 2px 0px rgba(255, 255, 255, 1);
+  text-align: center;
 }
 
-/* 🔹 Contenedor principal en dos columnas */
+/* ── CONTENEDOR GRID PRINCIPAL (2 Columnas) ── */
 .crear-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  width: 95%;
-  max-width: 1200px;
-}
-
-/* 🔹 Panel izquierdo: creación */
-.crear-col {
-  background: #fffbe8;
-  border-radius: 20px;
-  padding: 1.5rem;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-  text-align: left;
-    max-height: 80vh;
-  overflow-y: auto;
-}
-
-.crear-col::-webkit-scrollbar {
-  width: 8px;
-}
-.crear-col::-webkit-scrollbar-thumb {
-  background: #ffb84c;
-  border-radius: 6px;
-}
-.crear-col input,
-.crear-col textarea {
+  gap: 2rem;
   width: 100%;
-  margin: 0.4rem 0;
-  padding: 0.6rem;
-  border-radius: 10px;
-  border: 2px solid #ffd28a;
-  font-size: 0.95rem;
-  background: #fff;
+  max-width: 1300px;
+  max-height: calc(100vh - 180px); /* Para activar el scroll interno */
 }
 
-/* 🔹 Opciones con scroll */
+/* SCROLL ESTILIZADO PARA LOS PANELES INTERNOS */
+.crear-col::-webkit-scrollbar,
+.preguntas-panel::-webkit-scrollbar,
+.opciones-container::-webkit-scrollbar {
+  width: 10px;
+}
+.crear-col::-webkit-scrollbar-track,
+.preguntas-panel::-webkit-scrollbar-track,
+.opciones-container::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.4);
+  border-radius: 10px;
+}
+.crear-col::-webkit-scrollbar-thumb,
+.preguntas-panel::-webkit-scrollbar-thumb,
+.opciones-container::-webkit-scrollbar-thumb {
+  background: #ffb84c;
+  border-radius: 10px;
+  border: 2px solid #fff;
+}
+
+/* ── PANEL IZQUIERDO (Formulario Creador) ── */
+.crear-col {
+  background: #fffbe8; /* Amarillo clarito original */
+  border: 5px solid #fff;
+  border-radius: 30px;
+  padding: 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 8px 0px #ffd28a;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  overflow-y: auto;
+  padding-right: 1.5rem; /* Espacio para el scroll */
+}
+
+.crear-col label {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin-top: 0.5rem;
+}
+
+.crear-col h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #e15f41;
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.crear-col hr {
+  border: 2px dashed #ffd28a;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+/* INPUTS DEL PANEL IZQUIERDO */
+.crear-col input,
+.crear-col textarea,
+.area-select {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 3px solid #ffd28a;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #2c3e50;
+  background: #fff;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.crear-col input:focus,
+.crear-col textarea:focus,
+.area-select:focus {
+  border-color: #ffb84c;
+  box-shadow: 0 0 0 4px rgba(255, 184, 76, 0.3);
+}
+
+.area-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+/* OPCIONES CONTAINER */
 .opciones-container {
   background: #fffdf0;
-  border: 1px dashed #ffcb6b;
+  border: 3px dashed #ffcb6b;
+  border-radius: 20px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.opciones-container input {
+  margin: 0;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+}
+
+.eliminar-opcion-btn {
+  background: #ff6b6b;
+  border: 2px solid #ee5253;
+  color: white;
   border-radius: 12px;
-  padding: 0.8rem;
-  margin: 0.5rem 0 1rem 0;
-  max-height: 130px;
-  overflow-y: auto;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  flex-shrink: 0;
 }
 
-.opciones-container::-webkit-scrollbar {
-  width: 6px;
-}
-.opciones-container::-webkit-scrollbar-thumb {
-  background-color: #ffcb6b;
-  border-radius: 10px;
+.eliminar-opcion-btn:hover {
+  background: #ee5253;
+  transform: scale(1.05);
 }
 
-/* 🔹 Botones */
-.agregar-btn, .guardar-btn, .volver-btn {
-  background-color: #3fa072;
+/* CONTROLES DE IMAGEN (File Input) */
+.crear-col input[type="file"] {
+  border: 3px dashed #ffb84c;
+  padding: 1rem;
+  background: #fffdf0;
+  cursor: pointer;
+}
+
+.crear-col input[type="file"]::file-selector-button {
+  background: #ffb84c;
   color: white;
   border: none;
-  border-radius: 25px;
-  padding: 0.7rem 1.4rem;
-  font-size: 1rem;
-  margin-top: 1rem;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  transition: 0.3s ease;
-}
-.agregar-btn:hover, .guardar-btn:hover {
-  background-color: #2e855a;
-  transform: scale(1.03);
+  margin-right: 1rem;
+  transition: all 0.2s;
 }
 
-/* 🔹 Panel derecho: vista de preguntas */
+.crear-col input[type="file"]::file-selector-button:hover {
+  background: #f39c12;
+}
+
+/* ── PANEL DERECHO (Vista Previa de Preguntas) ── */
 .preguntas-panel {
-  background: rgba(255, 137, 137, 0.92);
-  border-radius: 20px;
-  padding: 1.5rem;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+  background: rgba(255, 137, 137, 0.95); /* Rojo pastel original */
+  border: 5px solid #fff;
+  border-radius: 30px;
+  padding: 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 8px 0px #e66767;
   overflow-y: auto;
-  max-height: 600px;
+  padding-right: 1.5rem;
 }
 
 .preguntas-panel h3 {
   text-align: center;
-  color: #2c2c2c;
-  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px dashed rgba(255,255,255,0.4);
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.1);
 }
 
+.preguntas-panel > p {
+  text-align: center;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Ítem de Pregunta Guardada */
 .pregunta-item {
-  background: #fffbe1;
-  border-left: 5px solid #ffb84c;
-  border-radius: 12px;
-  margin: 0.6rem 0;
-  padding: 0.8rem 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 20px;
+  border: 3px solid #fff;
+  border-left: 8px solid #ffb84c;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
 .pregunta-item strong {
-  color: #2c2c2c;
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #2c3e50;
+  margin-bottom: 0.8rem;
 }
 
 .pregunta-item ul {
   list-style: none;
-  padding-left: 0.5rem;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .pregunta-item li {
   background: #f6f6f6;
-  border-radius: 6px;
-  margin: 3px 0;
-  padding: 4px 8px;
+  border: 2px solid #dfe4ea;
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.pregunta-item p {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1dd1a1;
+  background: #e8f8f5;
+  padding: 6px 12px;
+  border-radius: 12px;
+  display: inline-block;
+  margin: 0 0 1rem 0;
+  border: 2px solid #1dd1a1;
 }
 
 .pregunta-item img {
-  width: 90px;
-  border-radius: 10px;
-  margin-top: 5px;
-  display: block;
-}
-
-/* 🔹 Responsive para pantallas pequeñas */
-@media (max-width: 900px) {
-  .crear-grid {
-    grid-template-columns: 1fr;
-  }
-  .preguntas-panel {
-    max-height: none;
-  }
-}
-.area-select {
   width: 100%;
-  padding: 0.6rem;
-  border-radius: 10px;
-  border: 2px solid #ffd28a;
-  font-size: 0.95rem;
-  background: #fff;
-  margin-bottom: 0.8rem;
+  max-width: 200px;
+  border-radius: 16px;
+  margin-bottom: 1rem;
+  display: block;
+  border: 3px solid #dfe4ea;
+}
+
+/* ── BOTONES DE ACCIÓN (3D) ── */
+.agregar-btn, .guardar-btn, .editar-btn, .eliminar-btn {
+  border: 3px solid #fff;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 1.05rem;
+  font-weight: 800;
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.area-select:hover {
-  border-color: #3fa072;
-}
-
-.area-select:focus {
-  outline: none;
-  border-color: #3fa072;
-  box-shadow: 0 0 6px rgba(63, 160, 114, 0.4);
-}
-
-.mensaje {
-  font-weight: bold;
-  margin-top: 1rem;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  transition: all 0.1s ease;
   text-align: center;
 }
 
-.mensaje:contains('✅') {
-  color: #2e8b57;
+.agregar-btn {
+  background: #3fa072; /* Color verde oscuro original */
+  box-shadow: 0 5px 0 #2e855a, 0 8px 15px rgba(0,0,0,0.1);
+  margin-top: 5px;
+}
+.agregar-btn:active { box-shadow: 0 0px 0 #2e855a; transform: translateY(5px); }
+
+.guardar-btn {
+  background: #1dd1a1;
+  box-shadow: 0 5px 0 #10ac84, 0 8px 15px rgba(0,0,0,0.1);
+  padding: 16px;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+.guardar-btn:active { box-shadow: 0 0px 0 #10ac84; transform: translateY(5px); }
+
+.pregunta-acciones {
+  display: flex;
+  gap: 10px;
 }
 
-.mensaje:contains('❌') {
-  color: #e74c3c;
+.editar-btn {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  background: #feca57;
+  box-shadow: 0 4px 0 #f39c12;
+}
+.editar-btn:active { box-shadow: 0 0px 0 #f39c12; transform: translateY(4px); }
+
+.eliminar-btn {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  background: #ff6b6b;
+  box-shadow: 0 4px 0 #ee5253;
+}
+.eliminar-btn:active { box-shadow: 0 0px 0 #ee5253; transform: translateY(4px); }
+
+/* ── MENSAJE ESTADO GENERAL ── */
+.mensaje {
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-align: center;
+  background: #fff;
+  padding: 12px;
+  border-radius: 16px;
+  margin-top: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.mensaje:contains('✅'), .mensaje:contains('✏️') { color: #1dd1a1; border: 3px solid #1dd1a1; }
+.mensaje:contains('❌') { color: #ff6b6b; border: 3px solid #ff6b6b; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1000px) {
+  .crear-grid { grid-template-columns: 1fr; max-height: none; }
+  .crear-col, .preguntas-panel { max-height: none; overflow-y: visible; }
+  .crear-form-container { height: auto; overflow: auto; }
 }
 
-/* Botón volver fijo en la esquina superior izquierda */
-.volver-btn {
-  position: absolute;
-  top: 20px;       /* Distancia desde arriba */
-  left: 20px;      /* Distancia desde la izquierda */
-  background: #ff9800;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 12px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  z-index: 10;     /* Para que quede encima de todo */
-  transition: 0.3s ease;
-}
-
-.volver-btn:hover {
-  background: #e68a00;
-  transform: scale(1.05);
+@media (max-width: 600px) {
+  .crear-form-container { padding-top: 5rem; height: auto; overflow: auto; }
+  .volver-btn { top: 1rem; left: 1rem; padding: 8px 18px; font-size: 1rem; }
+  .crear-form-container h2 { font-size: 2.2rem; }
+  .crear-col, .preguntas-panel { padding: 1.5rem; }
 }
