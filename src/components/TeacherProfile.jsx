@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword,
+} from "firebase/auth";
 import { traducirErrorFirebase } from "../utils/firebaseErrors";
+import toast from "react-hot-toast";
 import "./TeacherProfile.css";
 
 const SPARKLES = [
-  { top: "15%", left: "10%", delay: "0s",   emoji: "✨" },
+  { top: "15%", left: "10%", delay: "0s", emoji: "✨" },
   { top: "12%", left: "85%", delay: "1.2s", emoji: "⭐" },
-  { top: "65%", left: "8%",  delay: "0.8s", emoji: "✨" },
+  { top: "65%", left: "8%", delay: "0.8s", emoji: "✨" },
   { top: "72%", left: "90%", delay: "1.5s", emoji: "⭐" },
 ];
 
@@ -18,12 +24,12 @@ function AnimatedAdminBg() {
       {/* Background Gradient */}
       <defs>
         <linearGradient id="tp-dark" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stopColor="#0f0c29"/>
-          <stop offset="50%"  stopColor="#302b63"/>
-          <stop offset="100%" stopColor="#24243e"/>
+          <stop offset="0%" stopColor="#0f0c29" />
+          <stop offset="50%" stopColor="#302b63" />
+          <stop offset="100%" stopColor="#24243e" />
         </linearGradient>
       </defs>
-      <rect width="1440" height="900" fill="url(#tp-dark)"/>
+      <rect width="1440" height="900" fill="url(#tp-dark)" />
 
       {/* Grid Lines */}
       <g stroke="rgba(255,255,255,0.03)" strokeWidth="1">
@@ -37,26 +43,26 @@ function AnimatedAdminBg() {
 
       {/* Floating Geometric Shapes */}
       <g opacity="0.4">
-        <animateTransform attributeName="transform" type="translate" values="0,0; -20,-30; 0,0" dur="10s" repeatCount="indefinite"/>
-        <circle cx="150" cy="200" r="60" fill="none" stroke="#8b5cf6" strokeWidth="4" strokeDasharray="10 10"/>
-        <rect x="1200" y="150" width="80" height="80" fill="none" stroke="#a78bfa" strokeWidth="3" transform="rotate(45 1240 190)"/>
-        <polygon points="250,750 300,850 200,850" fill="none" stroke="#6d28d9" strokeWidth="3"/>
-        <circle cx="1300" cy="800" r="40" fill="none" stroke="#10b981" strokeWidth="4" strokeDasharray="5 5"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0; -20,-30; 0,0" dur="10s" repeatCount="indefinite" />
+        <circle cx="150" cy="200" r="60" fill="none" stroke="#8b5cf6" strokeWidth="4" strokeDasharray="10 10" />
+        <rect x="1200" y="150" width="80" height="80" fill="none" stroke="#a78bfa" strokeWidth="3" transform="rotate(45 1240 190)" />
+        <polygon points="250,750 300,850 200,850" fill="none" stroke="#6d28d9" strokeWidth="3" />
+        <circle cx="1300" cy="800" r="40" fill="none" stroke="#10b981" strokeWidth="4" strokeDasharray="5 5" />
       </g>
-      
+
       <g opacity="0.3">
-        <animateTransform attributeName="transform" type="translate" values="0,0; 30,20; 0,0" dur="15s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0; 30,20; 0,0" dur="15s" repeatCount="indefinite" />
         <circle cx="600" cy="100" r="120" fill="none" stroke="#8b5cf6" strokeWidth="1" />
         <circle cx="850" cy="850" r="150" fill="none" stroke="#a78bfa" strokeWidth="1" />
-        <rect x="700" y="400" width="200" height="200" fill="none" stroke="#302b63" strokeWidth="2" transform="rotate(15 800 500)"/>
+        <rect x="700" y="400" width="200" height="200" fill="none" stroke="#302b63" strokeWidth="2" transform="rotate(15 800 500)" />
       </g>
 
       {/* Glowing Orbs */}
       <circle cx="200" cy="800" r="150" fill="#6d28d9" filter="blur(80px)" opacity="0.3">
-        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="5s" repeatCount="indefinite" />
       </circle>
       <circle cx="1200" cy="200" r="200" fill="#a78bfa" filter="blur(100px)" opacity="0.2">
-        <animate attributeName="opacity" values="0.1;0.3;0.1" dur="7s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.1;0.3;0.1" dur="7s" repeatCount="indefinite" />
       </circle>
     </svg>
   );
@@ -73,13 +79,17 @@ export default function TeacherProfile() {
     email: "",
   });
 
+  // Estados para cambio de contraseña
+  const [mostrarCambioPassword, setMostrarCambioPassword] = useState(false);
+  const [passwordActual, setPasswordActual] = useState("");
+  const [passwordNueva, setPasswordNueva] = useState("");
+  const [passwordConfirmar, setPasswordConfirmar] = useState("");
+  const [mensajePassword, setMensajePassword] = useState({ tipo: "", texto: "" });
+  const [loadingPassword, setLoadingPassword] = useState(false);
+
   const materias = [
-    "Matemáticas",
-    "Español",
-    "Ciencias",
-    "Inglés",
-    "Historia",
-    "Informática",
+    "Inglés"
+
   ];
 
   useEffect(() => {
@@ -94,14 +104,14 @@ export default function TeacherProfile() {
       const snap = await getDoc(ref);
 
       if (!snap.exists()) {
-        alert("No existe perfil de docente");
+        toast.error("No existe perfil de docente");
         return;
       }
 
       const data = snap.data();
 
       if (data.rol !== "docente") {
-        alert("Acceso no autorizado");
+        toast.error("Acceso no autorizado");
         navigate("/");
         return;
       }
@@ -134,11 +144,70 @@ export default function TeacherProfile() {
         },
         { merge: true }
       );
-      alert("¡Perfil del docente actualizado! ✅");
+      toast.success("¡Perfil del docente actualizado!");
       setEditing(false);
     } catch (error) {
       console.error("Error al actualizar perfil docente:", error);
-      alert("❌ " + traducirErrorFirebase(error));
+      toast.error(traducirErrorFirebase(error));
+    }
+  };
+
+  const handleCambiarPassword = async (e) => {
+    e.preventDefault();
+    setMensajePassword({ tipo: "", texto: "" });
+
+    // Validaciones
+    if (!passwordActual || !passwordNueva || !passwordConfirmar) {
+      setMensajePassword({ tipo: "error", texto: "⚠️ Completa todos los campos." });
+      return;
+    }
+    if (passwordNueva.length < 6) {
+      setMensajePassword({
+        tipo: "error",
+        texto: "⚠️ La nueva contraseña debe tener al menos 6 caracteres.",
+      });
+      return;
+    }
+    if (passwordNueva !== passwordConfirmar) {
+      setMensajePassword({
+        tipo: "error",
+        texto: "⚠️ Las contraseñas nuevas no coinciden.",
+      });
+      return;
+    }
+
+    setLoadingPassword(true);
+
+    try {
+      const user = auth.currentUser;
+      // Re-autenticar con la contraseña actual (Firebase lo exige por seguridad)
+      const credential = EmailAuthProvider.credential(user.email, passwordActual);
+      await reauthenticateWithCredential(user, credential);
+
+      // Actualizar contraseña
+      await updatePassword(user, passwordNueva);
+
+      setMensajePassword({
+        tipo: "exito",
+        texto: "✅ Contraseña actualizada correctamente.",
+      });
+      setPasswordActual("");
+      setPasswordNueva("");
+      setPasswordConfirmar("");
+
+      // Cerrar el formulario después de 2 segundos
+      setTimeout(() => {
+        setMostrarCambioPassword(false);
+        setMensajePassword({ tipo: "", texto: "" });
+      }, 2000);
+    } catch (error) {
+      console.error("Error cambiando contraseña:", error);
+      setMensajePassword({
+        tipo: "error",
+        texto: "❌ " + traducirErrorFirebase(error),
+      });
+    } finally {
+      setLoadingPassword(false);
     }
   };
 
@@ -172,7 +241,7 @@ export default function TeacherProfile() {
 
       {/* Tarjeta de Datos */}
       <div className="tp-card">
-        
+
         {/* Nombre */}
         <div className="tp-field">
           <span className="tp-label"><span>👤</span>Nombre</span>
@@ -222,11 +291,104 @@ export default function TeacherProfile() {
               <button className="tp-cancel-btn" onClick={() => setEditing(false)}>✖ Cancelar</button>
             </>
           ) : (
-            <button className="tp-edit-btn" onClick={() => setEditing(true)}>✏️ Editar Perfil</button>
+            <>
+              <button className="tp-edit-btn" onClick={() => setEditing(true)}>✏️ Editar Perfil</button>
+              <button
+                className="tp-pwd-btn"
+                onClick={() => {
+                  setMostrarCambioPassword(!mostrarCambioPassword);
+                  setMensajePassword({ tipo: "", texto: "" });
+                  setPasswordActual("");
+                  setPasswordNueva("");
+                  setPasswordConfirmar("");
+                }}
+              >
+                🔐 Cambiar contraseña
+              </button>
+            </>
           )}
         </div>
 
       </div>
+
+      {/* MODAL: Cambiar contraseña */}
+      {mostrarCambioPassword && !editing && (
+        <div
+          className="tp-pwd-backdrop"
+          onClick={() => {
+            if (!loadingPassword) {
+              setMostrarCambioPassword(false);
+              setMensajePassword({ tipo: "", texto: "" });
+            }
+          }}
+        >
+          <div className="tp-pwd-card" onClick={(e) => e.stopPropagation()}>
+            <h3>🔐 Cambiar contraseña</h3>
+            <form onSubmit={handleCambiarPassword}>
+              <div className="tp-pwd-field">
+                <label>Contraseña actual</label>
+                <input
+                  type="password"
+                  value={passwordActual}
+                  onChange={(e) => setPasswordActual(e.target.value)}
+                  placeholder="Tu contraseña actual"
+                  disabled={loadingPassword}
+                  autoComplete="current-password"
+                />
+              </div>
+              <div className="tp-pwd-field">
+                <label>Nueva contraseña</label>
+                <input
+                  type="password"
+                  value={passwordNueva}
+                  onChange={(e) => setPasswordNueva(e.target.value)}
+                  placeholder="Mínimo 6 caracteres"
+                  disabled={loadingPassword}
+                  autoComplete="new-password"
+                />
+              </div>
+              <div className="tp-pwd-field">
+                <label>Confirmar nueva contraseña</label>
+                <input
+                  type="password"
+                  value={passwordConfirmar}
+                  onChange={(e) => setPasswordConfirmar(e.target.value)}
+                  placeholder="Escríbela otra vez"
+                  disabled={loadingPassword}
+                  autoComplete="new-password"
+                />
+              </div>
+
+              {mensajePassword.texto && (
+                <div className={`tp-pwd-mensaje tp-pwd-mensaje-${mensajePassword.tipo}`}>
+                  {mensajePassword.texto}
+                </div>
+              )}
+
+              <div className="tp-pwd-actions">
+                <button
+                  type="submit"
+                  className="tp-pwd-save"
+                  disabled={loadingPassword}
+                >
+                  {loadingPassword ? "⏳ Cambiando..." : "💾 Cambiar"}
+                </button>
+                <button
+                  type="button"
+                  className="tp-pwd-cancel"
+                  onClick={() => {
+                    setMostrarCambioPassword(false);
+                    setMensajePassword({ tipo: "", texto: "" });
+                  }}
+                  disabled={loadingPassword}
+                >
+                  ✖ Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

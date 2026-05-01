@@ -4,6 +4,7 @@ import { auth, db } from '../firebaseConfig';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import englishCurriculum from '../data/englishCurriculum';
+import LoadingScreen from './LoadingScreen';
 import './Games.css';
 
 const rutasPorTema = {
@@ -177,15 +178,7 @@ export default function EnglishPeriodo() {
     return () => unsubscribe();
   }, [numero]);
 
-  if (loading) return (
-    <div className="games-container">
-      <AnimatedBg />
-      <div className="loading-overlay">
-        <div className="loading-spinner">🎮</div>
-        <p className="loading-text">Cargando...</p>
-      </div>
-    </div>
-  );
+  if (loading) return <LoadingScreen mensaje="Cargando juegos..." emoji="🎮" />;
 
   return (
     <div className="games-container">

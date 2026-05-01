@@ -63,7 +63,6 @@ export async function guardarResultadoUnidad({
     };
 
     await setDoc(doc(db, "resultados_juegos", docId), resultado);
-    console.log("✅ Resultado guardado:", docId);
     return resultado;
 
   } catch (error) {

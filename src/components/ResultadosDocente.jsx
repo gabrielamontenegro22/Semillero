@@ -3,6 +3,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db, auth } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { traducirErrorFirebase } from "../utils/firebaseErrors";
+import EmptyState from "./EmptyState";
 import "./ResultadosDocente.css";
 
 export default function ResultadosDocente() {
@@ -95,11 +96,9 @@ export default function ResultadosDocente() {
           value={areaSeleccionada}
           onChange={(e) => setAreaSeleccionada(e.target.value)}
         >
-          <option>Todas</option>
+
           <option>Inglés</option>
-          <option>Español</option>
-          <option>Matemáticas</option>
-          <option>Ciencias</option>
+
         </select>
       </div>
 
@@ -108,7 +107,12 @@ export default function ResultadosDocente() {
           ⚠️ {errorCarga}
         </p>
       ) : Object.keys(agrupados).length === 0 ? (
-        <p>No hay resultados de estudiantes registrados aún.</p>
+        <EmptyState
+          icon="📊"
+          title="Aún no hay resultados"
+          message="Cuando tus estudiantes resuelvan tus actividades, los resultados aparecerán aquí."
+          variant="dark"
+        />
       ) : (
         Object.entries(agrupados).map(([key, lista]) => (
           <div key={key} className="actividad-resultados">

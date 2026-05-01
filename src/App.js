@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 // ── Auth ──
 import Register from './components/Register';
@@ -20,6 +21,9 @@ import EnglishPeriodo from './components/EnglishPeriodo';
 import JuegoEmparejar from './components/JuegoEmparejar';
 import JuegoUnir from './components/JuegoUnir';
 
+
+// ── Admin ──
+import AdminPanel from './components/AdminPanel';
 
 // ── Docente ──
 import PanelDocente from './components/PanelDocente';
@@ -60,6 +64,38 @@ import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
     <BrowserRouter>
+      {/* Toaster global — muestra notificaciones bonitas en la esquina */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3500,
+          style: {
+            borderRadius: '12px',
+            padding: '14px 18px',
+            fontSize: '15px',
+            fontWeight: '600',
+            fontFamily: 'Poppins, sans-serif',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
+          },
+          success: {
+            iconTheme: { primary: '#10b981', secondary: 'white' },
+            style: {
+              background: '#d1fae5',
+              color: '#065f46',
+              border: '2px solid #10b981',
+            },
+          },
+          error: {
+            iconTheme: { primary: '#ef4444', secondary: 'white' },
+            style: {
+              background: '#fee2e2',
+              color: '#991b1b',
+              border: '2px solid #ef4444',
+            },
+            duration: 5000,
+          },
+        }}
+      />
       <Routes>
 
         {/* ── Públicas ── */}
@@ -114,6 +150,11 @@ function App() {
           <Route path="/docente/grado/:grado" element={<EstudiantesPorGrado />} />
           <Route path="/docente/resultados-juegos" element={<ResultadosJuegos />} />
           <Route path="/docente/resultados-juegos/:docId" element={<DetalleResultadoJuego />} />
+        </Route>
+
+        {/* ── Protegidas · Solo ADMIN ── */}
+        <Route element={<ProtectedRoute rolRequerido="admin" />}>
+          <Route path="/admin" element={<AdminPanel />} />
         </Route>
 
       </Routes>

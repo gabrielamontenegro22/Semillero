@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { collection, getDocs, doc, getDoc, query, where } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import LoadingScreen from "./LoadingScreen";
+import EmptyState from "./EmptyState";
 import "./DetalleResultados.css";
 
 export default function DetalleResultados() {
@@ -38,7 +40,7 @@ export default function DetalleResultados() {
   }, [id]);
 
   if (!actividad) {
-    return <p>Cargando información...</p>;
+    return <LoadingScreen mensaje="Cargando información..." emoji="📊" />;
   }
 
   return (
@@ -60,9 +62,12 @@ export default function DetalleResultados() {
       <h3>🏆 Rendimiento de Alumnos</h3>
 
       {resultados.length === 0 ? (
-        <p style={{background: '#fff', padding: '1rem 2rem', borderRadius: '20px', fontWeight: 'bold'}}>
-          Ningún estudiante ha tomado esta prueba aún.
-        </p>
+        <EmptyState
+          icon="🎯"
+          title="Ningún estudiante ha resuelto esta actividad"
+          message="Espera a que tus estudiantes la completen para ver sus resultados aquí."
+          variant="dark"
+        />
       ) : (
         <div className="grid-resultados">
           {resultados.map((r, i) => (

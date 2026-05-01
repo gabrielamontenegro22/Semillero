@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useParams, useNavigate } from "react-router-dom";
+import LoadingScreen from "./LoadingScreen";
 import "./ResultadosDocente.css";
 
 export default function ResultadosDocente() {
@@ -34,6 +35,10 @@ export default function ResultadosDocente() {
 
     cargarDatos();
   }, [id]);
+
+  if (!actividad) {
+    return <LoadingScreen mensaje="Cargando respuestas..." emoji="📝" />;
+  }
 
   return (
     <div className="resultados-container">

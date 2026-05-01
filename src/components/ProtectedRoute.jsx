@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebaseConfig';
+import LoadingScreen from './LoadingScreen';
 
 /**
  * ProtectedRoute con verificación de rol.
@@ -48,7 +49,7 @@ export default function ProtectedRoute({ rolRequerido }) {
 
   // 1) Auth todavía cargando
   if (loadingAuth) {
-    return <div style={{ padding: '2rem', textAlign: 'center' }}>Cargando...</div>;
+    return <LoadingScreen mensaje="Cargando..." />;
   }
 
   // 2) Sin usuario logueado → al login
@@ -60,7 +61,7 @@ export default function ProtectedRoute({ rolRequerido }) {
   //    Esta línea es la clave: evita que React decida con un rol viejo
   //    (o nulo) mientras la consulta a Firestore aún está en marcha.
   if (rolInfo.uid !== user.uid) {
-    return <div style={{ padding: '2rem', textAlign: 'center' }}>Cargando...</div>;
+    return <LoadingScreen mensaje="Verificando acceso..." />;
   }
 
   // 4) Si la ruta exige un rol y no coincide → redirigir al panel correcto
@@ -71,6 +72,9 @@ export default function ProtectedRoute({ rolRequerido }) {
     if (rolInfo.rol === 'estudiante') {
       return <Navigate to="/home" replace />;
     }
+    if (rolInfo.rol === 'admin') {           // 👈 NUEVO
+      return <Navigate to="/admin" replace />; // 👈 NUEVO
+    }                                          // 👈 NUEVO
     // El usuario está logueado pero su documento no tiene rol válido
     return <Navigate to="/login" replace />;
   }

@@ -2,24 +2,27 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../firebaseConfig';
+import toast from 'react-hot-toast';
 import './register.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const navigate = useNavigate();
 
-  const [email, setEmail]                   = useState('');
-  const [password, setPassword]             = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [nombre, setNombre]                 = useState('');
-  const [apellido, setApellido]             = useState('');
-  const [edad, setEdad]                     = useState('');
-  const [grado, setGrado]                   = useState('');
-  const [error, setError]                   = useState('');
-  const [loading, setLoading]               = useState(false);
+  const [nombre, setNombre] = useState('');
+  const [apellido, setApellido] = useState('');
+  const [edad, setEdad] = useState('');
+  const [grado, setGrado] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const edades = Array.from({ length: 10 }, (_, i) => i + 5);
-  const grados = ['1°', '2°', '3°', '4°', '5°'];
+  const grados = ['1°'];
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -50,13 +53,13 @@ export default function Register() {
         createdAt: serverTimestamp(),
       });
 
-      alert('¡Registro exitoso! 🎉');
+      toast.success('¡Registro exitoso! 🎉');
       navigate('/login');
     } catch (err) {
       const codes = {
         'auth/email-already-in-use': 'El correo ya está registrado.',
-        'auth/invalid-email':        'Correo inválido.',
-        'auth/weak-password':        'Contraseña muy débil (mínimo 6 caracteres).',
+        'auth/invalid-email': 'Correo inválido.',
+        'auth/weak-password': 'Contraseña muy débil (mínimo 6 caracteres).',
       };
       setError(codes[err.code] || 'No se pudo registrar. Intenta más tarde.');
     } finally {
@@ -74,12 +77,12 @@ export default function Register() {
         <div className="rg-blob rg-blob-3" />
         {Array.from({ length: 18 }).map((_, i) => (
           <div key={i} className="rg-star" style={{
-            left:              `${(i * 37 + 11) % 100}%`,
-            top:               `${(i * 53 + 7)  % 100}%`,
-            animationDelay:    `${(i * 0.4) % 3}s`,
+            left: `${(i * 37 + 11) % 100}%`,
+            top: `${(i * 53 + 7) % 100}%`,
+            animationDelay: `${(i * 0.4) % 3}s`,
             animationDuration: `${2 + (i % 3)}s`,
-            width:             `${4 + (i % 3) * 3}px`,
-            height:            `${4 + (i % 3) * 3}px`,
+            width: `${4 + (i % 3) * 3}px`,
+            height: `${4 + (i % 3) * 3}px`,
           }} />
         ))}
       </div>
@@ -184,26 +187,66 @@ export default function Register() {
             <span className="rg-field-icon">🔒</span>
             <input
               className="rg-input"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="Contraseña"
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
               autoComplete="new-password"
+              style={{ paddingRight: '40px' }}
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              style={{
+                position: 'absolute',
+                right: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                padding: '4px',
+                color: 'rgba(255,255,255,0.7)',
+              }}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </button>
           </div>
 
           <div className="rg-field">
             <span className="rg-field-icon">🔑</span>
             <input
               className="rg-input"
-              type="password"
+              type={showConfirmPassword ? 'text' : 'password'}
               placeholder="Confirmar contraseña"
               value={confirmPassword}
               onChange={e => setConfirmPassword(e.target.value)}
               required
               autoComplete="new-password"
+              style={{ paddingRight: '40px' }}
             />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              aria-label={showConfirmPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              style={{
+                position: 'absolute',
+                right: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                padding: '4px',
+                color: 'rgba(255,255,255,0.7)',
+              }}
+            >
+              {showConfirmPassword ? '🙈' : '👁️'}
+            </button>
           </div>
 
           {error && (

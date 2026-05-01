@@ -51,9 +51,6 @@ export default function CrearActividad() {
         <label>Área:</label>
         <select value={area} onChange={(e) => setArea(e.target.value)}>
           <option>Inglés</option>
-          <option>Matemáticas</option>
-          <option>Ciencias</option>
-          <option>Español</option>
         </select>
 
         <label>Tipo de juego:</label>

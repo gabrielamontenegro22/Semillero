@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";  // 👈 Importamos Firestore
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyB8HJVrPO7rDakvRZnXAsIGbFslZbdjYnA",
   authDomain: "play-english-33b0f.firebaseapp.com",
   projectId: "play-english-33b0f",

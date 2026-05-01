@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoArrowBackCircle } from 'react-icons/io5'; // 👈 icono moderno
 
@@ -20,4 +20,4 @@ export default function BotonAtras({ destino }) {
       <IoArrowBackCircle className="icono-atras" />
     </button>
   );
-}
+}*/

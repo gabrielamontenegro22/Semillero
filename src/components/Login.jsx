@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebaseConfig';
+import toast from 'react-hot-toast';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError]       = useState('');
   const [loading, setLoading]   = useState(false);
   const navigate = useNavigate();
@@ -25,15 +27,22 @@ export default function Login() {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        const rol = docSnap.data().rol;
-        navigate(rol === 'docente' ? '/docente' : '/home');
+        const data = docSnap.data();
+        const rol = data.rol;
+        const nombre = data.nombre || 'de nuevo';
+        toast.success(`¡Hola, ${nombre}! 👋`);
+        if (rol === 'admin') {
+          navigate('/admin');
+        } else if (rol === 'docente') {
+          navigate('/docente');
+        } else {
+          navigate('/home');
+        }
       } else {
-        await setDoc(doc(db, 'usuarios', user.uid), {
-          uid:   user.uid,
-          email: user.email,
-          rol:   'estudiante',
-        });
-        navigate('/home');
+        // El usuario tiene credenciales válidas pero no perfil en Firestore.
+        // Esto es anormal — no asumimos un rol, cerramos la sesión y avisamos.
+        await signOut(auth);
+        setError('Tu cuenta no tiene un perfil válido. Contacta al administrador.');
       }
     } catch (err) {
       const codes = {
@@ -106,13 +115,33 @@ export default function Login() {
             <span className="lg-field-icon">🔒</span>
             <input
               className="lg-input"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               placeholder="Contraseña"
               value={password}
               onChange={e => setPassword(e.target.value)}
               required
               autoComplete="current-password"
+              style={{ paddingRight: '40px' }}
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              style={{
+                position: 'absolute',
+                right: '12px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                padding: '4px',
+                color: 'rgba(255,255,255,0.7)',
+              }}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </button>
           </div>
 
           {error && (

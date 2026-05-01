@@ -94,7 +94,7 @@
   pointer-events: none;
 }
 
-.teacher-profile>*:not(.tp-svg-bg) {
+.teacher-profile>*:not(.tp-svg-bg):not(.tp-pwd-backdrop) {
   position: relative;
   z-index: 2;
 }
@@ -391,4 +391,187 @@
     font-size: 15px;
     padding: 12px;
   }
+}
+/* ─────────────────────────────────────────
+   CAMBIO DE CONTRASEÑA
+   ───────────────────────────────────────── */
+.tp-pwd-btn {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  color: white;
+  border: 3px solid white;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 6px 0 #c43d5f, 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.1s ease;
+}
+
+.tp-pwd-btn:active {
+  transform: translateY(6px);
+  box-shadow: 0 0 0 #c43d5f, 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.tp-pwd-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  animation: tp-pwd-slideIn 0.3s ease both;
+}
+
+@keyframes tp-pwd-slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tp-pwd-card h3 {
+  color: white;
+  margin: 0 0 1rem;
+  font-family: 'Fredoka One', cursive;
+  text-align: center;
+}
+
+.tp-pwd-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.8rem;
+}
+
+.tp-pwd-field label {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+
+.tp-pwd-field input {
+  padding: 12px 16px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.tp-pwd-field input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.tp-pwd-field input:focus {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(245, 87, 108, 0.6);
+  box-shadow: 0 0 0 4px rgba(245, 87, 108, 0.15);
+}
+
+.tp-pwd-field input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tp-pwd-mensaje {
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  margin: 0.8rem 0;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.tp-pwd-mensaje-exito {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.tp-pwd-mensaje-error {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.tp-pwd-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.tp-pwd-save,
+.tp-pwd-cancel {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid white;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.tp-pwd-save {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+  color: white;
+}
+
+.tp-pwd-cancel {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.tp-pwd-save:hover:not(:disabled),
+.tp-pwd-cancel:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.tp-pwd-save:disabled,
+.tp-pwd-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* ─────────────────────────────────────────
+   MODAL CAMBIO DE CONTRASEÑA
+   ───────────────────────────────────────── */
+.tp-pwd-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: tp-pwd-fadeIn 0.2s ease both;
+}
+
+@keyframes tp-pwd-fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Cuando está dentro del modal, sobreescribimos para fijar tamaño y centrar */
+.tp-pwd-backdrop .tp-pwd-card {
+  max-width: 450px;
+  width: 100%;
+  margin: 0;
+  background: linear-gradient(135deg, #2c1654, #4a247a);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  animation: tp-pwd-popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes tp-pwd-popIn {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }

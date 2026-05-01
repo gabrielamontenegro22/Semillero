@@ -1,91 +1,172 @@
 /* ── ActividadesEstudiante.css ── */
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&family=Nunito:wght@800;900&display=swap');
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 /* ── KEYFRAMES REUTILIZADOS DE HOME ─────────────────────── */
 @keyframes float {
-  0%,100% { transform: translateY(0) rotate(-2deg); }
-  50%      { transform: translateY(-12px) rotate(2deg); }
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
 }
+
 @keyframes titleRainbow {
-  0%   { color: #FF6B6B; text-shadow: 3px 3px 0 #c0392b; }
-  16%  { color: #FF9F43; text-shadow: 3px 3px 0 #e67e22; }
-  33%  { color: #FFEAA7; text-shadow: 3px 3px 0 #f39c12; }
-  50%  { color: #55EFC4; text-shadow: 3px 3px 0 #00b894; }
-  66%  { color: #74B9FF; text-shadow: 3px 3px 0 #0984e3; }
-  83%  { color: #A29BFE; text-shadow: 3px 3px 0 #6c5ce7; }
-  100% { color: #FF6B6B; text-shadow: 3px 3px 0 #c0392b; }
+  0% {
+    color: #FF6B6B;
+    text-shadow: 3px 3px 0 #c0392b;
+  }
+
+  16% {
+    color: #FF9F43;
+    text-shadow: 3px 3px 0 #e67e22;
+  }
+
+  33% {
+    color: #FFEAA7;
+    text-shadow: 3px 3px 0 #f39c12;
+  }
+
+  50% {
+    color: #55EFC4;
+    text-shadow: 3px 3px 0 #00b894;
+  }
+
+  66% {
+    color: #74B9FF;
+    text-shadow: 3px 3px 0 #0984e3;
+  }
+
+  83% {
+    color: #A29BFE;
+    text-shadow: 3px 3px 0 #6c5ce7;
+  }
+
+  100% {
+    color: #FF6B6B;
+    text-shadow: 3px 3px 0 #c0392b;
+  }
 }
+
 @keyframes cardIn {
-  from { transform: scale(0.6) translateY(50px); opacity: 0; }
-  to   { transform: scale(1) translateY(0);       opacity: 1; }
+  from {
+    transform: scale(0.6) translateY(50px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
+
 @keyframes sparkleAnim {
-  0%,100% { opacity:0; transform: scale(0) rotate(0deg); }
-  50%      { opacity:1; transform: scale(1) rotate(180deg); }
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
 }
+
 @keyframes pulsePlay {
-  0%,100% { transform: scale(1); }
-  50%      { transform: scale(1.08); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
 }
 
 /* ── BASE ──────────────────────────────────────────────── */
 .act-fullscreen {
-  min-height: 100vh; 
+  min-height: 100vh;
   width: 100%;
   padding: 80px 24px 80px;
-  display: flex; flex-direction: column; align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-family: 'Nunito', sans-serif;
-  position: relative; overflow-x: hidden;
+  position: relative;
+  overflow-x: hidden;
   background: linear-gradient(180deg, #87CEEB 0%, #B8E4F7 40%, #C8F0A0 70%, #7EC850 100%);
 }
 
 /* ── ANIMATED SVG BACKGROUND (Reusable) ─────────────────── */
 .act-svg-bg {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  z-index: 0; pointer-events: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
-.act-fullscreen > *:not(.act-svg-bg) { position: relative; z-index: 2; }
+
+.act-fullscreen>*:not(.act-svg-bg) {
+  position: relative;
+  z-index: 2;
+}
 
 /* ── SPARKLES ───────────────────────────────────────────── */
 .act-sparkle {
-  position: absolute; font-size: 24px; pointer-events: none; z-index: 3;
+  position: absolute;
+  font-size: 24px;
+  pointer-events: none;
+  z-index: 3;
   animation: sparkleAnim 2.8s ease-in-out infinite;
 }
 
 /* ── ENCABEZADO Y TÍTULO ────────────────────────────────── */
 .act-back-btn {
-  position: absolute; 
-  top: 16px; 
-  left: 16px; 
+  position: absolute;
+  top: 16px;
+  left: 16px;
   z-index: 100;
   background: linear-gradient(135deg, #FF6B6B, #FF9F43);
   border: 3px solid #fff;
-  padding: 10px 22px; 
+  padding: 10px 22px;
   border-radius: 50px;
-  font-family: 'Fredoka One', cursive; 
+  font-family: 'Fredoka One', cursive;
   font-size: 15px;
-  color: white; 
+  color: white;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(255,107,107,0.5);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
   transition: transform 0.2s, box-shadow 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   white-space: nowrap;
 }
+
 .act-back-btn:hover {
   transform: scale(1.1) rotate(-2deg);
-  box-shadow: 0 8px 28px rgba(255,159,67,0.7);
+  box-shadow: 0 8px 28px rgba(255, 159, 67, 0.7);
 }
 
 .act-title {
   font-family: 'Bangers', cursive;
-  font-size: 3.5rem; letter-spacing: 3px;
-  -webkit-text-stroke: 2px rgba(0,0,0,0.1);
+  font-size: 3.5rem;
+  letter-spacing: 3px;
+  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.1);
   animation: titleRainbow 4s ease-in-out infinite;
-  filter: drop-shadow(0 4px 0px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 4px 0px rgba(0, 0, 0, 0.2));
   margin-bottom: 24px;
   text-align: center;
 }
@@ -97,13 +178,16 @@
   padding: 12px 24px;
   border-radius: 50px;
   border: 4px solid #fff;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 40px;
   font-family: 'Fredoka One', cursive;
   color: #2d3436;
   font-size: 18px;
 }
+
 .filtros-bubble select {
   font-family: 'Fredoka One', cursive;
   font-size: 16px;
@@ -112,12 +196,14 @@
   background: #f1f2f6;
   padding: 6px 16px;
   border-radius: 50px;
-  outline: none; cursor: pointer;
+  outline: none;
+  cursor: pointer;
   transition: all 0.2s;
 }
+
 .filtros-bubble select:focus {
   border-color: #0984e3;
-  box-shadow: 0 0 10px rgba(116,185,255,0.4);
+  box-shadow: 0 0 10px rgba(116, 185, 255, 0.4);
 }
 
 /* ── GRILLA DE ACTIVIDADES ──────────────────────────────── */
@@ -133,21 +219,23 @@
 /* ── TARJETA 3D JUGUETONA ───────────────────────────────── */
 .actividad-card {
   background: #fff;
-  border-radius: 30px; 
+  border-radius: 30px;
   border: 4px solid #fff;
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
   padding: 24px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
-  animation: cardIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
-  position: relative; overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s cubic-bezier(.34, 1.56, .64, 1);
+  animation: cardIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  position: relative;
+  overflow: hidden;
 }
 
 /* Estilos dinámicos se aplican como clases extra en React */
-.actividad-card.theme-ingles { border-color: #74B9FF; box-shadow: 0 10px 0px #74B9FF, 0 12px 30px rgba(0,0,0,0.15); }
-.actividad-card.theme-mates { border-color: #FF6B6B; box-shadow: 0 10px 0px #FF6B6B, 0 12px 30px rgba(0,0,0,0.15); }
-.actividad-card.theme-ciencias { border-color: #55EFC4; box-shadow: 0 10px 0px #55EFC4, 0 12px 30px rgba(0,0,0,0.15); }
-.actividad-card.theme-espanol { border-color: #FF9F43; box-shadow: 0 10px 0px #FF9F43, 0 12px 30px rgba(0,0,0,0.15); }
+.actividad-card.theme-ingles {
+  border-color: #74B9FF;
+  box-shadow: 0 10px 0px #74B9FF, 0 12px 30px rgba(0, 0, 0, 0.15);
+}
 
 .actividad-card:hover {
   transform: scale(1.05) translateY(-8px);
@@ -162,42 +250,74 @@
 }
 
 .act-card-info {
-  font-size: 15px; font-weight: 800; color: #636e72;
+  font-size: 15px;
+  font-weight: 800;
+  color: #636e72;
   margin-bottom: 6px;
-  display: flex; gap: 8px; align-items: center;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
+
 .tag {
-  background: #f1f2f6; padding: 4px 10px; border-radius: 8px;
-  font-weight: 900; font-size: 13px; color: #0984e3;
+  background: #f1f2f6;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 900;
+  font-size: 13px;
+  color: #0984e3;
 }
 
 .act-card-desc {
-  font-size: 14px; color: #a4b0be; font-weight: 700;
-  margin-top: 10px; margin-bottom: 20px;
-  flex-grow: 1; /* Empuja el botón al fondo */
+  font-size: 14px;
+  color: #a4b0be;
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  /* Empuja el botón al fondo */
 }
 
 /* Botón Jugar */
 .btn-jugar {
   background: #00b894;
-  color: #fff; font-family: 'Fredoka One', cursive; font-size: 18px;
-  padding: 12px 0; border: none; border-radius: 20px;
-  cursor: pointer; position: relative;
+  color: #fff;
+  font-family: 'Fredoka One', cursive;
+  font-size: 18px;
+  padding: 12px 0;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
   box-shadow: 0 6px 0px #009476;
   transition: all 0.15s;
 }
+
 .btn-jugar:active {
   transform: translateY(6px);
   box-shadow: 0 0px 0px #009476;
 }
+
 .actividad-card:hover .btn-jugar {
   animation: pulsePlay 1.5s infinite;
 }
 
 /* ── RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 600px) {
-  .act-title { font-size: 2.5rem; }
-  .filtros-bubble { font-size: 14px; padding: 10px 18px; }
-  .filtros-bubble select { font-size: 14px; }
-  .actividades-grid { grid-template-columns: 1fr; }
+  .act-title {
+    font-size: 2.5rem;
+  }
+
+  .filtros-bubble {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+
+  .filtros-bubble select {
+    font-size: 14px;
+  }
+
+  .actividades-grid {
+    grid-template-columns: 1fr;
+  }
 }

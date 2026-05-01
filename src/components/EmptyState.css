@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap');
+
+/* ─────────────────────────────────────────
+   ESTADO VACÍO REUTILIZABLE
+   ───────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  font-family: 'Poppins', sans-serif;
+  animation: empty-fadeIn 0.4s ease both;
+}
+
+@keyframes empty-fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.empty-state-icon {
+  font-size: 5rem;
+  margin-bottom: 0.5rem;
+  animation: empty-bounce 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.25));
+}
+
+@keyframes empty-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+.empty-state-title {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 800;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.empty-state-text {
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+.empty-state-btn {
+  margin-top: 1rem;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  transition: all 0.15s ease;
+}
+
+.empty-state-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(102, 126, 234, 0.5);
+}
+
+.empty-state-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Variante para fondo OSCURO (paneles docente/admin) ── */
+.empty-state-dark .empty-state-title {
+  color: white;
+}
+
+.empty-state-dark .empty-state-text {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ── Variante para fondo CLARO (perfiles estudiantes) ── */
+.empty-state-light .empty-state-title {
+  color: #2c3e50;
+}
+
+.empty-state-light .empty-state-text {
+  color: #5a6478;
+}

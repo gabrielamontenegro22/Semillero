@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { addDoc, collection, Timestamp, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../firebaseConfig';
+import toast from 'react-hot-toast';
+import EmptyState from './EmptyState';
+import { traducirErrorFirebase } from '../utils/firebaseErrors';
 import './CreadorActividadAvanzado.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -20,15 +23,6 @@ export default function CreadorActividadAvanzado() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  useEffect(() => {
-    const lockScroll = (e) => {
-      window.scrollTo(0, 0);
-      e.preventDefault();
-    };
-    window.addEventListener('scroll', lockScroll, { passive: false });
-    return () => window.removeEventListener('scroll', lockScroll);
-  }, []);
-
   // Cargar actividad si estamos editando
   useEffect(() => {
     if (!id) return;
@@ -42,7 +36,7 @@ export default function CreadorActividadAvanzado() {
           const data = snap.data();
           setTitulo(data.titulo);
           setDescripcion(data.descripcion);
-          setArea(data.area);
+          setArea(["Inglés"].includes(data.area) ? data.area : "Inglés");
           setPreguntas(data.preguntas || []);
           setFechaOriginal(data.fecha_creacion); // conservar fecha original
         }
@@ -69,17 +63,41 @@ export default function CreadorActividadAvanzado() {
   };
 
   const handleAgregarPregunta = () => {
-    if (!preguntaActual.trim()) return;
+    // Validaciones de la pregunta antes de añadirla
+    if (!preguntaActual.trim()) {
+      toast.error('⚠️ Escribe el texto de la pregunta');
+      return;
+    }
+
+    const opcionesLimpias = opciones.filter((o) => o.trim() !== '');
+    if (opcionesLimpias.length < 2) {
+      toast.error('⚠️ La pregunta debe tener al menos 2 opciones');
+      return;
+    }
+
+    if (!respuestaCorrecta.trim()) {
+      toast.error('⚠️ Marca la respuesta correcta');
+      return;
+    }
+
+    // Verifica que la respuesta correcta sea una de las opciones
+    const respuestaValida = opcionesLimpias.some(
+      (op) => op.trim().toLowerCase() === respuestaCorrecta.trim().toLowerCase()
+    );
+    if (!respuestaValida) {
+      toast.error('⚠️ La respuesta correcta debe coincidir con una de las opciones');
+      return;
+    }
 
     const nuevaPregunta = {
-      texto: preguntaActual,
-      opciones: opciones.filter((o) => o.trim() !== ''),
-      correcta: respuestaCorrecta,
+      texto: preguntaActual.trim(),
+      opciones: opcionesLimpias,
+      correcta: respuestaCorrecta.trim(),
       imagen: imagen
         ? URL.createObjectURL(imagen)
         : editIndex !== null
-        ? preguntas[editIndex]?.imagen || null
-        : null,
+          ? preguntas[editIndex]?.imagen || null
+          : null,
     };
 
     if (editIndex !== null) {
@@ -95,6 +113,7 @@ export default function CreadorActividadAvanzado() {
     setOpciones(['']);
     setRespuestaCorrecta('');
     setImagen(null);
+    toast.success(editIndex !== null ? 'Pregunta actualizada' : 'Pregunta añadida');
   };
 
   const handleEditarPregunta = (index) => {
@@ -108,21 +127,40 @@ export default function CreadorActividadAvanzado() {
   const handleEliminarPregunta = (index) => {
     if (window.confirm('¿Seguro que deseas eliminar esta pregunta?')) {
       setPreguntas(preguntas.filter((_, i) => i !== index));
+      toast.success('Pregunta eliminada');
     }
   };
 
   const handleGuardarActividad = async () => {
+    // Validaciones generales antes de guardar
+    if (!area) {
+      toast.error('⚠️ Selecciona un área de aprendizaje');
+      return;
+    }
+    if (!titulo.trim()) {
+      toast.error('⚠️ La actividad necesita un título');
+      return;
+    }
+    if (!descripcion.trim()) {
+      toast.error('⚠️ La actividad necesita una descripción');
+      return;
+    }
+    if (preguntas.length === 0) {
+      toast.error('⚠️ Añade al menos una pregunta antes de guardar');
+      return;
+    }
+
     try {
       const user = auth.currentUser;
       if (!user) {
-        setMensaje("Debes iniciar sesión.");
+        toast.error('Debes iniciar sesión.');
         return;
       }
 
       const actividad = {
         id_docente: user.uid,
-        titulo,
-        descripcion,
+        titulo: titulo.trim(),
+        descripcion: descripcion.trim(),
         tipo_juego: "Cuestionario",
         area,
         preguntas,
@@ -132,15 +170,19 @@ export default function CreadorActividadAvanzado() {
 
       if (id) {
         await updateDoc(doc(db, "actividades", id), actividad);
-        setMensaje("✏️ Actividad actualizada con éxito");
+        toast.success('¡Actividad actualizada!');
       } else {
         await addDoc(collection(db, "actividades"), actividad);
-        setMensaje("✅ Actividad creada con éxito");
+        toast.success('¡Actividad creada!');
       }
 
+      // Si era una creación nueva (no edición), volvemos al panel
+      if (!id) {
+        setTimeout(() => navigate('/docente/mis-actividades'), 1200);
+      }
     } catch (error) {
       console.error(error);
-      setMensaje("❌ Error al guardar la actividad.");
+      toast.error(traducirErrorFirebase(error));
     }
   };
 
@@ -155,32 +197,39 @@ export default function CreadorActividadAvanzado() {
       <div className="crear-grid">
 
         <div className="crear-col">
-          <label>Área de aprendizaje:</label>
+          <label>Área de aprendizaje: <span className="campo-requerido">*</span></label>
           <select value={area} onChange={(e) => setArea(e.target.value)} className="area-select">
             <option value="">Selecciona un área</option>
             <option value="Inglés">🇬🇧 Inglés</option>
-            <option value="Matemáticas">🧮 Matemáticas</option>
-            <option value="Ciencias">🔬 Ciencias</option>
-            <option value="Español">📚 Español</option>
           </select>
 
-          <label>Título:</label>
-          <input value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+          <label>Título: <span className="campo-requerido">*</span></label>
+          <input
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+            placeholder="Ej: Cuestionario de Greetings"
+          />
 
-          <label>Descripción:</label>
-          <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} ></textarea>
+          <label>Descripción: <span className="campo-requerido">*</span></label>
+          <textarea
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            placeholder="Describe brevemente de qué se trata la actividad"
+            rows="3"
+          ></textarea>
 
           <hr />
 
           <h3>{editIndex !== null ? "✏️ Editar pregunta" : "➕ Agregar pregunta"}</h3>
 
+          <label>Pregunta: <span className="campo-requerido">*</span></label>
           <input
             value={preguntaActual}
             onChange={(e) => setPreguntaActual(e.target.value)}
-            placeholder="Pregunta..."
+            placeholder="¿Cómo se dice 'hola' en inglés?"
           />
 
-          <label>Opciones:</label>
+          <label>Opciones: <span className="campo-requerido">*</span> <small>(mínimo 2)</small></label>
           <div className="opciones-container">
             {opciones.map((op, i) => (
               <div key={i} style={{ display: "flex", gap: "8px", alignItems: "center" }}>
@@ -207,11 +256,12 @@ export default function CreadorActividadAvanzado() {
             ➕ Agregar opción
           </button>
 
-          <label>Respuesta correcta:</label>
-          <input value={respuestaCorrecta} onChange={(e) => setRespuestaCorrecta(e.target.value)} />
-
-          <label>Imagen (opcional):</label>
-          <input type="file" accept="image/*" onChange={(e) => setImagen(e.target.files[0])} />
+          <label>Respuesta correcta: <span className="campo-requerido">*</span></label>
+          <input
+            value={respuestaCorrecta}
+            onChange={(e) => setRespuestaCorrecta(e.target.value)}
+            placeholder="Escribe exactamente una de las opciones de arriba"
+          />
 
           <button className="agregar-btn" onClick={handleAgregarPregunta}>
             {editIndex !== null ? "💾 Guardar cambios" : "✅ Añadir pregunta"}
@@ -220,12 +270,10 @@ export default function CreadorActividadAvanzado() {
           <button className="guardar-btn" onClick={handleGuardarActividad}>
             💾 {id ? "Guardar Cambios" : "Guardar Actividad"}
           </button>
-
-          {mensaje && <p className="mensaje">{mensaje}</p>}
         </div>
 
         <div className="preguntas-panel">
-          <h3>📋 Preguntas agregadas</h3>
+          <h3>📋 Preguntas agregadas {preguntas.length > 0 && `(${preguntas.length})`}</h3>
 
           {preguntas.length === 0 ? (
             <p>No has agregado preguntas aún.</p>

@@ -281,3 +281,33 @@
   .card-section { gap: 16px; }
   .home-card { width: 175px; height: 210px; }
 }
+
+/* Pantallas MUY chicas (iPhone SE y similares) */
+@media (max-width: 420px) {
+  .home-title-area {
+    padding: 12px 0 4px;
+  }
+  .home-title-icon {
+    font-size: 38px;
+    margin-bottom: 8px;
+  }
+  .home-title {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    line-height: 1.1;
+  }
+  .home-subtitle {
+    font-size: 0.95rem;
+    margin-top: 16px;
+    padding: 0 16px;
+  }
+  .card-section {
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 0 12px;
+  }
+  .home-card {
+    width: 150px;
+    height: 180px;
+  }
+}

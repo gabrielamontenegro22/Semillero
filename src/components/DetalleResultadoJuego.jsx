@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useParams, useNavigate } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+import toast from "react-hot-toast";
+import LoadingScreen from "./LoadingScreen";
 import "./ResultadosJuegos.css";
 
 const UNIDADES = {
@@ -72,12 +76,7 @@ export default function DetalleResultadoJuego() {
     cargar();
   }, [docId]);
 
-  if (loading) return (
-    <div className="rj-container rj-loading-full" style={{ backgroundColor: '#131129', minHeight: '100vh' }}>
-      <div className="rj-spinner"></div>
-      <p>Generando reporte analítico...</p>
-    </div>
-  );
+  if (loading) return <LoadingScreen mensaje="Generando reporte..." emoji="📈" />;
 
   if (!resultado) return (
     <div className="rj-container" style={{ backgroundColor: '#131129', minHeight: '100vh' }}>
@@ -92,9 +91,155 @@ export default function DetalleResultadoJuego() {
   const pctGlobal = resultado.porcentaje;
   const diagnosticColorClass = pctGlobal >= 80 ? "excelente" : pctGlobal >= 60 ? "bueno" : pctGlobal >= 40 ? "regular" : "bajo";
 
+  const descargarPDF = () => {
+    try {
+      const docPDF = new jsPDF();
+
+      // Helper para quitar emojis (no se renderizan bien en jsPDF default)
+      const limpiar = (texto) =>
+        (texto || '')
+          .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{1F000}-\u{1F02F}\u{1F0A0}-\u{1F0FF}\u{1F100}-\u{1F1FF}\u{1F200}-\u{1F2FF}]/gu, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+
+      const nombreCompleto = limpiar(`${resultado.nombre || ''} ${resultado.apellido || ''}`);
+      const fechaHoy = new Date().toLocaleDateString('es-CO');
+      const unidadLabel = limpiar(info.label);
+
+      // Cabecera
+      docPDF.setFillColor(102, 126, 234);
+      docPDF.rect(0, 0, 210, 30, 'F');
+      docPDF.setTextColor(255, 255, 255);
+      docPDF.setFontSize(20);
+      docPDF.setFont('helvetica', 'bold');
+      docPDF.text('Boletín Analítico', 105, 15, { align: 'center' });
+      docPDF.setFontSize(11);
+      docPDF.setFont('helvetica', 'normal');
+      docPDF.text('Play & Learn — Aprendizaje de Inglés', 105, 23, { align: 'center' });
+
+      // Datos del estudiante
+      docPDF.setTextColor(40, 40, 40);
+      docPDF.setFontSize(14);
+      docPDF.setFont('helvetica', 'bold');
+      docPDF.text(`Estudiante: ${nombreCompleto}`, 14, 45);
+      docPDF.setFontSize(11);
+      docPDF.setFont('helvetica', 'normal');
+      docPDF.text(`Grado: ${resultado.grado || '-'}`, 14, 53);
+      docPDF.text(`Periodo: ${resultado.periodo || '-'}`, 70, 53);
+      docPDF.text(`Unidad: ${unidadLabel}`, 120, 53);
+      docPDF.text(`Fecha del reporte: ${fechaHoy}`, 14, 60);
+
+      // Línea separadora
+      docPDF.setDrawColor(200, 200, 200);
+      docPDF.line(14, 65, 196, 65);
+
+      // Puntaje global
+      docPDF.setFontSize(13);
+      docPDF.setFont('helvetica', 'bold');
+      docPDF.text('Puntaje Global', 14, 75);
+      docPDF.setFontSize(24);
+      docPDF.setTextColor(
+        pctGlobal >= 80 ? 34 : pctGlobal >= 60 ? 234 : pctGlobal >= 40 ? 245 : 220,
+        pctGlobal >= 80 ? 197 : pctGlobal >= 60 ? 179 : pctGlobal >= 40 ? 158 : 38,
+        pctGlobal >= 80 ? 94 : pctGlobal >= 60 ? 8 : pctGlobal >= 40 ? 11 : 38
+      );
+      docPDF.text(`${pctGlobal}%`, 14, 87);
+      docPDF.setFontSize(11);
+      docPDF.setTextColor(80, 80, 80);
+      docPDF.text(`${resultado.totalScore || 0} de ${resultado.maxTotal || 0} puntos posibles`, 50, 87);
+
+      // Diagnóstico general
+      docPDF.setTextColor(40, 40, 40);
+      docPDF.setFontSize(13);
+      docPDF.setFont('helvetica', 'bold');
+      docPDF.text('Diagnóstico General', 14, 100);
+      docPDF.setFontSize(10);
+      docPDF.setFont('helvetica', 'normal');
+      const diagnosticoTexto = limpiar(generarDiagnosticoGeneral(pctGlobal, resultado.nombre, info.label));
+      const diagnosticoLineas = docPDF.splitTextToSize(diagnosticoTexto, 180);
+      docPDF.text(diagnosticoLineas, 14, 107);
+
+      // Tabla de niveles
+      const niveles = resultado.niveles || [];
+      const filas = niveles.map((n, i) => {
+        const pct = n.maxScore > 0 ? Math.round((n.score / n.maxScore) * 100) : 0;
+        return [
+          n.nivel ?? i + 1,
+          limpiar(n.titulo ?? `Juego ${i + 1}`),
+          limpiar(inferirHabilidad(n.titulo ?? '')),
+          `${n.score}/${n.maxScore}`,
+          `${pct}%`,
+        ];
+      });
+
+      autoTable(docPDF, {
+        startY: 107 + diagnosticoLineas.length * 5 + 10,
+        head: [['Nivel', 'Juego', 'Habilidad Evaluada', 'Puntos', '%']],
+        body: filas,
+        theme: 'striped',
+        headStyles: {
+          fillColor: [102, 126, 234],
+          textColor: 255,
+          fontStyle: 'bold',
+        },
+        styles: {
+          fontSize: 9,
+          cellPadding: 3,
+        },
+        columnStyles: {
+          0: { cellWidth: 15, halign: 'center' },
+          3: { halign: 'center' },
+          4: { halign: 'center', fontStyle: 'bold' },
+        },
+      });
+
+      // Pie de página
+      const pageHeight = docPDF.internal.pageSize.height;
+      docPDF.setFontSize(8);
+      docPDF.setTextColor(150, 150, 150);
+      docPDF.text(
+        `Generado el ${fechaHoy} • Play & Learn`,
+        105,
+        pageHeight - 10,
+        { align: 'center' }
+      );
+
+      // Descargar
+      const nombreArchivo = `Boletin_${nombreCompleto.replace(/\s+/g, '_')}_${info.label.replace(/\s+/g, '_')}.pdf`;
+      docPDF.save(nombreArchivo);
+      toast.success('Boletín descargado correctamente');
+    } catch (error) {
+      console.error('Error generando PDF:', error);
+      toast.error('No se pudo generar el PDF. Intenta de nuevo.');
+    }
+  };
+
   return (
     <div className="rj-container" style={{ backgroundColor: '#131129', minHeight: '100vh' }}>
       <button className="rj-volver" onClick={() => navigate(-1)}>⬅ Volver al Panel</button>
+
+      {/* Botón Descargar PDF */}
+      <button
+        onClick={descargarPDF}
+        style={{
+          position: 'absolute',
+          top: '1.5rem',
+          right: '1.5rem',
+          background: 'linear-gradient(135deg, #11998e, #38ef7d)',
+          color: 'white',
+          border: '3px solid white',
+          padding: '10px 22px',
+          borderRadius: '50px',
+          fontSize: '0.95rem',
+          fontWeight: 800,
+          cursor: 'pointer',
+          fontFamily: 'inherit',
+          boxShadow: '0 5px 0 #0e7561, 0 8px 16px rgba(0, 0, 0, 0.2)',
+          zIndex: 10,
+        }}
+      >
+        📥 Descargar PDF
+      </button>
 
       {/* Encabezado Principal */}
       <div className="rj-det-header">

@@ -2,23 +2,25 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import LoadingScreen from "./LoadingScreen";
+import EmptyState from "./EmptyState";
 import "./ResultadosJuegos.css";
 
 const UNIDADES = {
-  "greetings": { label: "Greetings", icon: "👋" },
-  "personal-information": { label: "Personal Information", icon: "🧑" },
-  "family-members": { label: "Family Members", icon: "👨‍👩‍👧" },
-  "classroom-objects": { label: "Classroom Objects", icon: "🎒" },
-  "commands": { label: "Commands", icon: "📢" },
-  "colors-shapes": { label: "Colors & Shapes", icon: "🎨" },
-  "how-many-much": { label: "How many? / How much?", icon: "❓" },
-  "numbers-0-10": { label: "Numbers 0-10", icon: "🔢" },
-  "food-and-drink": { label: "Foods and Drinks", icon: "🍔" },
-  "animals-pets": { label: "Animals and Pets", icon: "🐶" },
-  "numbers-0-20": { label: "Numbers 0-20", icon: "🔢" },
-  "body": { label: "Parts of the Body", icon: "🧑‍🦱" },
-  "toys": { label: "Toys", icon: "🧸" },
-  "house": { label: "Parts of the House", icon: "🏠" },
+  "greetings":            { label: "Greetings",             icon: "👋",   periodo: 1 },
+  "personal-information": { label: "Personal Information",  icon: "🧑",   periodo: 1 },
+  "family-members":       { label: "Family Members",        icon: "👨‍👩‍👧", periodo: 1 },
+  "classroom-objects":    { label: "Classroom Objects",     icon: "🎒",   periodo: 2 },
+  "commands":             { label: "Commands",              icon: "📢",   periodo: 2 },
+  "colors-shapes":        { label: "Colors & Shapes",       icon: "🎨",   periodo: 2 },
+  "how-many-much":        { label: "How many? / How much?", icon: "❓",   periodo: 2 },
+  "numbers-0-10":         { label: "Numbers 0-10",          icon: "🔢",   periodo: 2 },
+  "food-and-drink":       { label: "Foods and Drinks",      icon: "🍔",   periodo: 3 },
+  "animals-pets":         { label: "Animals and Pets",      icon: "🐶",   periodo: 3 },
+  "numbers-0-20":         { label: "Numbers 0-20",          icon: "🔢",   periodo: 3 },
+  "body":                 { label: "Parts of the Body",     icon: "🧑‍🦱", periodo: 4 },
+  "toys":                 { label: "Toys",                  icon: "🧸",   periodo: 4 },
+  "house":                { label: "Parts of the House",    icon: "🏠",   periodo: 4 },
 };
 
 export default function ResultadosJuegos() {
@@ -26,6 +28,7 @@ export default function ResultadosJuegos() {
   const [resultados, setResultados] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filtroGrado, setFiltroGrado] = useState("Todos");
+  const [filtroPeriodo, setFiltroPeriodo] = useState("Todos");
   const [filtroUnidad, setFiltroUnidad] = useState("Todas");
   const [grados, setGrados] = useState([]);
 
@@ -49,9 +52,24 @@ export default function ResultadosJuegos() {
 
   const filtrados = resultados.filter(r => {
     const okGrado = filtroGrado === "Todos" || r.grado === filtroGrado;
+
+    // Periodo: usa el guardado en el resultado, o lo deriva de la unidad
+    const periodoUnidad = UNIDADES[r.unidad]?.periodo;
+    const periodoEfectivo = r.periodo ?? periodoUnidad;
+    const okPeriodo =
+      filtroPeriodo === "Todos" ||
+      Number(periodoEfectivo) === Number(filtroPeriodo);
+
     const okUnidad = filtroUnidad === "Todas" || r.unidad === filtroUnidad;
-    return okGrado && okUnidad;
+    return okGrado && okPeriodo && okUnidad;
   });
+
+  // Cuando se selecciona un periodo, las opciones de unidad se filtran a las
+  // de ese periodo. Si está en "Todos los periodos", muestra todas.
+  const unidadesDelPeriodo = Object.entries(UNIDADES).filter(
+    ([, info]) =>
+      filtroPeriodo === "Todos" || info.periodo === Number(filtroPeriodo)
+  );
 
   // Agrupar por unidad
   const agrupados = filtrados.reduce((acc, r) => {
@@ -92,10 +110,27 @@ export default function ResultadosJuegos() {
           </select>
         </div>
         <div className="rj-filtro-group">
+          <label>Escoger Periodo:</label>
+          <select
+            value={filtroPeriodo}
+            onChange={e => {
+              setFiltroPeriodo(e.target.value);
+              // Reseteamos la unidad para que no quede una unidad de otro periodo
+              setFiltroUnidad("Todas");
+            }}
+          >
+            <option value="Todos">Todos los periodos</option>
+            <option value="1">Periodo 1</option>
+            <option value="2">Periodo 2</option>
+            <option value="3">Periodo 3</option>
+            <option value="4">Periodo 4</option>
+          </select>
+        </div>
+        <div className="rj-filtro-group">
           <label>Escoger Unidad:</label>
           <select value={filtroUnidad} onChange={e => setFiltroUnidad(e.target.value)}>
             <option value="Todas">Todas las unidades</option>
-            {Object.entries(UNIDADES).map(([key, { label, icon }]) => (
+            {unidadesDelPeriodo.map(([key, { label, icon }]) => (
               <option key={key} value={key}>{icon} {label}</option>
             ))}
           </select>
@@ -103,15 +138,14 @@ export default function ResultadosJuegos() {
       </div>
 
       {loading ? (
-        <div className="rj-loading">
-          <div className="rj-spinner"></div>
-          <p>Calculando analíticas...</p>
-        </div>
+        <LoadingScreen mensaje="Calculando analíticas..." emoji="📊" />
       ) : Object.keys(agrupados).length === 0 ? (
-        <div className="rj-empty">
-          <span className="rj-empty-icon">📭</span>
-          <p>No se encontraron resultados para los filtros seleccionados.</p>
-        </div>
+        <EmptyState
+          icon="🔍"
+          title="No se encontraron resultados"
+          message="Prueba cambiando los filtros para ver más datos. O espera a que tus estudiantes jueguen las unidades."
+          variant="dark"
+        />
       ) : (
         Object.entries(agrupados).map(([unidad, lista]) => {
           const info = UNIDADES[unidad] || { label: unidad, icon: "🎮" };

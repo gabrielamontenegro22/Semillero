@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where, updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { auth, db } from "../firebaseConfig";
+import EmptyState from "./EmptyState";
 import "./MisActividadesDocente.css";
 import { useNavigate } from "react-router-dom";
 
@@ -53,7 +54,14 @@ export default function MisActividadesDocente() {
       </div>
 
       {actividades.length === 0 ? (
-        <p>No has creado actividades aún.</p>
+        <EmptyState
+          icon="📝"
+          title="Aún no tienes actividades creadas"
+          message="Crea tu primera actividad para que tus estudiantes empiecen a practicar inglés."
+          buttonText="✏️ Crear mi primera actividad"
+          onButtonClick={() => navigate("/docente/crear-avanzada")}
+          variant="dark"
+        />
       ) : (
         <div className="tabla-actividades">
           <div className="rj-grupo-header">

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebaseConfig';
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import LoadingScreen from './LoadingScreen';
+import toast from 'react-hot-toast';
 import './GestionJuegos.css';
 
 // Lista estructurada por periodos
@@ -87,12 +89,12 @@ export default function GestionJuegos() {
       console.error("Error al guardar estado del juego:", error);
       // Revertir si falla
       setJuegosState(prev => ({ ...prev, [juegoId]: !nuevoEstado }));
-      alert("Hubo un error al guardar los cambios.");
+      toast.error("Hubo un error al guardar los cambios.");
     }
   };
 
   if (loading) {
-    return <div className="gestion-container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><h2 style={{ color: 'white' }}>Cargando...</h2></div>;
+    return <LoadingScreen mensaje="Cargando juegos..." emoji="⚙️" />;
   }
 
   return (

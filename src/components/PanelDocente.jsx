@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebaseConfig";
+import toast from "react-hot-toast";
 import "./PanelDocente.css";
 
 export default function PanelDocente() {
@@ -23,7 +24,7 @@ export default function PanelDocente() {
       navigate("/login");
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
-      alert("No se pudo cerrar sesión. Revisa tu conexión a internet e intenta de nuevo.");
+      toast.error("No se pudo cerrar sesión. Revisa tu conexión a internet e intenta de nuevo.");
       setCerrandoSesion(false);
     }
   };
